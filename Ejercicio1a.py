@@ -24,32 +24,37 @@ x = np.linspace(-4, 4, 1000)  # Más puntos para una mejor visualización
 y_original = [funcion1a(xi) for xi in x]
 y_interpolada = [funcionInterpol1a(xi) for xi in x]
 
-plt.plot(x, y_original, label='Función original')
-plt.plot(x, y_interpolada, label='Función interpolada')
-plt.legend()
-plt.xlabel('x')
-plt.ylabel('y')
-plt.title('Interpolación Lagrange')
+# TODO: Descomentar para visualizar (y borrar esta linea)
+# plt.plot(x, y_original, label='Función original')
+# plt.plot(x, y_interpolada, label='Función interpolada')
+# plt.legend()
+# plt.xlabel('x')
+# plt.ylabel('y')
+# plt.title('Interpolación Lagrange')
 # plt.show()
 
 #Paso 5: Calculamos el error absoluto
 error_absoluto = [abs(funcion1a(xi) - funcionInterpol1a(xi)) for xi in x]
-plt.plot(x, error_absoluto)
-plt.xlabel('x')
-plt.ylabel('Error absoluto')
-plt.title('Error absoluto en interpolación Lagrange')
+
+# TODO: Descomentar para visualizar (y borrar esta linea)
+# plt.plot(x, error_absoluto)
+# plt.xlabel('x')
+# plt.ylabel('Error absoluto')
+# plt.title('Error absoluto en interpolación Lagrange')
 # plt.show()
 
 #Paso 6: Calculamos el error relativo
 error_relativo = [abs(funcion1a(xi) - funcionInterpol1a(xi)) / abs(funcion1a(xi)) for xi in x]
-plt.plot(x, error_relativo)
-plt.xlabel('x')
-plt.ylabel('Error relativo')
-plt.title('Error relativo en interpolación Lagrange')
+
+# TODO: Descomentar para visualizar (y borrar esta linea)
+# plt.plot(x, error_relativo)
+# plt.xlabel('x')
+# plt.ylabel('Error relativo')
+# plt.title('Error relativo en interpolación Lagrange')
 # plt.show()
 
 #Paso 7: Hacemos una función para calcular el error dependiendo de la cantidad de puntos que elegimos para interpolar y graficamos
-def error_vs_cantidad_puntos(funcion, funcionInterpol, x, cantidad_puntos):
+def error_vs_cantidad_puntos(funcion, x, cantidad_puntos):
     error = []
     for n in cantidad_puntos:
         equi_points = np.linspace(-4, 4, n)
@@ -58,9 +63,13 @@ def error_vs_cantidad_puntos(funcion, funcionInterpol, x, cantidad_puntos):
         error.append(sum([abs(funcion(xi) - interpol(xi)) for xi in x]))
     return error
 
-cantidad_puntos = range(2, 20)
-error = error_vs_cantidad_puntos(funcion1a, funcionInterpol1a, x, cantidad_puntos)
+cantidad_puntos = range(2, 17)
+error = error_vs_cantidad_puntos(funcion1a, x, cantidad_puntos)
 plt.plot(cantidad_puntos, error)
+for i, txt in enumerate(error):
+    plt.annotate(f'{int(txt)}', (cantidad_puntos[i], error[i]))
+    plt.plot([cantidad_puntos[i], cantidad_puntos[i]], [0, error[i]], 'k--')  # Add pointed lines
+plt.xticks(cantidad_puntos)
 plt.xlabel('Cantidad de puntos')
 plt.ylabel('Error')
 plt.title('Error en interpolación Lagrange en función de la cantidad de puntos')
