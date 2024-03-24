@@ -78,3 +78,4 @@ def eval_points_lister_R2(list, function):
     eval_list = []
     for i in list:
         eval_list.append(function(i[0], i[1]))
+    return eval_list
