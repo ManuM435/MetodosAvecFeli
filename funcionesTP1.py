@@ -61,7 +61,7 @@ def spline_interpolation(x, list_x, list_y):
     splines = []
     for i in range(n-1):
         splines.append(spline_cubico(list_x[i], list_x[i+1], list_y[i], list_y[i+1], b[i], b[i+1]))
-    
+        
     for i in range(n-1):
         if x >= list_x[i] and x <= list_x[i+1]:
             return splines[i](x)
