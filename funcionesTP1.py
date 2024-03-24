@@ -25,12 +25,6 @@ def lagrange_interpolation(x, list_x, list_y):
     return result
 
 #Función que reciba un par de puntos y crea una función cúbica que los una y que cumpla las condiciones de splines
-# def spline_cubico(x0,x1,y0,y1):
-#     a = y0
-#     b = (y1 - y0)/(x1 - x0)
-#     c = 0
-#     d = 0
-#     return lambda x: a + b*(x-x0) + c*(x-x0)**2 + d*(x-x0)**3
 def spline_cubico(x0, x1, y0, y1, m0, m1):
     h = x1 - x0
     a = y0
@@ -40,15 +34,6 @@ def spline_cubico(x0, x1, y0, y1, m0, m1):
     return lambda x: a + b*(x-x0) + c*(x-x0)**2 + d*(x-x0)**3
 
 # #Función que recibe una lista de puntos y una lista de valores de la función en esos puntos y devuelve una lista de funciones cúbicas que unen los puntos y cumplen las condiciones de splines
-# def spline_interpolation(x, list_x, list_y):
-#     n = len(list_x)
-#     splines = []
-#     for i in range(n-1):
-#         splines.append(spline_cubico(list_x[i], list_x[i+1], list_y[i], list_y[i+1]))
-#     for i in range(n-1):
-#         if x >= list_x[i] and x <= list_x[i+1]:
-#             return splines[i](x)
-#     return 0
 def spline_interpolation(x, list_x, list_y):
     n = len(list_x)
     h = [list_x[i+1] - list_x[i] for i in range(n-1)]
@@ -82,3 +67,7 @@ def spline_interpolation(x, list_x, list_y):
             return splines[i](x)
     
     return 0
+
+#Función que crea una lista de nodos de Chebyshev para una interpolación
+def chebyshev_nodes(a, b, n):
+    return [(a + b)/2 + ((b - a)/2)*math.cos((2*i + 1)*math.pi/(2*n)) for i in range(n)]
