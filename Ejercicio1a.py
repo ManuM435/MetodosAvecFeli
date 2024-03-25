@@ -149,11 +149,11 @@ cheb_points_1a_lagrange = funcionesTP1.chebyshev_nodes(-4, 4, 15)
 # print(cheb_points_1a)
 
 # Paso 2: Luego de crear la lista de puntos, evaluamos la función en cada punto
-eval_points_1a_splines_cheb = funcionesTP1.eval_points_lister(cheb_points_1a_lagrange, funcion1a)
+eval_points_1a_lagrange_cheb = funcionesTP1.eval_points_lister(cheb_points_1a_lagrange, funcion1a)
 
 # Paso 3: Creamos una funcion matematica en base a nuestro "ground truth" para interpolar
 def funcionInterpol1aLagrangeNoEquiespaciados(x):
-    return funcionesTP1.lagrange_interpolation(x, cheb_points_1a_lagrange, eval_points_1a_splines_cheb)
+    return funcionesTP1.lagrange_interpolation(x, cheb_points_1a_lagrange, eval_points_1a_lagrange_cheb)
 
 # Paso 4: Graficamos la función original y la interpolada
 x = np.linspace(-4, 4, 1000)  # Más puntos para una mejor visualización
@@ -211,12 +211,12 @@ error = error_vs_cantidad_puntos_no_equiespaciados(funcion1a, x, cantidad_puntos
 #Ahora con splines
 #Paso 1: creamos lista de puntos no equiespacidos para usar como "ground truth" usando los nodos de Chebyshev
 cheb_points_1a_splines = funcionesTP1.chebyshev_nodes(-4, 4, 15)
-# print(cheb_points_1a)
+print(cheb_points_1a_splines)
 
 # Paso 2: Luego de crear la lista de puntos, evaluamos la función en cada punto
-eval_points_1a_splines = funcionesTP1.eval_points_lister(cheb_points_1a_splines, funcion1a)
+eval_points_1a_splines_cheb = funcionesTP1.eval_points_lister(cheb_points_1a_splines, funcion1a)
 
-# Paso 3: Definimos una función que cree funciones cúbicas entre los puntos que cumplas las condiciones de splines
+# Paso 3: Definsimos una función que cree funciones cúbicas entre los puntos que cumplas las condiciones de splines
 def funcionInterpol1aSplinesNoEquiespaciados(x):
     return funcionesTP1.spline_interpolation(x, cheb_points_1a_splines, eval_points_1a_splines_cheb)
 

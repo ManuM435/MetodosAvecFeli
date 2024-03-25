@@ -61,7 +61,7 @@ def spline_interpolation(x, list_x, list_y):
     splines = []
     for i in range(n-1):
         splines.append(spline_cubico(list_x[i], list_x[i+1], list_y[i], list_y[i+1], b[i], b[i+1]))
-    
+        
     for i in range(n-1):
         if x >= list_x[i] and x <= list_x[i+1]:
             return splines[i](x)
@@ -71,3 +71,11 @@ def spline_interpolation(x, list_x, list_y):
 #Función que crea una lista de nodos de Chebyshev para una interpolación
 def chebyshev_nodes(a, b, n):
     return [(a + b)/2 + ((b - a)/2)*math.cos((2*i + 1)*math.pi/(2*n)) for i in range(n)]
+
+#______________________________________________________________________________________________________
+#Ejercicio 2
+def eval_points_lister_R2(list, function):
+    eval_list = []
+    for i in list:
+        eval_list.append(function(i[0], i[1]))
+    return eval_list
