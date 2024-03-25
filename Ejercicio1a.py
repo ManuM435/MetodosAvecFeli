@@ -80,6 +80,7 @@ error = error_vs_cantidad_puntos(funcion1a, x, cantidad_puntos)
 # TODO REHACER SPLINES CON EQUIESPACIADOS USANDO NUEVAS FUNCIONES
 
 #Paso 5: Calculamos el error absoluto
+# Refactorizar
 #error_absoluto_splines = 
 #TODO: Descomentar para visualizar (y borrar esta linea)
 # plt.plot(x, error_absoluto_splines)
