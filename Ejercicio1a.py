@@ -67,6 +67,7 @@ plt.title('Error relativo en interpolación Splines con puntos equiespaciados')
 plt.show()
 
 # # KNOTE3 || EL ERROR (relativo) POR PUNTO ES SIEMPRE EL MISMO EN SPLINES, POR LO QUE ES REDUNDANTE HACER UN GRAFICO DE ERROR POR PUNTO
+# # O eso creo, y podriamos hablar de eso
 
 # # KNOTE4 || Para el Apendice, grafico mostrando que con range menor a 6 puntos, se va todo muy lejos y distorsiona la vision del grafico
 # # for a in range(3, 31):
@@ -132,7 +133,6 @@ plt.ylabel('Error Relativo')
 plt.title('Error relativo en interpolación Splines con nodos de Chebyshev')
 plt.show()
 
-
 # # KNOTE8 || Para el Apendice, grafico mostrando que con range menor a 9 puntos, se va todo muy lejos y distorsiona la vision del grafico
 # # for a in range(3, 31):
 # #     errorRelativoPuntos.append(funcionesTP1.funcionSplines1a(a, chebyshev))
@@ -142,8 +142,6 @@ plt.show()
 # # plt.ylabel('Error Relativo')
 # # plt.title('Error relativo en interpolación Splines con nodos de Chebyshev en función de la cantidad de puntos')
 # # plt.show()
-
-
 
 print("Todo ok")
 
