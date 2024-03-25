@@ -158,3 +158,16 @@ def eval_points_lister_R2(list, function):
     for i in list:
         eval_list.append(function(i[0], i[1]))
     return eval_list
+
+#Función que interpola con el método de lagrange en R2 usando las funciones ya creadas de interpolador lagrange
+def interpolador_lagrange_R2(x1, x2, points, values):
+    result = 0
+    n = len(points)
+    for i in range(n):
+        term = values[i]
+        for j in range(n):
+            if j != i:                
+                term *= (x1 - points[j][0]) / (points[i][0] - points[j][0])
+                term *= (x2 - points[j][1]) / (points[i][1] - points[j][1])
+        result += term
+    return result
