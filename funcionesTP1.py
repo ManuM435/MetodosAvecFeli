@@ -3,6 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
+# Funcion 1a
+def functionFormula1a(x):
+    return (0.3**(abs(x)) * math.sin(4*x)) - math.tanh(2*x) + 2
 
 #Función que evalúa una función en una lista de puntos
 def eval_points_lister(list, function):
@@ -24,12 +27,55 @@ def lagrange_interpolation(x, list_x, list_y):
         result += term
     return result
 
-#TODO
-#Funcion para calcular el error absoluto
+def equiespPlotFor1a(points: list, InterpolFunction, InterpolMethod: str):
+    y_original = [functionFormula1a(xi) for xi in points]
+    y_interpolada = [InterpolFunction(xi) for xi in points]
+    plt.plot(points, y_original, label='Función original')
+    plt.plot(points, y_interpolada, label='Función interpolada')
+    plt.legend()
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.title(InterpolMethod)
+    plt.show()
 
+def chevyPlotFor1a(n, InterpolFunction, InterpolMethod: str):
+    points = Chebyshev(n)
+    y_original = [functionFormula1a(xi) for xi in points]
+    y_interpolada = [InterpolFunction(xi) for xi in points]
+    plt.plot(points, y_original, label='Función original')
+    plt.plot(points, y_interpolada, label='Función interpolada')
+    plt.legend()
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.title(InterpolMethod)
+    plt.show()
 
-#Funcion para calcular el error relativo
+def lagrangeErrorPerPoint(funcion, x, cantidad_puntos, pointType: str):
+    error = []
+    for n in cantidad_puntos:
+        points = np.linspace(-4, 4, n) if pointType == 'equiespaciados' else Chebyshev(n)
+        eval_points = eval_points_lister(points, funcion)
+        interpol = lambda x: lagrange_interpolation(x, points, eval_points)
+        error.append(sum([abs((funcion(xi) - interpol(xi)) / funcion(xi)) for xi in x]))
+    return error
 
+def errorPlotter(x, error, errorType, errorTitle):
+    plt.plot(x, error)
+    plt.xlabel('x')
+    plt.ylabel(errorType)
+    plt.title(errorTitle)
+    plt.show()
+
+def errorPointsPlotter(points, error, errorType, errorTitle):
+    plt.plot(points, error)
+    for i, txt in enumerate(error):
+        plt.annotate(f'{int(txt)}', (points[i], error[i]))
+        plt.plot([points[i], points[i]], [0, error[i]], 'k--')  # Para lineitas punteadas
+    plt.xticks(points)
+    plt.xlabel('Cantidad de puntos')
+    plt.ylabel(errorType)
+    plt.title(errorTitle)
+    plt.show()
 
 # Funciones de Interpolacion de Splines Cúbicos
 def Cubic_Splines(x, y):
@@ -62,6 +108,47 @@ def Chebyshev(x):
     x = 4 * x  # Multiplicar por 4 para extender de [-1, 1] a [-4, 4].
     x = np.sort(x)
     return x
+
+def funcionSplines1a(n, key: str):
+    if n < 3:
+        return "-1 (Error al aplicar Splines Cubicos, la cantidad de puntos debe ser mayor a 2)"
+    if key == 'equiespaciados':
+        x = np.linspace(-4, 4, n)
+    else:
+        x = Chebyshev(n)
+    y = np.array([functionFormula1a(xi) for xi in x])
+    splines = Cubic_Splines(x, y)
+
+    # Plotear la funcion y la interpolacion
+    x_plot = np.linspace(-4, 4, 1000)
+    y_plot = np.array([functionFormula1a(xi) for xi in x_plot])
+    plt.plot(x_plot, y_plot, label='Original function')
+
+    point_abs_error = []
+    point_rel_error = []
+    relative_error = 0
+
+    for i in range(len(splines)):
+        y_spline = []
+        relative_sum = 0
+        xi = np.linspace(x[i], x[i+1], 100)
+        for xi in x_plot:
+            y_spli = spline_interpolation(xi, splines, x)
+            if y_spli is None:
+                y_spli = functionFormula1a(xi)
+            y_spline.append(y_spli)
+            point_abs_error.append(abs(functionFormula1a(xi) - y_spli))
+            if functionFormula1a(xi) != 0:
+                point_rel_error.append(abs(functionFormula1a(xi) - y_spli) / abs(functionFormula1a(xi)))
+            else:
+                point_rel_error.append(-1)     
+            relative_sum += abs(functionFormula1a(xi) - y_spli) / abs(functionFormula1a(xi))
+        relative_error += relative_sum
+    relative_error /= len(splines)
+
+    plt.plot(x_plot, y_spline, label='Cubic spline interpolation')
+    plt.legend()
+    return relative_error
 
 
 #______________________________________________________________________________________________________
