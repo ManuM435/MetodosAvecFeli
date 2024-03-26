@@ -41,12 +41,12 @@ x1_plot, x2_plot = np.meshgrid(x1_plot, x2_plot)
 y_original = funcion1b(x1_plot, x2_plot)
 # y_original = np.array([[funcion1b(xi, yi) for xi, yi in zip(x1_row, x2_row)] for x1_row, x2_row in zip(x1_plot, x2_plot)])
 # y_interpolada = np.array([[funcionInterpol1bLagrange(xi, yi) for xi, yi in zip(x1_row, x2_row)] for x1_row, x2_row in zip(x1_plot, x2_plot)])
-y_interpolada = spi.griddata(points, values, (x1_plot, x2_plot), method='cubic')
+y_interpolada = spi.griddata(points, values, (x1_plot, x2_plot), method='cubic') #splines
 
 #graficar en 3d
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
-ax.plot_surface(x1_plot, x2_plot, y_original, alpha=0.5)
-ax.plot_surface(x1_plot, x2_plot, y_interpolada, alpha=0.5)
+ax.plot_wireframe(x1_plot, x2_plot, y_original, color="red", alpha=0.5)
+ax.plot_surface(x1_plot, x2_plot, y_interpolada, color="violet", alpha=0.5)
 plt.show()
 
