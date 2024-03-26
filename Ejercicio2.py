@@ -4,6 +4,7 @@ import csv
 import funcionesTP1
 import scipy.interpolate as spi
 from scipy.interpolate import interp1d
+from scipy.optimize import newton
 
 
 #Ejercicio 2
@@ -47,13 +48,13 @@ y_ground_truth = [float(row[1]) for row in data_list_ground_truth]
 
 #Paso 2.2: Graficar
 #TODO: descomentar
-plt.plot(x_interpol, y_interpol, label='Interpolación', color = "red")
-plt.plot(x_ground_truth, y_ground_truth, label='Ground truth', color = "violet")
-plt.legend()
-plt.xlabel('x')
-plt.ylabel('y')
-plt.title('Interpolación de mediciones')
-plt.show()
+# plt.plot(x_interpol, y_interpol, label='Interpolación', color = "red")
+# plt.plot(x_ground_truth, y_ground_truth, label='Ground truth', color = "violet")
+# plt.legend()
+# plt.xlabel('x')
+# plt.ylabel('y')
+# plt.title('Interpolación de mediciones')
+# plt.show()
 
 #Segunda parte --> buscar intersección con vehículo 2
 #Paso 1: Cargar los datos del archivo de mediciones del vehículo 2
@@ -82,34 +83,23 @@ y_interpol_vehiculo2 = y_interpol_vehiculo2(t)
 
 #Paso 2.1: Graficar
 #TODO: descomentar
-plt.plot(x_interpol, y_interpol, label='Interpolación vehículo 1', color = "red")
-plt.plot(x_ground_truth, y_ground_truth, label='Ground truth', color = "violet")
-plt.plot(x_interpol_vehiculo2, y_interpol_vehiculo2, label='Interpolación vehículo 2', color = "blue")
-plt.legend()
-plt.xlabel('x')
-plt.ylabel('y')
-plt.title('Interpolación de mediciones')
-plt.show()
+# plt.plot(x_interpol, y_interpol, label='Interpolación vehículo 1', color = "red")
+# plt.plot(x_ground_truth, y_ground_truth, label='Ground truth', color = "violet")
+# plt.plot(x_interpol_vehiculo2, y_interpol_vehiculo2, label='Interpolación vehículo 2', color = "blue")
+# plt.legend()
+# plt.xlabel('x')
+# plt.ylabel('y')
+# plt.title('Interpolación de mediciones')
+# plt.show()
 
 #Paso 3: Encontrar el punto de intersección con el método de Newton-Rhapson
-#Paso 3.1: Crear las funciones que representan a las rectas de los vehículos
-def funcionVehiculo1(x):
-    return spi.CubicSpline(t, x_interpol)(x) - spi.CubicSpline(t, y_interpol)(x)
+def interseccionVehiculos(tiempo):
+    return (spi.CubicSpline(t, x_interpol)(tiempo[0]) - spi.CubicSpline(t, x_interpol_vehiculo2)(tiempo[1]), spi.CubicSpline(t, y_interpol)(tiempo[0]) - spi.CubicSpline(t, y_interpol_vehiculo2)(tiempo[1]))
 
-def funcionVehiculo2(x):
-    return spi.CubicSpline(t, x_interpol_vehiculo2)(x) - spi.CubicSpline(t, y_interpol_vehiculo2)(x)
+guess = [0.0, 0.0]
+tiempo_interseccion = newton(interseccionVehiculos, guess)
 
-#Paso 3.2: Crear la función que representa la intersección de las rectas
-def interseccionVehiculos(x):
-    return funcionVehiculo1(x) - funcionVehiculo2(x)
-
-#Paso 3.3: Encontrar la derivada de la función de intersección
-def derivadaInterseccionVehiculos(x):
-    return spi.CubicSpline(t, x_interpol)(x) - spi.CubicSpline(t, x_interpol_vehiculo2)(x)
-
-#Paso 3.4: Encontrar el punto de intersección
-from scipy.optimize import newton
-x_interseccion = newton(interseccionVehiculos, 0)
-y_interseccion = spi.CubicSpline(t, x_interpol)(x_interseccion)
-
-print(f'El punto de intersección es: ({x_interseccion}, {y_interseccion})')
+#con ese tiempo encontrar las coordenadas de nterseccion
+x_interseccion = spi.CubicSpline(t, x_interpol)(tiempo_interseccion[0])
+y_interseccion = spi.CubicSpline(t, y_interpol)(tiempo_interseccion[0])
+print("Coordenadas de intersección: ", x_interseccion, y_interseccion)
