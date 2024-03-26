@@ -99,3 +99,34 @@ plt.xlabel('x')
 plt.ylabel('y')
 plt.title('Interpolación de mediciones de tractor y vehículo 2')
 plt.show()
+
+#Paso 5: Determinar si el vehículo 2 pasó por algún lugar que haya pasado el tractor
+#Paso 5.1: Crear función de intersección por eje
+def funcionX(t):
+    return funcionInterpol2LagrangeX(t) - funcionInterpol2LagrangeX2(t)
+
+def funcionY(t):
+    return funcionInterpol2LagrangeY(t) - funcionInterpol2LagrangeY2(t)
+
+#Paso 5.2: Crear función que busque la intersección por el método de la bisección que me devuelva la cantidad de iteraciones
+def biseccion(funcion, a, b, tol):
+    if funcion(a) * funcion(b) > 0:
+        return None
+    count = 0
+    while abs(b - a) > tol:
+        m = (a + b) / 2
+        if funcion(m) == 0:
+            return m
+        elif funcion(a) * funcion(m) < 0:
+            b = m
+        else:
+            a = m
+        count += 1
+    return (a + b) / 2, count
+
+#Paso 5.3: Buscar la intersección
+interseccion_x = biseccion(funcionX, 0, 100, 0.0001)
+interseccion_y = biseccion(funcionY, 0, 100, 0.0001)
+
+print(f'El vehículo 2 pasó por el tractor en el punto ({interseccion_x[0]}, {interseccion_y[0]}) después de {max(interseccion_x[1], interseccion_y[1])} iteraciones')
+
