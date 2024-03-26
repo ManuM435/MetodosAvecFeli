@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import csv
 import funcionesTP1
+import scipy.interpolate as spi
 
 #Ejercicio 2
 #Primer parte --> interpolar (aproximar) el recorrido del tractor con el archivo de mediciones, a esta función interpolada comparala con el camino real del tracto en ground truth
@@ -22,21 +23,17 @@ y_mediciones = [float(row[1]) for row in data_list_mediciones]
 #Paso 1.3: Crear una lista que represente el tiempo con el mismo largo que las listas de x e y
 t_mediciones = np.linspace(0, 100, len(x_mediciones))
 
-#Paso 2: Crear una función matemática en base a las x mediciones (eje y) y t mediciones (eje x) interpolar usando lagrange
-def funcionInterpol2LagrangeX(t):
-    return funcionesTP1.lagrange_interpolation(t, t_mediciones, x_mediciones)
-
-#Paso 3: Crear una función matemática en base a las y mediciones (eje y) y t mediciones (eje x) interpolar usando lagrange
-def funcionInterpol2LagrangeY(t):
-    return funcionesTP1.lagrange_interpolation(t, t_mediciones, y_mediciones)
-
-#Paso 4: Graficar en el eje x lo que de funcionInterpol2LagrangeX(t) y en el eje y lo que de funcionInterpol2LagrangeY(t)
+#Paso 2: Graficar en el eje x lo que de xinterpo y en el eje y lo que de yinterpol
 t = np.linspace(0, 100, 1000)
-x_interpol = [funcionInterpol2LagrangeX(ti) for ti in t]
-y_interpol = [funcionInterpol2LagrangeY(ti) for ti in t]
+x_interpol = spi.CubicSpline(t_mediciones, x_mediciones)
+y_interpol = spi.CubicSpline(t_mediciones, y_mediciones)
 
-#Paso 4.1: Poner el groud truth en el mismo grafico
+x_interpol = x_interpol(t)
+y_interpol = y_interpol(t)
+
+#Paso 2.1: Agregar el ground truth
 data_list_ground_truth = []
+
 with open('mnyo_ground_truth.csv', newline='') as csvfile:
     csv_reader = csv.reader(csvfile, delimiter=' ')
     
@@ -46,101 +43,67 @@ with open('mnyo_ground_truth.csv', newline='') as csvfile:
 x_ground_truth = [float(row[0]) for row in data_list_ground_truth]
 y_ground_truth = [float(row[1]) for row in data_list_ground_truth]
 
+#Paso 2.2: Graficar
 #TODO: descomentar
-# plt.plot(x_interpol, y_interpol, label='Interpolación')
-# plt.plot(x_ground_truth, y_ground_truth, label='Ground Truth')
+# plt.plot(x_interpol, y_interpol, label='Interpolación', color = "red")
+# plt.plot(x_ground_truth, y_ground_truth, label='Ground truth', color = "violet")
 # plt.legend()
 # plt.xlabel('x')
 # plt.ylabel('y')
-# plt.title('Interpolación de mediciones de tractor')
+# plt.title('Interpolación de mediciones')
 # plt.show()
 
-#Paso 5: Calcular el error absoluto y relativo de la interpolación
-error_absoluto_x = [abs(funcionInterpol2LagrangeX(ti) - xi) for ti, xi in zip(t, x_ground_truth)]
-error_absoluto_y = [abs(funcionInterpol2LagrangeY(ti) - yi) for ti, yi in zip(t, y_ground_truth)]
-
-error_relativo_x = [abs(funcionInterpol2LagrangeX(ti) - xi) / xi if xi != 0 else -1 for ti, xi in zip(t, x_ground_truth)]
-error_relativo_y = [abs(funcionInterpol2LagrangeY(ti) - yi) / yi if yi != 0 else -1 for ti, yi in zip(t, y_ground_truth)]
-
-#SEGUNDA PARTE --> interpolar el recorrido del otro vehículo y determinar si este pasó por algún lugar que haya pasado el tractor (va haber que usar métodos numéricos y búsqueda de raices de la intersección de las funciones)
-#Paso 1: Cargar los datos del archivo de mediciones del otro vehículo
-data_list_mediciones2 = []
+#Segunda parte --> buscar intersección con vehículo 2
+#Paso 1: Cargar los datos del archivo de mediciones del vehículo 2
+data_list_mediciones_vehiculo2 = []
 
 with open('mnyo_mediciones2.csv', newline='') as csvfile:
     csv_reader = csv.reader(csvfile, delimiter=' ')
     
     for row in csv_reader:
-        data_list_mediciones2.append(row)
+        data_list_mediciones_vehiculo2.append(row)
 
 #Paso 1.2: Separar los datos en dos listas, una para x y otra para y
-x_mediciones2 = [float(row[0]) for row in data_list_mediciones2]
-y_mediciones2 = [float(row[1]) for row in data_list_mediciones2]
+x_mediciones_vehiculo2 = [float(row[0]) for row in data_list_mediciones_vehiculo2]
+y_mediciones_vehiculo2 = [float(row[1]) for row in data_list_mediciones_vehiculo2]
 
 #Paso 1.3: Crear una lista que represente el tiempo con el mismo largo que las listas de x e y
-t_mediciones2 = np.linspace(0, 100, len(x_mediciones2))
+t_mediciones_vehiculo2 = np.linspace(0, 100, len(x_mediciones_vehiculo2))
 
-#Paso 2: Crear una función matemática en base a las x mediciones (eje y) y t mediciones (eje x) interpolar usando lagrange
-def funcionInterpol2LagrangeX2(t):
-    return funcionesTP1.lagrange_interpolation(t, t_mediciones2, x_mediciones2)
+#Paso 2: Graficar en el eje x lo que de xinterpo y en el eje y lo que de yinterpol con el vehículo 1 y el ground truth
+t = np.linspace(0, 100, 1000)
+x_interpol_vehiculo2 = spi.CubicSpline(t_mediciones_vehiculo2, x_mediciones_vehiculo2)
+y_interpol_vehiculo2 = spi.CubicSpline(t_mediciones_vehiculo2, y_mediciones_vehiculo2)
 
-#Paso 3: Crear una función matemática en base a las y mediciones (eje y) y t mediciones (eje x) interpolar usando lagrange
-def funcionInterpol2LagrangeY2(t):
-    return funcionesTP1.lagrange_interpolation(t, t_mediciones2, y_mediciones2)
+x_interpol_vehiculo2 = x_interpol_vehiculo2(t)
+y_interpol_vehiculo2 = y_interpol_vehiculo2(t)
 
-#Paso 4: Graficar en el eje x lo que de funcionInterpol2LagrangeX2(t) y en el eje y lo que de funcionInterpol2LagrangeY2(t), poner en el mismo gráfico el recorrido del tractor interpolado y el ground truth
-
-x_interpol2 = [funcionInterpol2LagrangeX2(ti) for ti in t]
-y_interpol2 = [funcionInterpol2LagrangeY2(ti) for ti in t]
-
+#Paso 2.1: Graficar
 #TODO: descomentar
-# plt.plot(x_interpol, y_interpol, label='Tractor Interpolado')
-# plt.plot(x_ground_truth, y_ground_truth, label='Tractor Ground Truth')
-# plt.plot(x_interpol2, y_interpol2, label='Vehículo 2 Interpolado')
+# plt.plot(x_interpol, y_interpol, label='Interpolación vehículo 1', color = "red")
+# plt.plot(x_ground_truth, y_ground_truth, label='Ground truth', color = "violet")
+# plt.plot(x_interpol_vehiculo2, y_interpol_vehiculo2, label='Interpolación vehículo 2', color = "blue")
 # plt.legend()
 # plt.xlabel('x')
 # plt.ylabel('y')
-# plt.title('Interpolación de mediciones de tractor y vehículo 2')
+# plt.title('Interpolación de mediciones')
 # plt.show()
 
-#Paso 5: Determinar si el vehículo 2 pasó por algún lugar que haya pasado el tractor
-#Paso 5.1: Crear función de intersección por eje
-def funcionX(t):
-    return funcionInterpol2LagrangeX(t) - funcionInterpol2LagrangeX2(t) #tiene más de una raíz 
+#Paso 3: Encontrar el punto de intersección con el método de Newton-Rhapson
+#Paso 3.1: Crear las funciones que representan a las rectas de los vehículos
+def funcionVehiculo1(x):
+    return spi.CubicSpline(t, x_interpol)(x) - spi.CubicSpline(t, y_interpol)(x)
 
-def funcionY(t):
-    return funcionInterpol2LagrangeY(t) - funcionInterpol2LagrangeY2(t)
+def funcionVehiculo2(x):
+    return spi.CubicSpline(t, x_interpol_vehiculo2)(x) - spi.CubicSpline(t, y_interpol_vehiculo2)(x)
 
-#Paso 5.2: Crear función que busque la intersección por el método de la bisección que me devuelva la cantidad de iteraciones, tiene que tener en cuenta que para que intersequen el tractor y el vehículo 2, la funcion de x y la función de y tienen que tener el tiempo igual
-def biseccion(funcion1, funcion2, a, b, epsilon):
-    raiz1 = 0
-    iteraciones1 = 0
-    while abs(b - a) > epsilon:
-        c = (a + b) / 2
-        if funcion1(a) * funcion1(c) < 0:
-            b = c
-        else:
-            a = c
-        iteraciones1 += 1
-    raiz1 = c
+#Paso 3.2: Crear la función que representa la intersección de las rectas
+def interseccionVehiculos(x):
+    return funcionVehiculo1(x) - funcionVehiculo2(x)
 
-    raiz2 = 0
-    iteraciones2 = 0
-    while abs(b - a) > epsilon:
-        c = (a + b) / 2
-        if funcion2(a) * funcion2(c) < 0:
-            b = c
-        else:
-            a = c
-        iteraciones2 += 1
-    raiz2 = c
-    if(raiz1 == raiz2):
-        return funcion1(raiz1), funcion2(raiz2), iteraciones1, iteraciones2
-    else:
-        return None
+#Paso 3.3: Encontrar la derivada de la función de intersección
+def derivadaInterseccionVehiculos(x):
+    return spi.CubicSpline(t, x_interpol)(x) - spi.CubicSpline(t, x_interpol_vehiculo2)(x)
 
-
-#Paso 5.3: Buscar la intersección
-interseccion = biseccion(funcionX,funcionY, 0, 100, 10**(-5))
-
-print(f'El vehículo 2 pasó por el tractor en el punto ({interseccion[0]}, {interseccion[1]}) con {interseccion[2]} iteraciones en x y {interseccion[3]} iteraciones en y')
-
+#Paso 3.4: Encontrar el punto de intersección
+puntoInterseccion = funcionesTP1.newtonRaphson(0, interseccionVehiculos, derivadaInterseccionVehiculos, 10**-5)

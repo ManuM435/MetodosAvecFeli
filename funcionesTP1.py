@@ -167,3 +167,17 @@ def interpolador_lagrange_R2(x1, x2, points, values):
                 term *= (x2 - points[j][1]) / (points[i][1] - points[j][1])
         result += term
     return result
+
+#Función que encuentra raíz usando el método de Newton-Rhapson
+def newtonRaphson(p0,funcion,derivada, error):
+    iteracionesMax = 1000
+    p = p0
+    for i in range(0,iteracionesMax):
+        pAnterior = p
+        p = pAnterior - funcion(pAnterior)/derivada(pAnterior)
+        if abs(p-pAnterior) < error:
+            print("El valor de p es: ", p, "\nEn la iteración: ", i)
+            return p, i+1
+
+    print("El método no converge")
+    return None
