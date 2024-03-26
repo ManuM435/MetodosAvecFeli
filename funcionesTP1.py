@@ -81,19 +81,15 @@ def errorPointsPlotter(points, error, errorType, errorTitle):
 def Cubic_Splines(x, y):
     splines = []
     m_prev, c_prev = 0, 0
-
     for i in range(len(x) - 2):
         h = x[i+1] - x[i]
         h_next = x[i+2] - x[i+1]
         d = 6 * ((y[i+2] - y[i+1]) / h_next - (y[i+1] - y[i]) / h)
-        a = h
-        b = 2 * (h + h_next)
-        c = h_next
+        a, b, c = h, 2 * (h + h_next), h_next
         d_next = 6 * ((y[i+3] - y[i+2]) / (x[i+3] - x[i+2]) - (y[i+2] - y[i+1]) / h_next) if i < len(x) - 3 else 0
         m_next = (d - a * m_prev) / (b - a * c_prev) if i > 0 else d / b
         splines.append((y[i], (y[i+1] - y[i]) / h - h * (2 * m_prev + m_next) / 6, m_prev / 2, (m_next - m_prev) / (6 * h)))
         m_prev, c_prev = m_next, c
-
     return splines
 
 def spline_interpolation(x, splines, x_values):
