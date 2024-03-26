@@ -19,27 +19,38 @@ with open('mnyo_mediciones.csv', newline='') as csvfile:
 x_mediciones = [float(row[0]) for row in data_list_mediciones]
 y_mediciones = [float(row[1]) for row in data_list_mediciones]
 
-#Paso 2: Crear una función que interpole los datos con lagrange
-def funcionInterpolTractorLagrange(x):
-    return funcionesTP1.lagrange_interpolation(x, x_mediciones, y_mediciones)
+#Paso 1.3: Crear una lista que represente el tiempo con el mismo largo que las listas de x e y
+t_mediciones = np.linspace(0, 100, len(x_mediciones))
 
-#Paso 3: Crear una lista de puntos para graficar la función interpolada
-x_plot = np.linspace(min(x_mediciones), max(x_mediciones), 100)
-y_interpolada = [funcionInterpolTractorLagrange(xi) for xi in x_plot]
+#Paso 2: Crear una función matemática en base a las x mediciones (eje y) y t mediciones (eje x) interpolar usando lagrange
+def funcionInterpol2LagrangeX(t):
+    return funcionesTP1.lagrange_interpolation(t, t_mediciones, x_mediciones)
 
-# #Paso 4: Graficar la función interpolada
-plt.plot(x_plot, y_interpolada, label='Interpolación')
-plt.scatter(x_mediciones, y_mediciones, label='Mediciones')
-plt.legend()
-plt.show()
+#Paso 3: Crear una función matemática en base a las y mediciones (eje y) y t mediciones (eje x) interpolar usando lagrange
+def funcionInterpol2LagrangeY(t):
+    return funcionesTP1.lagrange_interpolation(t, t_mediciones, y_mediciones)
 
-#Paso 5: Cargar los datos del archivo de ground truth
+#Paso 4: Graficar en el eje x lo que de funcionInterpol2LagrangeX(t) y en el eje y lo que de funcionInterpol2LagrangeY(t)
+t = np.linspace(0, 100, 1000)
+x_interpol = [funcionInterpol2LagrangeX(ti) for ti in t]
+y_interpol = [funcionInterpol2LagrangeY(ti) for ti in t]
+
+#Paso 4.1: Poner el groud truth en el mismo grafico
 data_list_ground_truth = []
 with open('mnyo_ground_truth.csv', newline='') as csvfile:
     csv_reader = csv.reader(csvfile, delimiter=' ')
     
     for row in csv_reader:
-        row_float = [float(value) for value in row]
-        data_list_ground_truth.append(row_float)
+        data_list_ground_truth.append(row)
 
-print(data_list_ground_truth)
+x_ground_truth = [float(row[0]) for row in data_list_ground_truth]
+y_ground_truth = [float(row[1]) for row in data_list_ground_truth]
+
+plt.plot(x_interpol, y_interpol, label='Interpolación')
+plt.plot(x_ground_truth, y_ground_truth, label='Ground Truth')
+plt.legend()
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Interpolación de mediciones de tractor')
+plt.show()
+
