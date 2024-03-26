@@ -46,13 +46,14 @@ with open('mnyo_ground_truth.csv', newline='') as csvfile:
 x_ground_truth = [float(row[0]) for row in data_list_ground_truth]
 y_ground_truth = [float(row[1]) for row in data_list_ground_truth]
 
-plt.plot(x_interpol, y_interpol, label='Interpolación')
-plt.plot(x_ground_truth, y_ground_truth, label='Ground Truth')
-plt.legend()
-plt.xlabel('x')
-plt.ylabel('y')
-plt.title('Interpolación de mediciones de tractor')
-plt.show()
+#TODO: descomentar
+# plt.plot(x_interpol, y_interpol, label='Interpolación')
+# plt.plot(x_ground_truth, y_ground_truth, label='Ground Truth')
+# plt.legend()
+# plt.xlabel('x')
+# plt.ylabel('y')
+# plt.title('Interpolación de mediciones de tractor')
+# plt.show()
 
 #Paso 5: Calcular el error absoluto y relativo de la interpolación
 error_absoluto_x = [abs(funcionInterpol2LagrangeX(ti) - xi) for ti, xi in zip(t, x_ground_truth)]
@@ -91,42 +92,55 @@ def funcionInterpol2LagrangeY2(t):
 x_interpol2 = [funcionInterpol2LagrangeX2(ti) for ti in t]
 y_interpol2 = [funcionInterpol2LagrangeY2(ti) for ti in t]
 
-plt.plot(x_interpol, y_interpol, label='Tractor Interpolado')
-plt.plot(x_ground_truth, y_ground_truth, label='Tractor Ground Truth')
-plt.plot(x_interpol2, y_interpol2, label='Vehículo 2 Interpolado')
-plt.legend()
-plt.xlabel('x')
-plt.ylabel('y')
-plt.title('Interpolación de mediciones de tractor y vehículo 2')
-plt.show()
+#TODO: descomentar
+# plt.plot(x_interpol, y_interpol, label='Tractor Interpolado')
+# plt.plot(x_ground_truth, y_ground_truth, label='Tractor Ground Truth')
+# plt.plot(x_interpol2, y_interpol2, label='Vehículo 2 Interpolado')
+# plt.legend()
+# plt.xlabel('x')
+# plt.ylabel('y')
+# plt.title('Interpolación de mediciones de tractor y vehículo 2')
+# plt.show()
 
 #Paso 5: Determinar si el vehículo 2 pasó por algún lugar que haya pasado el tractor
 #Paso 5.1: Crear función de intersección por eje
 def funcionX(t):
-    return funcionInterpol2LagrangeX(t) - funcionInterpol2LagrangeX2(t)
+    return funcionInterpol2LagrangeX(t) - funcionInterpol2LagrangeX2(t) #tiene más de una raíz 
 
 def funcionY(t):
     return funcionInterpol2LagrangeY(t) - funcionInterpol2LagrangeY2(t)
 
-#Paso 5.2: Crear función que busque la intersección por el método de la bisección que me devuelva la cantidad de iteraciones
-def biseccion(funcion, a, b, tol):
-    if funcion(a) * funcion(b) > 0:
-        return None
-    count = 0
-    while abs(b - a) > tol:
-        m = (a + b) / 2
-        if funcion(m) == 0:
-            return m
-        elif funcion(a) * funcion(m) < 0:
-            b = m
+#Paso 5.2: Crear función que busque la intersección por el método de la bisección que me devuelva la cantidad de iteraciones, tiene que tener en cuenta que para que intersequen el tractor y el vehículo 2, la funcion de x y la función de y tienen que tener el tiempo igual
+def biseccion(funcion1, funcion2, a, b, epsilon):
+    raiz1 = 0
+    iteraciones1 = 0
+    while abs(b - a) > epsilon:
+        c = (a + b) / 2
+        if funcion1(a) * funcion1(c) < 0:
+            b = c
         else:
-            a = m
-        count += 1
-    return (a + b) / 2, count
+            a = c
+        iteraciones1 += 1
+    raiz1 = c
+
+    raiz2 = 0
+    iteraciones2 = 0
+    while abs(b - a) > epsilon:
+        c = (a + b) / 2
+        if funcion2(a) * funcion2(c) < 0:
+            b = c
+        else:
+            a = c
+        iteraciones2 += 1
+    raiz2 = c
+    if(raiz1 == raiz2):
+        return funcion1(raiz1), funcion2(raiz2), iteraciones1, iteraciones2
+    else:
+        return None
+
 
 #Paso 5.3: Buscar la intersección
-interseccion_x = biseccion(funcionX, 0, 100, 0.0001)
-interseccion_y = biseccion(funcionY, 0, 100, 0.0001)
+interseccion = biseccion(funcionX,funcionY, 0, 100, 10**(-5))
 
-print(f'El vehículo 2 pasó por el tractor en el punto ({interseccion_x[0]}, {interseccion_y[0]}) después de {max(interseccion_x[1], interseccion_y[1])} iteraciones')
+print(f'El vehículo 2 pasó por el tractor en el punto ({interseccion[0]}, {interseccion[1]}) con {interseccion[2]} iteraciones en x y {interseccion[3]} iteraciones en y')
 
