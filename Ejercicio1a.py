@@ -1,6 +1,3 @@
-#Ejercicio 1a
-#INTERPOLACIÓN CON PUNTOS EQUIESPACIADOS
-#Interpolación lagrange
 import funcionesTP1
 import numpy as np
 import matplotlib.pyplot as plt
@@ -11,8 +8,8 @@ def funcion1a(x):
     return funcionesTP1.functionFormula1a(x)
 
 # Paso 1: creamos lista de puntos equiespacidos para usar como "ground truth"
-equi_points_1a_lagrange = np.linspace(-4, 4, 9) 
-# KNOTE0 || Se toman 9 puntos equiespaciados para la interpolacion porque se determino que es el punto donde el error es minimo
+equi_points_1a_lagrange = np.linspace(-4, 4, 8) 
+# KNOTE0 || Se toman 8 puntos equiespaciados para la interpolacion porque se determino que es el punto donde el error es minimo
 # Esto se determino con el grafico de error relativo en funcion de la cantidad de puntos
 
 # Paso 2: Luego de crear la lista de puntos, evaluamos la función en cada punto
