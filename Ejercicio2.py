@@ -54,3 +54,9 @@ plt.ylabel('y')
 plt.title('Interpolación de mediciones de tractor')
 plt.show()
 
+#Paso 5: Calcular el error absoluto y relativo de la interpolación
+error_absoluto_x = [abs(funcionInterpol2LagrangeX(ti) - xi) for ti, xi in zip(t, x_ground_truth)]
+error_absoluto_y = [abs(funcionInterpol2LagrangeY(ti) - yi) for ti, yi in zip(t, y_ground_truth)]
+
+error_relativo_x = [abs(funcionInterpol2LagrangeX(ti) - xi) / xi if xi != 0 else -1 for ti, xi in zip(t, x_ground_truth)]
+error_relativo_y = [abs(funcionInterpol2LagrangeY(ti) - yi) / yi if yi != 0 else -1 for ti, yi in zip(t, y_ground_truth)]
