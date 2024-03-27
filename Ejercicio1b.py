@@ -40,5 +40,6 @@ fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 ax.plot_surface(x1_plot, x2_plot, y_interpolada, cmap = plt.cm.plasma, alpha=0.9)
 ax.plot_wireframe(x1_plot, x2_plot, y_original, color="black", alpha=0.4)
+plt.title('Interpolación de la función 1b usando Splines Cubicos')
 plt.show()
 

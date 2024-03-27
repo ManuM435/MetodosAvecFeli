@@ -105,10 +105,10 @@ def Chebyshev(x):
     x = np.sort(x)
     return x
 
-def funcionSplines1a(n, key: str):
+def graphingFunction(n, point_type: str, Original: bool, Lagrange: bool, Spline: bool, graph_type: str):
     if n < 3:
         return "-1 (Error al aplicar Splines Cubicos, la cantidad de puntos debe ser mayor a 2)"
-    if key == 'equiespaciados':
+    if point_type == 'equiespaciados':
         x = np.linspace(-4, 4, n)
     else:
         x = Chebyshev(n)
@@ -118,7 +118,17 @@ def funcionSplines1a(n, key: str):
     # Plotear la funcion y la interpolacion
     x_plot = np.linspace(-4, 4, 1000)
     y_plot = np.array([functionFormula1a(xi) for xi in x_plot])
-    plt.plot(x_plot, y_plot, label='Original function')
+    
+    # El Siguiente Codigo no se relaciona a la interpolacion con Splines, pero ahorra codigo 
+    # Al plotear tanto la funcion original como la interpolada con Lagrange, para luego plotear la interpolada con Splines
+    if Original:
+        plt.plot(x_plot, y_plot, label='Funcion Original')
+    x_lagrange = np.linspace(-4, 4, 8)
+    y_lagrange = np.array([functionFormula1a(xi) for xi in x_lagrange])
+    y_interpolated = np.array([lagrange_interpolation(xi, x_lagrange, y_lagrange) for xi in x_plot])
+
+    if Lagrange:
+        plt.plot(x_plot, y_interpolated, label='Funcion Interpolada con Lagrange')
 
     point_abs_error = []
     point_rel_error = []
@@ -142,8 +152,11 @@ def funcionSplines1a(n, key: str):
         relative_error += relative_sum
     relative_error /= len(splines)
 
-    plt.plot(x_plot, y_spline, label='Cubic spline interpolation')
-    plt.legend()
+    if Spline:
+        if graph_type == "EquivsEqui":
+            plt.plot(x_plot, y_spline, label='Funcion Interpolada con Splines')
+        elif graph_type == "SplinesComp":
+            plt.plot(x_plot, y_spline, label='Con pts equiespaciados' if point_type == "equiespaciados" else "Con nodos de Chebyshev")
     return relative_error
 
 
