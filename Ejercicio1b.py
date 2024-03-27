@@ -30,8 +30,8 @@ points = list(zip(x1_flat, x2_flat))
 values = funcionesTP1.eval_points_lister_R2(points, funcion1b)
 
 #Paso 3: Graficamos la función original y la interpolada
-x1_plot = np.linspace(-1, 1, 50)
-x2_plot = np.linspace(-1, 1, 50)
+x1_plot = np.linspace(-1, 1, 100)
+x2_plot = np.linspace(-1, 1, 100)
 x1_plot, x2_plot = np.meshgrid(x1_plot, x2_plot)
 y_original = funcion1b(x1_plot, x2_plot)
 y_interpolada = spi.griddata(points, values, (x1_plot, x2_plot), method='cubic') #splines
@@ -43,3 +43,39 @@ ax.plot_wireframe(x1_plot, x2_plot, y_original, color="black", alpha=0.4)
 plt.title('Interpolación de la función 1b usando Splines Cubicos')
 plt.show()
 
+#Paso 4: Calcular y graficar el error relativo promedio para cada cantidad de nodos utilizada
+n_values = range(6, 71)  # range of node quantities to test
+avg_relative_errors = []
+
+for n in n_values:
+    x1, x2 = np.meshgrid(np.linspace(-1, 1, n), np.linspace(-1, 1, n))
+    x1_flat = x1.reshape(-1)
+    x2_flat = x2.reshape(-1)
+    points = list(zip(x1_flat, x2_flat))
+    values = funcionesTP1.eval_points_lister_R2(points, funcion1b)
+    y_interpolada = spi.griddata(points, values, (x1_plot, x2_plot), method='cubic')  # splines
+    relative_error = np.abs((y_original - y_interpolada) / y_original)
+    avg_relative_error = np.nanmean(relative_error)  
+    avg_relative_errors.append(avg_relative_error)
+
+plt.figure()
+plt.semilogy(n_values, avg_relative_errors, marker='o')
+plt.title('Error promedio en funcion a cantidad de puntos usando Spline Cubico', pad=20) 
+plt.xlabel('Cantidad de puntos')
+plt.ylabel('Error relativo promedio')
+plt.xticks(np.arange(min(n_values), max(n_values)+1, 3)) 
+plt.grid(True, which='both', linestyle='--', linewidth=0.6) 
+
+for i, (x, y) in enumerate(zip(n_values, avg_relative_errors)):
+    if i % 4 == 0:  # Only label every 4th point
+        y_int = int(y)
+        if len(str(y_int)) > 5:
+            label = "{:.2e}".format(y)  # Use scientific notation
+        else:
+            label = "{:.0f}".format(y)
+        plt.annotate(label, 
+                     (x, y),  
+                     textcoords="offset points",
+                     xytext=(0,10),  
+                     ha='center')  
+plt.show()
