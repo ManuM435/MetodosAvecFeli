@@ -3,6 +3,9 @@ import matplotlib.pyplot as plt
 import csv
 import funcionesTP1
 import scipy.interpolate as spi
+from scipy.interpolate import interp1d
+from scipy.optimize import newton
+from scipy.optimize import fsolve
 
 #Ejercicio 2
 #Primer parte --> interpolar (aproximar) el recorrido del tractor con el archivo de mediciones, a esta función interpolada comparala con el camino real del tracto en ground truth
@@ -45,13 +48,13 @@ y_ground_truth = [float(row[1]) for row in data_list_ground_truth]
 
 #Paso 2.2: Graficar
 #TODO: descomentar
-# plt.plot(x_interpol, y_interpol, label='Interpolación', color = "red")
-# plt.plot(x_ground_truth, y_ground_truth, label='Ground truth', color = "violet")
-# plt.legend()
-# plt.xlabel('x')
-# plt.ylabel('y')
-# plt.title('Interpolación de mediciones')
-# plt.show()
+plt.plot(x_interpol, y_interpol, label='Interpolación', color = "red")
+plt.plot(x_ground_truth, y_ground_truth, label='Ground truth', color = "violet")
+plt.legend()
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Interpolación de mediciones')
+plt.show()
 
 #Segunda parte --> buscar intersección con vehículo 2
 #Paso 1: Cargar los datos del archivo de mediciones del vehículo 2
@@ -80,30 +83,44 @@ y_interpol_vehiculo2 = y_interpol_vehiculo2(t)
 
 #Paso 2.1: Graficar
 #TODO: descomentar
-# plt.plot(x_interpol, y_interpol, label='Interpolación vehículo 1', color = "red")
-# plt.plot(x_ground_truth, y_ground_truth, label='Ground truth', color = "violet")
-# plt.plot(x_interpol_vehiculo2, y_interpol_vehiculo2, label='Interpolación vehículo 2', color = "blue")
-# plt.legend()
-# plt.xlabel('x')
-# plt.ylabel('y')
-# plt.title('Interpolación de mediciones')
-# plt.show()
+plt.plot(x_interpol, y_interpol, label='Interpolación vehículo 1', color = "red")
+plt.plot(x_ground_truth, y_ground_truth, label='Ground truth', color = "violet")
+plt.plot(x_interpol_vehiculo2, y_interpol_vehiculo2, label='Interpolación vehículo 2', color = "blue")
+plt.legend()
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Interpolación de mediciones')
+plt.show()
 
 #Paso 3: Encontrar el punto de intersección con el método de Newton-Rhapson
-#Paso 3.1: Crear las funciones que representan a las rectas de los vehículos
-def funcionVehiculo1(x):
-    return spi.CubicSpline(t, x_interpol)(x) - spi.CubicSpline(t, y_interpol)(x)
+def interseccionVehiculos(tiempo):
+    tiempo1, tiempo2 = tiempo
+    return (spi.CubicSpline(t, x_interpol)(tiempo1) - spi.CubicSpline(t, x_interpol_vehiculo2)(tiempo2), spi.CubicSpline(t, y_interpol)(tiempo1) - spi.CubicSpline(t, y_interpol_vehiculo2)(tiempo2))
 
-def funcionVehiculo2(x):
-    return spi.CubicSpline(t, x_interpol_vehiculo2)(x) - spi.CubicSpline(t, y_interpol_vehiculo2)(x)
+initial_guess = [0.0, 0.0]
 
-#Paso 3.2: Crear la función que representa la intersección de las rectas
-def interseccionVehiculos(x):
-    return funcionVehiculo1(x) - funcionVehiculo2(x)
+def jac(t):
+    t1=t[0]
+    t2=t[1]
+    return np.array([[cs_x1(t1, 1), -cs_x2(t2, 1)], [cs_y1(t1, 1), -cs_y2(t2, 1)]])
 
-#Paso 3.3: Encontrar la derivada de la función de intersección
-def derivadaInterseccionVehiculos(x):
-    return spi.CubicSpline(t, x_interpol)(x) - spi.CubicSpline(t, x_interpol_vehiculo2)(x)
+def newtonRhapsonInterseccionVehiculos(f, t1, t2, tol=1e-5, max_iter=1000):
+    for i in range(max_iter):
+        f1, f2 = f(t1, t2)
+        J = jac([t1, t2])
+        J_inv = np.linalg.inv(J)
+        delta = np.dot(J_inv, np.array([f1, f2]))
+        t1 -= delta[0]
+        t2 -= delta[1]
+        if np.linalg.norm(delta) < tol:
+            break
+    return t1, t2
 
-#Paso 3.4: Encontrar el punto de intersección
-puntoInterseccion = funcionesTP1.newtonRaphson(0, interseccionVehiculos, derivadaInterseccionVehiculos, 10**-5)
+t_interseccion = newtonRhapsonInterseccionVehiculos(interseccionVehiculos, initial_guess[0], initial_guess[1])
+
+#encontrame las coordenadas
+x_interseccion = spi.CubicSpline(t, x_interpol)(t_interseccion[0])
+y_interseccion = spi.CubicSpline(t, y_interpol)(t_interseccion[0])
+print(f'Las coordenadas de la intersección son: ({x_interseccion}, {y_interseccion})')
+
+
