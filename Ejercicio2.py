@@ -48,13 +48,13 @@ y_ground_truth = [float(row[1]) for row in data_list_ground_truth]
 
 #Paso 2.2: Graficar
 #TODO: descomentar
-# plt.plot(x_interpol, y_interpol, label='Interpolación', color = "red")
-# plt.plot(x_ground_truth, y_ground_truth, label='Ground truth', color = "violet")
-# plt.legend()
-# plt.xlabel('x')
-# plt.ylabel('y')
-# plt.title('Interpolación de mediciones')
-# plt.show()
+plt.plot(x_interpol, y_interpol, label='Interpolación', color = "red")
+plt.plot(x_ground_truth, y_ground_truth, label='Ground truth', color = "violet")
+plt.legend()
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Interpolación de mediciones')
+plt.show()
 
 #Segunda parte --> buscar intersección con vehículo 2
 #Paso 1: Cargar los datos del archivo de mediciones del vehículo 2
@@ -83,55 +83,56 @@ y_interpol_vehiculo2 = y_interpol_vehiculo2(t)
 
 #Paso 2.1: Graficar
 #TODO: descomentar
-# plt.plot(x_interpol, y_interpol, label='Interpolación vehículo 1', color = "red")
-# plt.plot(x_ground_truth, y_ground_truth, label='Ground truth', color = "violet")
-# plt.plot(x_interpol_vehiculo2, y_interpol_vehiculo2, label='Interpolación vehículo 2', color = "blue")
-# plt.legend()
-# plt.xlabel('x')
-# plt.ylabel('y')
-# plt.title('Interpolación de mediciones')
-# plt.show()
+plt.plot(x_interpol, y_interpol, label='Interpolación vehículo 1', color = "red")
+plt.plot(x_ground_truth, y_ground_truth, label='Ground truth', color = "violet")
+plt.plot(x_interpol_vehiculo2, y_interpol_vehiculo2, label='Interpolación vehículo 2', color = "blue")
+plt.legend()
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Interpolación de mediciones')
+plt.show()
+
+#Paso 2.2: Crear las funciones que representan el recorrido de los vehículos
+x_tractor = spi.CubicSpline(t_mediciones, x_mediciones)
+y_tractor = spi.CubicSpline(t_mediciones, y_mediciones)
+x_vehiculo2 = spi.CubicSpline(t_mediciones_vehiculo2, x_mediciones_vehiculo2)
+y_vehiculo2 = spi.CubicSpline(t_mediciones_vehiculo2, y_mediciones_vehiculo2)
 
 #Paso 3: Encontrar el punto de intersección con el método de Newton-Rhapson
 def interseccionVehiculos(tiempo1, tiempo2):
-    return (spi.CubicSpline(t, x_interpol)(tiempo1) - spi.CubicSpline(t, x_interpol_vehiculo2)(tiempo2), spi.CubicSpline(t, y_interpol)(tiempo1) - spi.CubicSpline(t, y_interpol_vehiculo2)(tiempo2))
-
-initial_guess = [8.0, 4.0]
-
-def cs_x1(t, order=0):
-    return spi.CubicSpline(t, x_interpol)(t, order)
-
-def cs_x2(t, order=0):
-    return spi.CubicSpline(t, x_interpol_vehiculo2)(t, order)
-
-def cs_y1(t, order=0):
-    return spi.CubicSpline(t, y_interpol)(t, order)
-
-def cs_y2(t, order=0):
-    return spi.CubicSpline(t, y_interpol_vehiculo2)(t, order)
+    return (x_tractor(tiempo1) - x_vehiculo2(tiempo2), y_tractor(tiempo1) - y_vehiculo2(tiempo2))
+    # return (spi.CubicSpline(t, x_interpol)(tiempo1) - spi.CubicSpline(t, x_interpol_vehiculo2)(tiempo2), spi.CubicSpline(t, y_interpol)(tiempo1) - spi.CubicSpline(t, y_interpol_vehiculo2)(tiempo2))
 
 def jac(t):
     t1=t[0]
     t2=t[1]
-    return np.array([[cs_x1(t1, 1), -cs_x2(t2, 1)], [cs_y1(t1, 1), -cs_y2(t2, 1)]])
+    return np.array([[x_tractor(t1, 1), -x_vehiculo2(t2, 1)], [y_tractor(t1, 1), -y_vehiculo2(t2, 1)]])
 
 def newtonRhapsonInterseccionVehiculos(f, t1, t2, tol=1e-5, max_iter=1000):
+    t = [t1, t2]
     for i in range(max_iter):
-        f1, f2 = f(t1, t2)
-        J = jac([t1, t2])
-        J_inv = np.linalg.inv(J)
-        delta = np.dot(J_inv, np.array([f1, f2]))
-        t1 -= delta[0]
-        t2 -= delta[1]
-        if np.linalg.norm(delta) < tol:
-            break
-    return t1, t2
+        f1, f2 = f(t[0], t[1])  # Unpack the tuple returned by f
+        delta = np.linalg.solve(jac(t), np.array([-f1, -f2]))
+        t[0] += delta[0]  # Update t1
+        t[1] += delta[1]
+        if np.linalg.norm(f(t[0], t[1])) < tol:
+            return t
+    return t
 
-t_interseccion = newtonRhapsonInterseccionVehiculos(interseccionVehiculos, initial_guess[0], initial_guess[1])
+t_interseccion = newtonRhapsonInterseccionVehiculos(interseccionVehiculos, 8.0, 4)
 
-#encontrame las coordenadas
-# x_interseccion = spi.CubicSpline(t, x_interpol)(t_interseccion[0])
-# y_interseccion = spi.CubicSpline(t, y_interpol)(t_interseccion[0])
-# print(f'Las coordenadas de la intersección son: ({x_interseccion}, {y_interseccion})')
+# encontrame las coordenadas
+x_interseccion = spi.CubicSpline(t, x_interpol)(t_interseccion[0])
+y_interseccion = spi.CubicSpline(t, y_interpol)(t_interseccion[0])
+print(f'Las coordenadas de la intersección son: ({x_interseccion}, {y_interseccion})')
 
-
+#Paso 4: Graficar
+plt.plot(x_interpol, y_interpol, label='Interpolación vehículo 1', color = "red")
+plt.plot(x_ground_truth, y_ground_truth, label='Ground truth', color = "violet")
+plt.plot(x_interpol_vehiculo2, y_interpol_vehiculo2, label='Interpolación vehículo 2', color = "blue")
+plt.plot(x_interseccion, y_interseccion, 'ro', label='Intersección')
+plt.legend()
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Interpolación de mediciones')
+plt.show()
