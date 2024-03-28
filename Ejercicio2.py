@@ -47,14 +47,14 @@ x_ground_truth = [float(row[0]) for row in data_list_ground_truth]
 y_ground_truth = [float(row[1]) for row in data_list_ground_truth]
 
 #Paso 2.2: Graficar
-#TODO: descomentar
-plt.plot(x_interpol, y_interpol, label='Interpolación', color = "red")
-plt.plot(x_ground_truth, y_ground_truth, label='Ground truth', color = "violet")
-plt.legend()
-plt.xlabel('x')
-plt.ylabel('y')
-plt.title('Interpolación de mediciones')
-plt.show()
+# #TODO: descomentar
+# plt.plot(x_interpol, y_interpol, label='Interpolación', color = "red")
+# plt.plot(x_ground_truth, y_ground_truth, label='Ground truth', color = "violet")
+# plt.legend()
+# plt.xlabel('x')
+# plt.ylabel('y')
+# plt.title('Interpolación con Splines')
+# plt.show()
 
 #Segunda parte --> buscar intersección con vehículo 2
 #Paso 1: Cargar los datos del archivo de mediciones del vehículo 2
@@ -83,14 +83,14 @@ y_interpol_vehiculo2 = y_interpol_vehiculo2(t)
 
 #Paso 2.1: Graficar
 #TODO: descomentar
-plt.plot(x_interpol, y_interpol, label='Interpolación vehículo 1', color = "red")
-plt.plot(x_ground_truth, y_ground_truth, label='Ground truth', color = "violet")
-plt.plot(x_interpol_vehiculo2, y_interpol_vehiculo2, label='Interpolación vehículo 2', color = "blue")
-plt.legend()
-plt.xlabel('x')
-plt.ylabel('y')
-plt.title('Interpolación de mediciones')
-plt.show()
+# plt.plot(x_interpol, y_interpol, label='Interpolación vehículo 1', color = "red")
+# plt.plot(x_ground_truth, y_ground_truth, label='Ground truth', color = "violet")
+# plt.plot(x_interpol_vehiculo2, y_interpol_vehiculo2, label='Interpolación vehículo 2', color = "blue")
+# plt.legend()
+# plt.xlabel('x')
+# plt.ylabel('y')
+# plt.title('Interpolación de mediciones')
+# plt.show()
 
 #Paso 2.2: Crear las funciones que representan el recorrido de los vehículos
 x_tractor = spi.CubicSpline(t_mediciones, x_mediciones)
@@ -127,15 +127,15 @@ y_interseccion = spi.CubicSpline(t, y_interpol)(t_interseccion[0])
 print(f'Las coordenadas de la intersección son: ({x_interseccion}, {y_interseccion})')
 
 #Paso 4: Graficar
-plt.plot(x_interpol, y_interpol, label='Interpolación vehículo 1', color = "red")
-plt.plot(x_ground_truth, y_ground_truth, label='Ground truth', color = "violet")
-plt.plot(x_interpol_vehiculo2, y_interpol_vehiculo2, label='Interpolación vehículo 2', color = "blue")
-plt.plot(x_interseccion, y_interseccion, 'ro', label='Intersección')
-plt.legend()
-plt.xlabel('x')
-plt.ylabel('y')
-plt.title('Interpolación de mediciones')
-plt.show()
+# plt.plot(x_interpol, y_interpol, label='Interpolación vehículo 1', color = "red")
+# plt.plot(x_ground_truth, y_ground_truth, label='Ground truth', color = "violet")
+# plt.plot(x_interpol_vehiculo2, y_interpol_vehiculo2, label='Interpolación vehículo 2', color = "blue")
+# plt.plot(x_interseccion, y_interseccion, 'ro', label='Intersección')
+# plt.legend()
+# plt.xlabel('x')
+# plt.ylabel('y')
+# plt.title('Interpolación de mediciones')
+# plt.show()
 
 #LAGRANGE
 #Ahora interpolamos el recorido del tractor con lagrange
@@ -145,14 +145,59 @@ y_interpol_lagrange = spi.lagrange(t_mediciones, y_mediciones)
 x_interpol_lagrange = x_interpol_lagrange(t)
 y_interpol_lagrange = y_interpol_lagrange(t)
 
-#Paso 2.1: Graficar
+
+
+# Paso 2.1: Graficar
 plt.plot(x_interpol_lagrange, y_interpol_lagrange, label='Interpolación Lagrange', color = "green")
+plt.plot(x_interpol, y_interpol, label='Interpolación Spline', color = "red")
 plt.plot(x_ground_truth, y_ground_truth, label='Ground truth', color = "violet")
 plt.legend()
 plt.xlabel('x')
 plt.ylabel('y')
-plt.title('Interpolación de mediciones')
+plt.title('Interpolación Vehiculo 1 con Lagrange y Spline')
 plt.show()
+
+## Error Below
+
+# Calculate the error for each method when interpolating for vehicle 1
+# Reshape the arrays to have the same shape
+# Convert lists to numpy arrays before reshaping
+x_interpol = np.array(x_interpol).reshape(-1, 1)
+y_interpol = np.array(y_interpol).reshape(-1, 1)
+x_interpol_lagrange = np.array(x_interpol_lagrange).reshape(-1, 1)
+y_interpol_lagrange = np.array(y_interpol_lagrange).reshape(-1, 1)
+x_ground_truth = np.array(x_ground_truth).reshape(-1, 1)
+y_ground_truth = np.array(y_ground_truth).reshape(-1, 1)
+
+# Ensure that the arrays have the same shape before performing operations
+if x_interpol.shape != x_ground_truth.shape:
+    x_interpol = np.resize(x_interpol, x_ground_truth.shape)
+if y_interpol.shape != y_ground_truth.shape:
+    y_interpol = np.resize(y_interpol, y_ground_truth.shape)
+
+# Avoid division by zero
+with np.errstate(divide='ignore', invalid='ignore'):
+    error_spline = np.sqrt(((x_interpol - x_ground_truth) / np.where(x_ground_truth==0, 1, x_ground_truth))**2 + ((y_interpol - y_ground_truth) / np.where(y_ground_truth==0, 1, y_ground_truth))**2)
+error_spline[np.isnan(error_spline)] = 0
+
+if x_interpol_lagrange.shape != x_ground_truth.shape:
+    x_interpol_lagrange = np.resize(x_interpol_lagrange, x_ground_truth.shape)
+if y_interpol_lagrange.shape != y_ground_truth.shape:
+    y_interpol_lagrange = np.resize(y_interpol_lagrange, y_ground_truth.shape)
+
+# Avoid division by zero
+with np.errstate(divide='ignore', invalid='ignore'):
+    error_lagrange = np.sqrt(((x_interpol_lagrange - x_ground_truth) / np.where(x_ground_truth==0, 1, x_ground_truth))**2 + ((y_interpol_lagrange - y_ground_truth) / np.where(y_ground_truth==0, 1, y_ground_truth))**2)
+error_lagrange[np.isnan(error_lagrange)] = 0
+
+print(f'Error for Spline interpolation: {np.mean(error_spline)}')
+print(f'Error for Lagrange interpolation: {np.mean(error_lagrange)}')
+
+
+
+
+
+## Error above
 
 #interpolo el vehiculo 2 con lagrange
 x_interpol_vehiculo2_lagrange = spi.lagrange(t_mediciones_vehiculo2, x_mediciones_vehiculo2)
@@ -162,11 +207,13 @@ x_interpol_vehiculo2_lagrange = x_interpol_vehiculo2_lagrange(t)
 y_interpol_vehiculo2_lagrange = y_interpol_vehiculo2_lagrange(t)
 
 #Paso 2.1: Graficar intersección
-plt.plot(x_interpol_lagrange, y_interpol_lagrange, label='Interpolación vehículo 1', color = "green")
+plt.plot(x_interpol, y_interpol, label='Interpolación vehículo 1 con Spline', color = "red")
+plt.plot(x_interpol_vehiculo2, y_interpol_vehiculo2, label='Interpolación vehículo 2 con Spline', color = "blue")
+plt.plot(x_interpol_lagrange, y_interpol_lagrange, label='Interpolación vehículo 1 con Lagrange', color = "green")
 plt.plot(x_ground_truth, y_ground_truth, label='Ground truth', color = "violet")
-plt.plot(x_interpol_vehiculo2_lagrange, y_interpol_vehiculo2_lagrange, label='Interpolación vehículo 2', color = "blue")
+plt.plot(x_interpol_vehiculo2_lagrange, y_interpol_vehiculo2_lagrange, label='Interpolación vehículo 2 con Lagrange', color = "cyan")
 plt.legend()
 plt.xlabel('x')
 plt.ylabel('y')
-plt.title('Interpolación de mediciones')
+plt.title('Interpolación de Vehiculo 1 y 2 con Lagrange y Splines')
 plt.show()
