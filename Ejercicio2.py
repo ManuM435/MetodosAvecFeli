@@ -136,3 +136,37 @@ plt.xlabel('x')
 plt.ylabel('y')
 plt.title('Interpolación de mediciones')
 plt.show()
+
+#LAGRANGE
+#Ahora interpolamos el recorido del tractor con lagrange
+x_interpol_lagrange = spi.lagrange(t_mediciones, x_mediciones)
+y_interpol_lagrange = spi.lagrange(t_mediciones, y_mediciones)
+
+x_interpol_lagrange = x_interpol_lagrange(t)
+y_interpol_lagrange = y_interpol_lagrange(t)
+
+#Paso 2.1: Graficar
+plt.plot(x_interpol_lagrange, y_interpol_lagrange, label='Interpolación Lagrange', color = "green")
+plt.plot(x_ground_truth, y_ground_truth, label='Ground truth', color = "violet")
+plt.legend()
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Interpolación de mediciones')
+plt.show()
+
+#interpolo el vehiculo 2 con lagrange
+x_interpol_vehiculo2_lagrange = spi.lagrange(t_mediciones_vehiculo2, x_mediciones_vehiculo2)
+y_interpol_vehiculo2_lagrange = spi.lagrange(t_mediciones_vehiculo2, y_mediciones_vehiculo2)
+
+x_interpol_vehiculo2_lagrange = x_interpol_vehiculo2_lagrange(t)
+y_interpol_vehiculo2_lagrange = y_interpol_vehiculo2_lagrange(t)
+
+#Paso 2.1: Graficar intersección
+plt.plot(x_interpol_lagrange, y_interpol_lagrange, label='Interpolación vehículo 1', color = "green")
+plt.plot(x_ground_truth, y_ground_truth, label='Ground truth', color = "violet")
+plt.plot(x_interpol_vehiculo2_lagrange, y_interpol_vehiculo2_lagrange, label='Interpolación vehículo 2', color = "blue")
+plt.legend()
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Interpolación de mediciones')
+plt.show()
