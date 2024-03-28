@@ -1,159 +1,116 @@
 import funcionesTP1
 import numpy as np
+from scipy.interpolate import CubicSpline
+from scipy.interpolate import lagrange
 import matplotlib.pyplot as plt
+
 # Redefinir en este archivo para evitar problemas de importaciones circulares, y ahorrar espacio de codigo en el futuro del archivo
 def funcion1a(x):
     return funcionesTP1.functionFormula1a(x)
 
 # Paso 1: creamos lista de puntos equiespacidos para usar como "ground truth"
-equi_points_1a_lagrange = np.linspace(-4, 4, 8) 
-# KNOTE0 || Se toman 8 puntos equiespaciados para la interpolacion porque se determino que es el punto donde el error es minimo
-# Esto se determino con el grafico de error relativo en funcion de la cantidad de puntos
+equi_points_lag = np.linspace(-4, 4, 8) 
+equi_points_spl = np.linspace(-4, 4, 20)
 
 # Paso 2: Luego de crear la lista de puntos, evaluamos la función en cada punto
-eval_points_1a_lagrange = funcionesTP1.eval_points_lister(equi_points_1a_lagrange, funcion1a)
+eval_points_lag = funcionesTP1.eval_points_lister(equi_points_lag, funcion1a)
+eval_points_spl = funcionesTP1.eval_points_lister(equi_points_spl, funcion1a)
 
 # Paso 3: Creamos una funcion matematica en base a nuestro "ground truth" para interpolar
 def funcionInterpol1aLagrange(x):
-    return funcionesTP1.lagrange_interpolation(x, equi_points_1a_lagrange, eval_points_1a_lagrange)
+    return funcionesTP1.lagrange_interpolation(x, equi_points_lag, eval_points_lag)
 
 #Paso 4: Creamos lista de puntos para graficar
 x = np.linspace(-4, 4, 1000)
 
-# Paso 5: Graficamos la función original y la interpolada
-# # # funcionesTP1.equiespPlotFor1a(x, funcionInterpol1aLagrange, 'Interpolación Lagrange')
+# Paso 5: Creamos una funcion matematica en base a nuestro "ground truth" para interpolar con CubicSpline
+cubic_spline = CubicSpline(equi_points_spl, eval_points_spl)
 
-# # KNOTE1 || Para el Apendice, error absoluto por punto en Lagrange Equiespaciado
-# # Paso 6: Calculamos y Graficamos el error absoluto
-# error_absoluto_lagrange = [abs(funcion1a(xi) - funcionInterpol1aLagrange(xi)) for xi in x]
-# funcionesTP1.errorPlotter(x, error_absoluto_lagrange, 'Error Absoluto', 'Error absoluto en interpolación Lagrange con pts equiespaciados')
+# Paso 6: Evaluamos la función de cubic spline en los puntos x
+y_cubic_spline = cubic_spline(x)
 
-# # KNOTE2 || Para el Apendice, error relativo por punto en Lagrange Equiespaciado
-# # Paso 7: Calculamos y graficamos el error relativo
-# error_relativo = []
-# for xi in x:
-#     if funcion1a(xi) != 0:
-#         error_relativo.append(abs(funcion1a(xi) - funcionInterpol1aLagrange(xi)) / abs(funcion1a(xi)))
-#     else: # Caso excepcion si se divide por 0
-#         error_relativo.append(-1)
-# funcionesTP1.errorPlotter(x, error_relativo, 'Error Relativo', 'Error relativo en interpolación Lagrange con pts equiespaciados')
+# Paso 7: Graficamos la función original y la interpolada
+y_original = [funcion1a(xi) for xi in x]
+y_interpolada = [funcionInterpol1aLagrange(xi) for xi in x]
+# plt.plot(x, y_original, label='Función original')
+# plt.plot(x, y_interpolada, label='Función interpolada con Lagrange')
+# plt.plot(x, y_cubic_spline, label='Función interpolada con Cubic Spline')
+# plt.xlabel('x')
+# plt.ylabel('y')
+# plt.title('Interpolación Lagrange y Cubic Spline')
+# plt.legend()
+# plt.show()
 
-#Paso 8: Calculamos y Graficamos los distintos valores de error en cada cantidad de puntos tomados en Lagrange
-# Esto sirve para ver que cantidad n de puntos da menos error (determinamos que n=8 da el menor error posible)
-# funcionesTP1.errorPointsPlotter(range(2, 15), funcionesTP1.lagrangeErrorPerPoint(funcion1a, x, range(2, 15), 'equiespaciados'), 'Error', 'Error en interpolación Lagrange en función de la cantidad de puntos')
-
-# Ahora equiespaciados pero con Splines
-# # # errorRelativoEqui = []
-# # # funcionesTP1.graphingFunction(24, 'equiespaciados', True, True, True, True)
-# # # plt.show()
-
-# # # for a in range(6, 25):
-# # #     errorRelativoEqui.append(funcionesTP1.graphingFunction(a, 'equiespaciados', False, False, True))
-# # # plt.clf()
-
-# # # plt.plot(range(6, 25), errorRelativoEqui)
-# # # for i, error in enumerate(errorRelativoEqui):
-# # #     plt.annotate(f'{error:.2f}', (i+6, error))
-# # #     plt.plot([i+6, i+6], [0, error], 'k--')  # Para lineitas punteadas
-# # # plt.xticks(range(6, 25))
-# # # plt.xlabel('x')
-# # # plt.ylabel('Error Relativo')
-# # # plt.title('Error relativo en interpolación Splines con puntos equiespaciados')
-# # # plt.show()
-
-# # KNOTE3 || EL ERROR (relativo) POR PUNTO ES SIEMPRE EL MISMO EN SPLINES, POR LO QUE ES REDUNDANTE HACER UN GRAFICO DE ERROR POR PUNTO
-# # O eso creo, y podriamos hablar de eso
-
-# # KNOTE4 || Para el Apendice, grafico mostrando que con range menor a 6 puntos, se va todo muy lejos y distorsiona la vision del grafico
-# # for a in range(3, 25):
-# #     errorRelativoPuntos.append(funcionesTP1.graphingFunction(a, 'equiespaciados'))
-# # plt.clf()
-# # Para el Apendice, grafico mostrando que con range menor a 9 puntos, se va todo muy lejos y distorsiona la vision del grafico
-# # plt.plot(range(3, 25), errorRelativoPuntos)
-# # plt.xlabel('Cantidad de puntos')
-# # plt.ylabel('Error Relativo')
-# # plt.title('Error relativo en interpolación Splines con nodos de Chebyshev en función de la cantidad de puntos')
-# # plt.show()
-
-# Ahora puntos no-equiespaciados
-
-#Lagrange
-#Paso 1: creamos lista de puntos no equiespaciados para usar como "ground truth" usando los nodos de Chebyshev
-cheb_points_1a_lagrange = funcionesTP1.Chebyshev(23)
-# KNOTE5 || Se toman 23 puntos no equiespaciados para la interpolacion porque se determino que es el punto donde el error es minimo
-# Esto se determino con el grafico de error relativo en funcion de la cantidad de puntos
+# Paso 1: creamos lista de puntos de Chebyshev para usar como "ground truth"
+cheby_points_lag = funcionesTP1.Chebyshev(20)
+cheby_points_spl = funcionesTP1.Chebyshev(20)
 
 # Paso 2: Luego de crear la lista de puntos, evaluamos la función en cada punto
-eval_points_1a_lagrange_cheb = funcionesTP1.eval_points_lister(cheb_points_1a_lagrange, funcion1a)
+eval_points_cheby_lag = funcionesTP1.eval_points_lister(cheby_points_lag, funcion1a)
+eval_points_cheby_spl = funcionesTP1.eval_points_lister(cheby_points_spl, funcion1a)
 
 # Paso 3: Creamos una funcion matematica en base a nuestro "ground truth" para interpolar
-def funcionInterpol1aLagrangeNoEquiespaciados(x):
-    return funcionesTP1.lagrange_interpolation(x, cheb_points_1a_lagrange, eval_points_1a_lagrange_cheb)
+def funcionInterpol1aChebyLagrange(x):
+    return funcionesTP1.lagrange_interpolation(x, cheby_points_lag, eval_points_cheby_lag)
 
-# Paso 4: Graficamos la función original y la interpolada
-# # # funcionesTP1.chevyPlotFor1a(1000, funcionInterpol1aLagrangeNoEquiespaciados, 'Interpolación Lagrange con nodos de Chebyshev')
+# Paso 5: Creamos una funcion matematica en base a nuestro "ground truth" para interpolar con CubicSpline
+cubic_spline_cheby = CubicSpline(cheby_points_spl, eval_points_cheby_spl)
 
-# # KNOTE6 || Para el Apendice, error absoluto por punto en Lagrange No-Equiespaciado
-# # Paso 5: Calculamos y Graficamos el error absoluto
-# error_absoluto_lagrange_Chebyshev = [abs(funcion1a(xi) - funcionInterpol1aLagrangeNoEquiespaciados(xi)) for xi in x]
-# funcionesTP1.errorPlotter(x, error_absoluto_lagrange_Chebyshev, 'Error Absoluto', 'Error absoluto en interpolación Lagrange con nodos de Chebyshev')
+# Paso 6: Evaluamos la función de cubic spline en los puntos x
+y_cubic_spline_cheby = cubic_spline_cheby(x)
 
-# # KNOTE7 || Para el Apendice, error relativo por punto en Lagrange No-Equiespaciado
-# # Paso 6: Calculamos y Graficamos el error relativo
-# error_relativo_Chebyshev = [abs(funcion1a(xi) - funcionInterpol1aLagrangeNoEquiespaciados(xi)) / abs(funcion1a(xi)) for xi in x]
-# funcionesTP1.errorPlotter(x, error_relativo_Chebyshev, 'Error Relativo', 'Error relativo en interpolación Lagrange con nodos de Chebyshev')
-
-#Paso 7:Calculamos el error dependiendo de la cantidad de puntos que elegimos para interpolar y graficamos
-# funcionesTP1.errorPointsPlotter(range(2, 25), funcionesTP1.lagrangeErrorPerPoint(funcion1a, x, range(2, 25), 'no_equiespaciados'), 'Error', 'Error en interpolación Lagrange con nodos de Chebyshev en función de la cantidad de puntos')
-
-# No Equiespaciados con Splines
-
-# La funcion Splines1a agrega todos los puntos al plot, y a la vez devuelve el error relativo de la interpolacion con splines cubicos
-# Se combinan estas funciones para ahorrar grandes cantidades de codigo y de tiempo de ejecucion
+# Paso 7: Graficamos la función original y la interpolada
+y_interpolada_cheby = [funcionInterpol1aChebyLagrange(xi) for xi in x]
+# plt.plot(x, y_original, label='Función original')
+# plt.plot(x, y_interpolada_cheby, label='Función interpolada con Lagrange')
+# plt.plot(x, y_cubic_spline_cheby, label='Función interpolada con Cubic Spline')
+# plt.xlabel('x')
+# plt.ylabel('y')
+# plt.title('Interpolación Lagrange y Cubic Spline con nodos de Chebyshev')
+# plt.legend()
+# plt.show()
 
 
-# # KNOTE8 || Para el Apendice, grafico mostrando que con range menor a 9 puntos, se va todo muy lejos y distorsiona la vision del grafico
-# # for a in range(3, 25):
-# #     errorRelativoPuntos.append(funcionesTP1.graphingFunction(a, chebyshev))
-# # plt.clf()
-# # plt.plot(range(3, 25), errorRelativoPuntos)
-# # plt.xlabel('Cantidad de puntos')
-# # plt.ylabel('Error Relativo')
-# # plt.title('Error relativo en interpolación Splines con nodos de Chebyshev en función de la cantidad de puntos')
-# # plt.show()
+# Definir una función para calcular el error relativo promedio
+def average_relative_error(original_values, interpolated_values):
+    return np.mean(np.abs((original_values - interpolated_values) / original_values))
+
+# Definir un rango para el número de puntos
+num_points_range = range(6, 61)
+
+# Inicializar una lista para almacenar los errores relativos promedio
+average_errors = []
+
+# Bucle sobre el número de puntos
+for num_points in num_points_range:
+    # Crear puntos equidistantes
+    equi_points = np.linspace(-4, 4, num_points)
+    
+    # Evaluar la función en estos puntos
+    eval_points = funcionesTP1.eval_points_lister(equi_points, funcion1a)
+    
+    # Crear una interpolación de spline cúbica
+    cubic_spline = CubicSpline(equi_points, eval_points)
+    
+    # Evaluar el spline cúbico en los puntos x
+    y_cubic_spline = cubic_spline(x)
+    
+    # Calcular el error relativo promedio y añadirlo a la lista
+    average_errors.append(average_relative_error(y_original, y_cubic_spline))
 
 plt.clf()
-funcionesTP1.graphingFunction(24, 'equiespaciados', True, True, True, "EquivsEqui")
-plt.title('Interpolación de Lagrange y Splines con puntos equiespaciados')
-plt.legend()
-plt.show()
-
-# Graficar Splines Equi y Splines no-equi junto con la original
-plt.clf() # Primero limpiar todo lo ploteado
-# errorFinal = []
-funcionesTP1.graphingFunction(24, 'equiespaciados', True, False, True, "SplinesComp")
-funcionesTP1.graphingFunction(24, 'chebyshev', False, False, True, "SplinesComp")
-plt.title('Interpolación de Splines con puntos equiespaciados vs nodos de Chebyshev')
-plt.legend()
+# Graficar el error relativo promedio en función del número de puntos
+plt.semilogy(num_points_range, average_errors)
+plt.xlabel('Number of points')
+plt.ylabel('Average relative error')
+plt.title('Average relative error from Cubic Spline interpolation')
+plt.xticks(np.arange(min(num_points_range), max(num_points_range)+1, 3))
+for i, txt in enumerate(average_errors):
+    if i % 5 == 0: 
+        plt.annotate(f"{txt:.4f}", (num_points_range[i], average_errors[i]))
 plt.show()
 
 
-errorRelativoPuntos = []
-funcionesTP1.graphingFunction(24, 'chebyshev', False, False, False, "SplinesComp")
-plt.show()
 
-for a in range(6, 25):
-    errorRelativoPuntos.append(funcionesTP1.graphingFunction(a, 'chebyshev', False, False, False, "SplinesComp"))
-plt.clf()
-plt.semilogy(range(6, 25), errorRelativoPuntos)
-for i, error in enumerate(errorRelativoPuntos):
-    plt.annotate(f'{error:.2f}', (i+6, error))
-    plt.plot([i+6, i+6], [0, error], 'k--') # Para lineitas punteadas
-plt.xticks(range(6, 25))
-plt.xlabel('x')
-plt.ylabel('Error Relativo')
-plt.title('Error relativo en interpolación Splines con nodos de Chebyshev')
-plt.show()
 
-print("Todo ok")
 
