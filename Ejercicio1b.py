@@ -15,7 +15,7 @@ def funcion1b(x, y):
 #Splines
 
 #Paso 1: Crear los puntos equiespaciados, (deberían ser tuplas ya que es una runcion en R2), una lista de tuplas, en donde cada punto debería estar entre -1 y 1
-x1, x2 = np.meshgrid(np.linspace(-1, 1, 10), np.linspace(-1, 1, 10))
+x1, x2 = np.meshgrid(np.linspace(-1, 1, 50), np.linspace(-1, 1, 50))
 
 x1 = np.clip(x1, -1, 1)
 x2 = np.clip(x2, -1, 1)
@@ -37,11 +37,8 @@ y_original = funcion1b(x1_plot, x2_plot)
 y_interpolada = spi.griddata(points, values, (x1_plot, x2_plot), method='cubic') #splines
 y_interpolada2 = spi.griddata(points, values, (x1_plot, x2_plot), method='linear') #lineal
 
-
-# GRAPHING
-
 # Chebyshev nodes
-n = 10
+n = 50
 chebyshev_nodes_x1 = np.cos(np.linspace(0, np.pi, n))
 chebyshev_nodes_x2 = np.cos(np.linspace(0, np.pi, n))
 chebyshev_x1, chebyshev_x2 = np.meshgrid(chebyshev_nodes_x1, chebyshev_nodes_x2)
@@ -64,7 +61,7 @@ ax.plot_surface(x1_plot, x2_plot, y_interpolada, color='purple', alpha=0.92)
 ax.plot_surface(x1_plot, x2_plot, y_interpolada_chebyshev, color='yellow', alpha=0.48)
 ax.plot_wireframe(x1_plot, x2_plot, y_original, color="black", alpha=0.28)
 plt.title('Interpolación de la función 1b usando Splines Cubicos')
-ax.legend(['Función Original', 'Interpolación Splines', 'Interpolación Chebyshev'])
+ax.legend(['Función con Pts Equiespaciados', 'Interpolación con Chebyshev', 'Funcion original'])
 plt.show()
 
 #Paso 4: Calcular y graficar el error relativo promedio para cada cantidad de nodos utilizada
