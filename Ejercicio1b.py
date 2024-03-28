@@ -56,8 +56,8 @@ y_interpolada_chebyshev = spi.griddata(chebyshev_points, chebyshev_values, (x1_p
 # Plot the interpolated function
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
-ax.plot_surface(x1_plot, x2_plot, y_interpolada, color='purple', alpha=0.92)
-ax.plot_surface(x1_plot, x2_plot, y_interpolada_chebyshev, color='yellow', alpha=0.48)
+ax.plot_surface(x1_plot, x2_plot, y_interpolada, color='purple', alpha=0.95)
+ax.plot_surface(x1_plot, x2_plot, y_interpolada_chebyshev, color='yellow', alpha=0.4)
 ax.plot_wireframe(x1_plot, x2_plot, y_original, color="black", alpha=0.28)
 plt.title('Interpolación de la función 1b usando Splines Cubicos')
 ax.legend(['Función con Pts Equiespaciados', 'Interpolación con Chebyshev', 'Funcion original'])
