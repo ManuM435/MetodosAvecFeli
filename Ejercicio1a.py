@@ -32,14 +32,14 @@ y_cubic_spline = cubic_spline(x)
 # Paso 7: Graficamos la función original y la interpolada
 y_original = [funcion1a(xi) for xi in x]
 y_interpolada = [funcionInterpol1aLagrange(xi) for xi in x]
-# plt.plot(x, y_original, label='Función original')
-# plt.plot(x, y_interpolada, label='Función interpolada con Lagrange')
-# plt.plot(x, y_cubic_spline, label='Función interpolada con Cubic Spline')
-# plt.xlabel('x')
-# plt.ylabel('y')
-# plt.title('Interpolación Lagrange y Cubic Spline')
-# plt.legend()
-# plt.show()
+plt.plot(x, y_original, label='Función original')
+plt.plot(x, y_interpolada, label='Función interpolada con Lagrange')
+plt.plot(x, y_cubic_spline, label='Función interpolada con Cubic Spline')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Interpolación con Lagrange y Cubic Spline en Puntos Equiespaciados')
+plt.legend()
+plt.show()
 
 # Paso 1: creamos lista de puntos de Chebyshev para usar como "ground truth"
 cheby_points_lag = funcionesTP1.Chebyshev(20)
@@ -61,14 +61,14 @@ y_cubic_spline_cheby = cubic_spline_cheby(x)
 
 # Paso 7: Graficamos la función original y la interpolada
 y_interpolada_cheby = [funcionInterpol1aChebyLagrange(xi) for xi in x]
-# plt.plot(x, y_original, label='Función original')
-# plt.plot(x, y_interpolada_cheby, label='Función interpolada con Lagrange')
-# plt.plot(x, y_cubic_spline_cheby, label='Función interpolada con Cubic Spline')
-# plt.xlabel('x')
-# plt.ylabel('y')
-# plt.title('Interpolación Lagrange y Cubic Spline con nodos de Chebyshev')
-# plt.legend()
-# plt.show()
+plt.plot(x, y_original, label='Función original')
+plt.plot(x, y_interpolada_cheby, label='Función interpolada con Lagrange')
+plt.plot(x, y_cubic_spline_cheby, label='Función interpolada con Cubic Spline')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Interpolación con Lagrange y Cubic Spline en nodos de Chebyshev')
+plt.legend()
+plt.show()
 
 
 # Definir una función para calcular el error relativo promedio
@@ -99,11 +99,40 @@ for num_points in num_points_range:
     average_errors.append(average_relative_error(y_original, y_cubic_spline))
 
 plt.clf()
-# Graficar el error relativo promedio en función del número de puntos
-plt.semilogy(num_points_range, average_errors)
-plt.xlabel('Number of points')
-plt.ylabel('Average relative error')
-plt.title('Average relative error from Cubic Spline interpolation')
+# Initialize lists to store the average errors for equidistant points and Chebyshev nodes
+average_errors_equi = []
+average_errors_cheby = []
+
+# Loop over the number of points
+for num_points in num_points_range:
+    # Create equidistant points and Chebyshev nodes
+    equi_points = np.linspace(-4, 4, num_points)
+    cheby_points = funcionesTP1.Chebyshev(num_points)
+
+    # Evaluate the function at these points
+    eval_points_equi = funcionesTP1.eval_points_lister(equi_points, funcion1a)
+    eval_points_cheby = funcionesTP1.eval_points_lister(cheby_points, funcion1a)
+
+    # Create cubic spline interpolations
+    cubic_spline_equi = CubicSpline(equi_points, eval_points_equi)
+    cubic_spline_cheby = CubicSpline(cheby_points, eval_points_cheby)
+
+    # Evaluate the cubic spline interpolations at the points x
+    y_cubic_spline_equi = cubic_spline_equi(x)
+    y_cubic_spline_cheby = cubic_spline_cheby(x)
+
+    # Calculate the average relative errors and add them to the lists
+    average_errors_equi.append(average_relative_error(y_original, y_cubic_spline_equi))
+    average_errors_cheby.append(average_relative_error(y_original, y_cubic_spline_cheby))
+
+# Plot the average relative errors
+plt.semilogy(num_points_range, average_errors_equi, label='Puntos Equidistantes')
+plt.semilogy(num_points_range, average_errors_cheby, label='Nodos de Chebyshev')
+plt.xlabel('Numero de Puntos')
+plt.ylabel('Error Relativo')
+plt.title('Error Relativo en base a cantidad de puntos con Splines Cubicos')
+plt.xticks(np.arange(min(num_points_range), max(num_points_range)+1, 3))
+plt.legend()
 plt.xticks(np.arange(min(num_points_range), max(num_points_range)+1, 3))
 for i, txt in enumerate(average_errors):
     if i % 5 == 0: 
