@@ -35,7 +35,6 @@ x2_plot = np.linspace(-1, 1, 100)
 x1_plot, x2_plot = np.meshgrid(x1_plot, x2_plot)
 y_original = funcion1b(x1_plot, x2_plot)
 y_interpolada = spi.griddata(points, values, (x1_plot, x2_plot), method='cubic') #splines
-y_interpolada2 = spi.griddata(points, values, (x1_plot, x2_plot), method='linear') #lineal
 
 # Chebyshev nodes
 n = 50

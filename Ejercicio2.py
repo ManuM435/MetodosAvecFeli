@@ -4,7 +4,6 @@ import csv
 import funcionesTP1
 import scipy.interpolate as spi
 from scipy.interpolate import interp1d
-from scipy.optimize import newton
 from scipy.optimize import fsolve
 
 #Ejercicio 2
