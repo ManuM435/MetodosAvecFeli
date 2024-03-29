@@ -56,8 +56,8 @@ y_interpolada_chebyshev = spi.griddata(chebyshev_points, chebyshev_values, (x1_p
 # Plot the interpolated function
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
-ax.plot_surface(x1_plot, x2_plot, y_interpolada, color='purple', alpha=0.95)
-ax.plot_surface(x1_plot, x2_plot, y_interpolada_chebyshev, color='yellow', alpha=0.4)
+ax.plot_surface(x1_plot, x2_plot, y_interpolada, color='purple', alpha=0.97)
+ax.plot_surface(x1_plot, x2_plot, y_interpolada_chebyshev, color='yellow', alpha=0.34)
 ax.plot_wireframe(x1_plot, x2_plot, y_original, color="black", alpha=0.28)
 plt.title('Interpolación de la función 1b usando Splines Cubicos')
 ax.legend(['Función con Pts Equiespaciados', 'Interpolación con Chebyshev', 'Funcion original'])
@@ -108,9 +108,9 @@ plt.ylabel('Error relativo promedio')
 plt.xticks(np.arange(min(n_values), max(n_values)+1, 6)) 
 plt.grid(True, which='both', linestyle='--', linewidth=0.6) 
 
-for offset, values in [(0, avg_relative_errors), (2, avg_relative_errors_chebyshev)]:
+for offset, values in [(0, avg_relative_errors), (4, avg_relative_errors_chebyshev)]:
     for i, (x, y) in enumerate(zip(n_values, values)):
-        if i % 5 == offset:  # Only label every 4th point
+        if i % 8 == offset:  # Only label every 4th point
             if y < 1:
                 label = "{:.2f}".format(y)
             else:

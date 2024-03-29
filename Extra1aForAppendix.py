@@ -31,3 +31,20 @@ def funcionInterpol1aChebyshev(x):
 
 # Plot the error from Lagrange interpolation in function of points used, but with Chebyshev nodes instead of equidistant points
 funcionesTP1.errorPointsPlotter(range(2, 50), funcionesTP1.lagrangeErrorPerPoint(funcion1a, x, range(2, 50), 'chebyshev'), 'Error', 'Error en interpolacion de Lagrange por nodos de Chebyshev utilizados')
+
+# Create list of 20 equidistant points
+equi_points_20 = np.linspace(-4, 4, 20)
+
+# Evaluate the function at these points
+eval_points_20 = funcionesTP1.eval_points_lister(equi_points_20, funcion1a)
+
+# Create a mathematical function based on our "ground truth" to interpolate
+def funcionInterpol20(x):
+    return funcionesTP1.lagrange_interpolation(x, equi_points_20, eval_points_20)
+
+# Plot the function and the interpolation
+plt.figure(figsize=(10, 6))
+plt.plot(x, funcion1a(x), label='Original function')
+plt.plot(x, funcionInterpol20(x), label='Interpolation with 20 equidistant points')
+plt.legend()
+plt.show()
