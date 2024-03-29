@@ -30,9 +30,7 @@ def funcionInterpol1aChebyshev(x):
     return funcionesTP1.lagrange_interpolation(x, chebyshev_nodes, eval_points_1a_chebyshev)
 
 # Plot the error from Lagrange interpolation in function of points used, but with Chebyshev nodes instead of equidistant points
-# funcionesTP1.errorPointsPlotter(range(2, 50), funcionesTP1.lagrangeErrorPerPoint(funcion1a, x, range(2, 50), 'chebyshev'), 'Error', 'Error en interpolacion de Lagrange por nodos de Chebyshev utilizados')
-
-##### hi
+funcionesTP1.errorPointsPlotter(range(2, 50), funcionesTP1.lagrangeErrorPerPoint(funcion1a, x, range(2, 50), 'chebyshev'), 'Error', 'Error en interpolacion de Lagrange por nodos de Chebyshev utilizados')
 
 # Paso 1: Lista equiespaciada de 15 puntos
 equi_points_1a_lagrange = np.linspace(-4, 4, 20)
