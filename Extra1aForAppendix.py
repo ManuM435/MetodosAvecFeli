@@ -30,5 +30,28 @@ def funcionInterpol1aChebyshev(x):
     return funcionesTP1.lagrange_interpolation(x, chebyshev_nodes, eval_points_1a_chebyshev)
 
 # Plot the error from Lagrange interpolation in function of points used, but with Chebyshev nodes instead of equidistant points
-funcionesTP1.errorPointsPlotter(range(2, 50), funcionesTP1.lagrangeErrorPerPoint(funcion1a, x, range(2, 50), 'chebyshev'), 'Error', 'Error en interpolacion de Lagrange por nodos de Chebyshev utilizados')
+# funcionesTP1.errorPointsPlotter(range(2, 50), funcionesTP1.lagrangeErrorPerPoint(funcion1a, x, range(2, 50), 'chebyshev'), 'Error', 'Error en interpolacion de Lagrange por nodos de Chebyshev utilizados')
 
+##### hi
+
+# Paso 1: Lista equiespaciada de 15 puntos
+equi_points_1a_lagrange = np.linspace(-4, 4, 20)
+
+# Paso 2: Evaluamos la función en cada punto
+eval_points_1a_lagrange = funcionesTP1.eval_points_lister(equi_points_1a_lagrange, funcion1a)
+
+# Paso 3: Creamos una función matemática en base a nuestro "ground truth" para interpolar
+def funcionInterpol1aLagrange(x):
+    return funcionesTP1.lagrange_interpolation(x, equi_points_1a_lagrange, eval_points_1a_lagrange)
+
+# Paso 4: Creamos lista de puntos para graficar
+x = np.linspace(-4, 4, 1000)
+
+# Paso 5: Graficamos la función original y la interpolada
+plt.plot(x, [funcion1a(xi) for xi in x], label='Función original')
+plt.plot(x, [funcionInterpol1aLagrange(xi) for xi in x], label='Función interpolada con Lagrange')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Interpolación con Lagrange en Puntos Equiespaciados')
+plt.legend()
+plt.show()
