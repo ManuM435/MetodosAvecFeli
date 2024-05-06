@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 def variationExpoODE(r, N):
     '''Calcule la dérivée de la fonction exponentielle en un point N, avec un taux de croissance r'''
@@ -16,5 +17,19 @@ def logistiquePopulation(r, N0, K, t):
     '''Calcule la population en fonction du temps t, avec un taux de croissance r, une capacité de charge K et une population initiale N0'''
     return K * N0 / (N0 + (K - N0) * np.exp(-r * t))
 
+# Parameters
+r = 0.1
+N0 = 100
+t = np.linspace(0, 50, 100)  # Time range from 0 to 10 with 100 points
+
+# Calculate population
+population = populationExpoFonction(r, N0, t)
+
+# Plot population over time
+plt.plot(t, population)
+plt.xlabel('Time')
+plt.ylabel('Population')
+plt.title('Population over Time')
+plt.show()
 
 
