@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import csv
-import funcionesTP1
+import TP1.funcionesTP1 as funcionesTP1
 import scipy.interpolate as spi
 from scipy.interpolate import interp1d
 from scipy.optimize import fsolve

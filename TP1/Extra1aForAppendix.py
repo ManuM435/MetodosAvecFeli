@@ -1,4 +1,4 @@
-import funcionesTP1
+import TP1.funcionesTP1 as funcionesTP1
 import numpy as np
 import matplotlib.pyplot as plt
 # Redefinir en este archivo para evitar problemas de importaciones circulares, y ahorrar espacio de codigo en el futuro del archivo

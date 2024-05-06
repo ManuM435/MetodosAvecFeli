@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import math
-import funcionesTP1
+import TP1.funcionesTP1 as funcionesTP1
 import scipy.interpolate as spi
 
 def funcion1b(x, y):

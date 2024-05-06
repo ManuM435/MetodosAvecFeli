@@ -1,4 +1,4 @@
-import funcionesTP1
+import TP1.funcionesTP1 as funcionesTP1
 import numpy as np
 from scipy.interpolate import CubicSpline
 from scipy.interpolate import lagrange
