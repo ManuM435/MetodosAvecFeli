@@ -17,19 +17,23 @@ def logistiquePopulation(r, N0, K, t):
     '''Calcule la population en fonction du temps t, avec un taux de croissance r, une capacité de charge K et une population initiale N0'''
     return K * N0 / (N0 + (K - N0) * np.exp(-r * t))
 
-# Parameters
+# El del Time
+t = np.linspace(0, 40, 100)
+
 r = 0.1
 N0 = 100
-t = np.linspace(0, 50, 100)  # Time range from 0 to 10 with 100 points
+K = 4000
 
-# Calculate population
-population = populationExpoFonction(r, N0, t)
-
-# Plot population over time
-plt.plot(t, population)
+# Les plots 
+# TODO: No definir valores r, N0, k. En su lugar, ir tipeando las funciones en el plot con los valores que vamos poniendo
+plt.plot(t, populationExpoFonction(r, N0, t), label='Exponential')
+plt.plot(t, logistiquePopulation(r, N0, K, t), label='Logistic')
 plt.xlabel('Time')
 plt.ylabel('Population')
-plt.title('Population over Time')
+plt.title('Population Over Time')
+plt.legend()
 plt.show()
+
+
 
 
