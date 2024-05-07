@@ -12,7 +12,7 @@ def lotkaVolterra(y, r1, r2, K1, K2, alpha12, alpha21):
 
 # Definimos los valores iniciales
 # TODO: Ajustar bien estos numeros
-y0, y1, y2, y3, y4, y5, y6, y7, y8 = [10, 10], [10, 10], [10, 10], [10, 10], [10, 10], [10, 10], [10, 10], [10, 10]
+y0, y1, y2, y3, y4, y5, y6, y7 = [10, 10], [10, 10], [10, 10], [10, 10], [10, 10], [10, 10], [10, 10], [10, 10]
 
 # Definimos el tiempo
 t = np.linspace(0, 100, 1000)
