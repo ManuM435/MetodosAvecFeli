@@ -1,0 +1,7 @@
+Aca poner todos los graficos que vamos a estar haciendo (importante para ya ir armando el codigo)
+Let's not forget que este no es un TP de programacion que evalua Python, es un Informe en el que el codigo solo sirve para los resultados
+La funcion de todo este codigo es hacer los graficos correspondientes, y dichos graficos serán...
+
+
+Actividad 1 [PvE]
+
