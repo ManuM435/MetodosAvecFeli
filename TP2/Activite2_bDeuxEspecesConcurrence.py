@@ -80,3 +80,20 @@ plt.title('Population Over Time')
 plt.legend()
 plt.show()
 
+# Graficamos el campo de vectores
+N1 = np.linspace(0, 1000, 20)
+N2 = np.linspace(0, 1000, 20)
+N1, N2 = np.meshgrid(N1, N2)
+dN1dt = r1 * N1 * (1 - N1 / K1 - alpha12 * N2 / K1)
+dN2dt = r2 * N2 * (1 - N2 / K2 - alpha21 * N1 / K2)
+plt.quiver(N1, N2, dN1dt, dN2dt)
+plt.xlabel('N1')
+plt.ylabel('N2')
+plt.title('Population Vector Field')
+plt.show()
+
+# Puntos de equilibrio
+N1_eq = K1 * (1 - alpha21 * K2 / (r2 * K2))
+N2_eq = K2 * (1 - alpha12 * K1 / (r1 * K1))
+print(f'Puntos de equilibrio: ({N1_eq}, {N2_eq})')
+
