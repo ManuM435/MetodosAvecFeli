@@ -41,8 +41,9 @@ popuLogi6 = logistiquePopulation(0.1, 100, t, 4000)
 popuLogi7 = logistiquePopulation(0.1, 100, t, 4000)
 
 # Les plots 
+
 # Plot 1 || 
-plt.plot(t, popuExpo0, label='Exp.')
+plt.plot(t, popuExpo0, label='Exp')
 plt.plot(t, popuLogi0, label='Logis')
 plt.xlabel('Time')
 plt.ylabel('Population')
@@ -50,4 +51,10 @@ plt.title('Population Over Time')
 plt.legend()
 plt.show()
 
-# Plot 2 || 
+# Plot 2 
+plt.plot(logistiquePopulation(0.1, 100, t, 4000), logistiqueODE(0.1, logistiquePopulation(0.1, 100, t, 4000), 4000), label='Logis')
+plt.xlabel('Population')
+plt.ylabel('Variation')
+plt.title('Variation of Population')
+plt.legend()
+plt.show()
