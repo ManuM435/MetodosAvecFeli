@@ -40,10 +40,10 @@ valores inicialesN1(t = 0) yN2(t = 0) y grafiquen la evolución temporalN1(t) yN
 Describan cómo evoluciona el sistema para cada caso dependiendo de las condiciones iniciales. También
 pueden graficar el campo de vectores para acompañar la explicación."""
 
-# Importamos las librerías necesarias
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.integrate as spi
+import fonctions_auxiliares as aux
 
 # Definimos las ecuaciones diferenciales
 def lotkaVolterra(t, y, r1, r2, K1, K2, alpha12, alpha21):
@@ -68,4 +68,15 @@ y0 = [N1_0, N2_0]
 # Definimos el tiempo
 t = np.linspace(0, 100, 1000)
 
-#
+# Resolvemos las ecuaciones diferenciales con runge kutta
+sol = aux.runge_kutta_4(lambda t, y: lotkaVolterra(t, y, r1, r2, K1, K2, alpha12, alpha21), y0, t)
+
+# Graficamos las soluciones
+plt.plot(t, sol[:, 0], label='N1')
+plt.plot(t, sol[:, 1], label='N2')
+plt.xlabel('Time')
+plt.ylabel('Population')
+plt.title('Population Over Time')
+plt.legend()
+plt.show()
+
