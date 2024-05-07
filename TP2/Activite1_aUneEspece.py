@@ -33,7 +33,3 @@ plt.ylabel('Population')
 plt.title('Population Over Time')
 plt.legend()
 plt.show()
-
-
-
-
