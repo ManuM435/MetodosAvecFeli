@@ -8,13 +8,13 @@ Actividad 1 [PvE]
 
 || Grafico 1: Population over Time (Exponencial vs Logistica ) // los inputs son (N0, r, t=constant, *K)
     -> Curva 1: 
-    -> Curva 2:
-    -> Curva 3:
-    -> Curva 4:
-    -> Curva 5:
-    -> Curva 6:
-    -> Curva 7:
-    -> Curva 8:
+    -> Curva 2: 
+    -> Curva 3: 
+    -> Curva 4: 
+    -> Curva 5: 
+    -> Curva 6: 
+    -> Curva 7: 
+    -> Curva 8: 
 
 || Grafico 2: Variacion Poblacional (dN/dt vs N) 
     -> Curva 1: 
