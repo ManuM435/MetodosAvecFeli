@@ -5,8 +5,8 @@ import fonctions_auxiliares as aux
 
 # Definimos las ecuaciones diferenciales
 def lotkaVolterra(N1, N2, r1, r2, K1, K2, alpha12, alpha21):
-    dN1dt = r1 * N1 * (1 - N1 / K1 - alpha12 * N2 / K1)
-    dN2dt = r2 * N2 * (1 - N2 / K2 - alpha21 * N1 / K2)
+    dN1dt = r1 * N1 * ((K1 - N1 - alpha12 * N2) / K1)
+    dN2dt = r2 * N2 * ((K2 - N2 - alpha21 * N1) / K2)
     return [dN1dt, dN2dt]
 
 def rkSolve(ode, y0, t, h):
@@ -57,11 +57,16 @@ for i in range(len(t) - 1):
 
 def EquilibriumPoint(r1, r2, K1, K2, alpha12, alpha21):
     '''Calcula el punto de equilibrio del sistema de ecuaciones diferenciales'''
-    N1 = K1 * (1 - alpha21) / (r1 * (1 - alpha12 * alpha21))
-    N2 = K2 * (1 - alpha12) / (r2 * (1 - alpha12 * alpha21))
+    N1 = - ((K1 - K2) / (alpha21 + 1/alpha12))
+    N2 = (K1 - N1) / alpha12
     return [N1, N2]
 
-print(EquilibriumPoint(r1, r2, K1, K2, alpha12, alpha21))
-equi1 = EquilibriumPoint(r1, r2, K1, K2, alpha12, alpha21)[0]
-equi2 = EquilibriumPoint(r1, r2, K1, K2, alpha12, alpha21)[1]
+auxi = (EquilibriumPoint(r1, r2, K1, K2, alpha12, alpha21))
+
+print(auxi)
+
+equi1 = auxi[0]
+equi2 = auxi[1]
+print(equi2)
+
 print(lotkaVolterra(equi1, equi2, r1, r2, K1, K2, alpha12, alpha21))
