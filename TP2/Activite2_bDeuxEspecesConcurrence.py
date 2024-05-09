@@ -30,40 +30,22 @@ datos6 = (10, 10, 0.1, 0.5, 100, 80, 0.01, 0.66)
 datos7 = (10, 10, 0.1, 0.5, 100, 80, 0.01, 0.66)
 
 
-r1 = 0.1
-r2 = 0.5
+r1 = 0.5
+r2 = 0.75
 K1 = 100
 K2 = 80
-alpha12 = 0.01
-alpha21 = 0.66
+alpha12 = 1
+alpha21 = 10
 
-# Condiciones iniciales
-y00, y01, y02, y03, y04, y05, y06, y07 = [10, 10], [10, 10], [10, 10], [10, 10], [10, 10], [10, 10], [10, 10], [10, 10]
-
-# Resolvemos el sistema de ecuaciones diferenciales con nuestro runge kutta
-y = rkSolve(lotkaVolterra, y00, t, h)
-
-# # Graficamos
-# plt.plot(t, y[:, 0], label='N1')
-# plt.plot(t, y[:, 1], label='N2')
-# plt.xlabel('Time')
-# plt.ylabel('Population')
-# plt.title('Population Over Time')
-# plt.legend()
-# plt.show()
 
 def EquilibriumPoint(r1, r2, K1, K2, alpha12, alpha21):
     '''Calcula el punto de equilibrio del sistema de ecuaciones diferenciales'''
-    N1 = - ((K1 - K2) / (alpha21 + 1/alpha12))
-    N2 = (K1 - N1) / alpha12
+    N1 = K1 - alpha12 * (K2 - alpha21 * K1) / (1 - alpha12 * alpha21)
+    N2 = (K2 - alpha21 * K1) / (1 - alpha12 * alpha21)
     return [N1, N2]
 
-auxi = (EquilibriumPoint(r1, r2, K1, K2, alpha12, alpha21))
+TheseEquis = (EquilibriumPoint(r1, r2, K1, K2, alpha12, alpha21))
+print(f"Los Puntos de Equilibrio son: {TheseEquis}")
 
-print(auxi)
 
-equi1 = auxi[0]
-equi2 = auxi[1]
-print(equi2)
 
-print(lotkaVolterra(equi1, equi2, r1, r2, K1, K2, alpha12, alpha21))
