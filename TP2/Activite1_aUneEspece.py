@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import fonctions_auxiliares as aux
+r = 0.1
 
 def variationExpoODE(r, N):
     '''Calcule la dérivée de la fonction exponentielle en un point N, avec un taux de croissance r'''
