@@ -41,10 +41,7 @@ alpha21 = 0.66
 y00, y01, y02, y03, y04, y05, y06, y07 = [10, 10], [10, 10], [10, 10], [10, 10], [10, 10], [10, 10], [10, 10], [10, 10]
 
 # Resolvemos el sistema de ecuaciones diferenciales con nuestro runge kutta
-y = np.array([y00])
-for i in range(len(t) - 1):
-    y0 = rkSolve(lambda y, t: lotkaVolterra(y[0], y[1], r1, r2, K1, K2, alpha12, alpha21), y00, t[i], h)
-    y = np.append(y, [y0], axis=0)
+y = rkSolve(lotkaVolterra, y00, t, h)
 
 # # Graficamos
 # plt.plot(t, y[:, 0], label='N1')

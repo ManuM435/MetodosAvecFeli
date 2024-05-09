@@ -75,13 +75,11 @@ plt.show()
 
 # Values for the Approximation
 Nz = 10
-rz = 4.12
+rz = 0.1
 Kz = 100
 h = 0.1
 
-popuExpoZ = populationExpoFonction(rz, Nz, t)
-euler_approx = aux.euler_approximation(variationExpoODE, Nz, t, h)
-runge_kutta_approx = aux.runge_kutta_4_approximation(variationExpoODE, Nz, t, h)
+
 
 # Plot 3 || Population Over Time (Exponential, Euler Approximation, Runge-Kutta Approximation)
 plt.plot(t, popuExpoZ, label='Exponential')
