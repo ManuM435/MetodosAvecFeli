@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import fonctions_auxiliares as aux
 
 def variationExpoODE(r, N):
     '''Calcule la dérivée de la fonction exponentielle en un point N, avec un taux de croissance r'''
@@ -22,10 +23,11 @@ t = np.linspace(0, 75, 100)
 r = 0.1
 k = 10000
 N0 = 25
+N1 = 6 # for the exponential
 
 # Les curves (exponentielle)
 popuExpo0 = populationExpoFonction(r, 0, t)
-popuExpo1 = populationExpoFonction(r, 6, t) # TODO Appendix 1 Cambiar el 6 por "N0" para simular el que tienen todos el mismo comienzo 
+popuExpo1 = populationExpoFonction(r, N1, t) # TODO Appendix 1 Cambiar el 6 por "N1" para simular el que tienen todos el mismo comienzo 
 popuExpo2 = populationExpoFonction((-1 * r), 10, t)
 popuExpo3 = populationExpoFonction(0, 10, t)
 
@@ -70,6 +72,27 @@ plt.ylabel('Variation')
 plt.title('Population Variation Over Population')
 plt.legend()
 plt.show()
+
+# Values for the Approximation
+Nz = 10
+rz = 4.12
+Kz = 100
+h = 0.1
+
+popuExpoZ = populationExpoFonction(rz, Nz, t)
+euler_approx = aux.euler_approximation(variationExpoODE, Nz, t, h)
+runge_kutta_approx = aux.runge_kutta_4_approximation(variationExpoODE, Nz, t, h)
+
+# Plot 3 || Population Over Time (Exponential, Euler Approximation, Runge-Kutta Approximation)
+plt.plot(t, popuExpoZ, label='Exponential')
+plt.plot(t, euler_approx, label='Euler Approximation')
+plt.plot(t, runge_kutta_approx, label='Runge-Kutta Approximation')
+plt.xlabel('Time')
+plt.ylabel('Population')
+plt.title('Population Over Time (Exponential, Euler Approximation, Runge-Kutta Approximation)')
+plt.legend()
+plt.show()
+
 
 
 
