@@ -19,7 +19,7 @@ Actividad 1 [PvE]
     -> Curva 8: Exonential [N = 10, r = 0]
     -> Curva 9 Logistique [N = 10, r = 0, K = 5000]
 
-|| Grafico 2: Variacion Poblacional (dN/dt vs N) 
+|| Grafico 2: Variacion Poblaciónal (dN/dt vs N) 
     -> Curva 1: Exponential [N = 0, r = 0.5]
     -> Curva 2: Logistique [N = 0, r = 0.5, K = 50]
     -> Curva 3: Exponential [N = 10, r = 0,5]

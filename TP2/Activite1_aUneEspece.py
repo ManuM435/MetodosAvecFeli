@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import fonctions_auxiliares as aux
-r = 0.1
 
 def variationExpoODE(t, N, r):
     '''Calcule la dérivée de la fonction exponentielle en un point N, avec un taux de croissance r'''
@@ -51,9 +50,9 @@ plt.plot(t, popuExpo2, label='ExpNegGrowth')
 plt.plot(t, popuLogi3, label='LogisNegGrowth')
 plt.plot(t, popuExpo3, label='ExpNoGrowth')
 plt.plot(t, popuLogi4, label='LogisNoGrowth')
-plt.xlabel('Time')
-plt.ylabel('Population')
-plt.title('Population Over Time')
+plt.xlabel('Tiempo')
+plt.ylabel('Población')
+plt.title('Población en el tiempo')
 plt.legend()
 plt.show()
 
@@ -68,70 +67,39 @@ plt.plot(popuLogi3, logistiqueODE(t, popuLogi3, (-1 * r), k), label='LogisNegGro
 # plt.plot(popuLogi0, logistiqueODE(r, popuLogi0, k), label='Logis0Starter')
 # plt.plot(popuExpo3, variationExpoODE(0, popuExpo3), label='ExpNoGrowth')
 # plt.plot(popuLogi4, logistiqueODE(0, popuLogi4, k), label='LogisNoGrowth')
-plt.xlabel('Population')
-plt.ylabel('Variation')
-plt.title('Population Variation Over Population')
+plt.xlabel('Población')
+plt.ylabel('Variacion')
+plt.title('Variacion de Población en base a Población')
 plt.legend()
 plt.show()
 
 
 
+# Valores Ejemplo para Aproximar
+initial_population = 10  
+growth_rate = 0.1  
+t0 = 0  
+tf = 50  
+num_steps = 100  
 
-
-
-
-
-
-
-
-
-
-def euler_method(func, initial_condition, t0, tf, num_steps, *args):
-    h = (tf - t0) / num_steps  # Step size
-    t_values = [t0]
-    y_values = [initial_condition]
-
-    t = t0
-    y = initial_condition
-
-    for _ in range(num_steps):
-        y += h * func(t, y, *args)
-        t += h
-        t_values.append(t)
-        y_values.append(y)
-
-    return t_values, y_values
-
-# Example usage
-initial_population = 10  # Initial population
-growth_rate = 0.1  # Growth rate
-t0 = 0  # Initial time
-tf = 50  # Final time
-num_steps = 100  # Number of steps for Euler method
-
-# Compare exact solution with Euler method approximation
-t_exact = np.linspace(t0, tf, 100)  # Time points for exact solution
+# Exactas con los punticos
+t_exact = np.linspace(t0, tf, num_steps) 
 N_exact = populationExpoFonction(t_exact, initial_population, growth_rate)
 
-
-# Perform Euler integration
-t_values, N_values = euler_method(variationExpoODE, initial_population, t0, tf, num_steps, growth_rate)
-
-# Plot the results
-import matplotlib.pyplot as plt
+# Euler & RK
+t_values, N_values = aux.euler_method(variationExpoODE, initial_population, t0, tf, num_steps, growth_rate)
+t_values_rk4, N_values_rk4 = aux.runge_kutta_4(variationExpoODE, initial_population, t0, tf, num_steps, growth_rate)
 
 # Plot both exact solution and Euler method approximation
-plt.plot(t_values, N_values, label='Euler Method Approximation')
+plt.plot(t_values, N_values, label='Aproximacion Euler')
+plt.plot(t_values_rk4, N_values_rk4, label='Aproximacion RK4')
 plt.plot(t_exact, N_exact, label='Exact Solution', linestyle='--')
-plt.xlabel('Time')
-plt.ylabel('Population')
-plt.title('Population Growth: Euler Method vs Exact Solution')
+plt.xlabel('Tiempo')
+plt.ylabel('Población')
+plt.title('Crecimiento de Población Exponencial (G-Truth vs Euler vs RK4)')
 plt.legend()
 plt.grid(True)
 plt.show()
-
-# Plot 3 || Population Time (Exponential, Euler Approximation, Runge-Kutta Approximation)
-
 
 
 # Plot 4 || Population Over Time (Exponential, Euler Approximation, Runge-Kutta Approximation)
