@@ -30,7 +30,7 @@ Actividad 1 [PvE]
     -> Curva 8: Exonential [N = 10, r = 0]
     -> Curva 9 Logistique [N = 10, r = 0, K = 5000]
 
-|| Grafico 3: Aprox Eulervs Runge Kutta Exponencial (groundtruth, euler, rk vs time)
+|| Grafico 3: Aprox Euler vs Runge Kutta Exponencial (groundtruth, euler, rk vs time)
     -> Curva 1: Ground Truth Exponential con r positivo
     -> Curva 2: Euler aprox con r positivo
     -> Curva 3: RK aprox con r positivo
@@ -38,7 +38,7 @@ Actividad 1 [PvE]
     -> Curva 5: Euler aprox con r negativo
     -> Curva 6: RK aprox con r negativo
 
-|| Grafico 4: Aprox Eulervs Runge Kutta Logistique (groundtruth, euler, rk vs time)
+|| Grafico 4: Aprox Euler vs Runge Kutta Logistique (groundtruth, euler, rk vs time)
     -> Curva 1: Ground Truth Exponential con K que no llegue
     -> Curva 2: Euler aprox con K que no llegue
     -> Curva 3: RK aprox con K que no llegue
