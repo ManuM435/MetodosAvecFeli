@@ -2,19 +2,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 import fonctions_auxiliares as aux
 
-def variationExpoODE(r, N):
+def variationExpoODE(t, N, r):
     '''Calcule la dérivée de la fonction exponentielle en un point N, avec un taux de croissance r'''
     return r * N
 
-def populationExpoFonction(r, N0, t):
+def populationExpoFonction(t, N0, r):
     '''Calcule la population en fonction du temps t, avec un taux de croissance r et une population initiale N0'''
     return N0 * np.exp(r * t)
 
-def logistiqueODE(r, N, K):
+def logistiqueODE(t, N, r, K):
     '''Calcule la dérivée de la fonction logistique en un point N, avec un taux de croissance r et une capacité de charge K'''
     return r * N * (1 - N / K)
 
-def logistiquePopulation(r, N0, t, K):
+def logistiquePopulation(t, N0, r, K):
     '''Calcule la population en fonction du temps t, avec un taux de croissance r, une capacité de charge K et une population initiale N0'''
     return K * N0 / (N0 + (K - N0) * np.exp(-r * t))
 
@@ -26,17 +26,17 @@ N0 = 25
 N1 = 6 # for the exponential
 
 # Les curves (exponentielle)
-popuExpo0 = populationExpoFonction(r, 0, t)
-popuExpo1 = populationExpoFonction(r, N1, t) # TODO Appendix 1 Cambiar el 6 por "N1" para simular el que tienen todos el mismo comienzo 
-popuExpo2 = populationExpoFonction((-1 * r), 10, t)
-popuExpo3 = populationExpoFonction(0, 10, t)
+popuExpo0 = populationExpoFonction(t, 0, r)
+popuExpo1 = populationExpoFonction(t, N1, r) # TODO Appendix 1 Cambiar el 6 por "N1" para simular el que tienen todos el mismo comienzo 
+popuExpo2 = populationExpoFonction(t, 10, (-1 * r))
+popuExpo3 = populationExpoFonction(t, 10, 0)
 
 # Les curves (logistique)
-popuLogi0 = logistiquePopulation(r, 0, t, k)
-popuLogi1 = logistiquePopulation(r, N0, t, 2000)
-popuLogi2 = logistiquePopulation(r, N0, t, k)
-popuLogi3 = logistiquePopulation((-1 * r), N0, t, k)
-popuLogi4 = logistiquePopulation(0, N0, t, k)
+popuLogi0 = logistiquePopulation(t, 0, r, k)
+popuLogi1 = logistiquePopulation(t, N0, r, 2000)
+popuLogi2 = logistiquePopulation(t, N0, r, k)
+popuLogi3 = logistiquePopulation(t, N0, (-1 * r), k)
+popuLogi4 = logistiquePopulation(t, N0, 0, k)
 
 # Les plots 
 
@@ -57,11 +57,11 @@ plt.legend()
 plt.show()
 
 # Plot 2 || Population Variation Over Population
-plt.plot(popuExpo1, variationExpoODE(r, popuExpo1), label='ExpNormal')
-plt.plot(popuLogi1, logistiqueODE(r, popuLogi1, 1500), label='LogisLowCap')
-plt.plot(popuLogi2, logistiqueODE(r, popuLogi2, k), label='LogisNormal')
-plt.plot(popuExpo2, variationExpoODE((-1 * r), popuExpo2), label='ExpNegGrowth')
-plt.plot(popuLogi3, logistiqueODE((-1 * r), popuLogi3, k), label='LogisNegGrowth')
+plt.plot(popuExpo1, variationExpoODE(t, popuExpo1, r), label='ExpNormal')
+plt.plot(popuLogi1, logistiqueODE(t, popuLogi1, r, 1500), label='LogisLowCap')
+plt.plot(popuLogi2, logistiqueODE(t, popuLogi2, r, k), label='LogisNormal')
+plt.plot(popuExpo2, variationExpoODE(t, popuExpo2, (-1 * r)), label='ExpNegGrowth')
+plt.plot(popuLogi3, logistiqueODE(t, popuLogi3, (-1 * r), k), label='LogisNegGrowth')
 # TODO: Descomentar estos para el grafico de esos casos triviales, Appendix 2
 # plt.plot(popuExpo0, variationExpoODE(r, popuExpo0), label='Exp0Starter')
 # plt.plot(popuLogi0, logistiqueODE(r, popuLogi0, k), label='Logis0Starter')
@@ -73,24 +73,67 @@ plt.title('Population Variation Over Population')
 plt.legend()
 plt.show()
 
-# Values for the Approximation
-Nz = 10
-rz = 0.1
-Kz = 100
-h = 0.1
 
 
 
-# Plot 3 || Population Over Time (Exponential, Euler Approximation, Runge-Kutta Approximation)
-plt.plot(t, popuExpoZ, label='Exponential')
-plt.plot(t, euler_approx, label='Euler Approximation')
-plt.plot(t, runge_kutta_approx, label='Runge-Kutta Approximation')
+
+
+
+
+
+
+
+
+
+def euler_method(func, initial_condition, t0, tf, num_steps, *args):
+    h = (tf - t0) / num_steps  # Step size
+    t_values = [t0]
+    y_values = [initial_condition]
+
+    t = t0
+    y = initial_condition
+
+    for _ in range(num_steps):
+        y += h * func(t, y, *args)
+        t += h
+        t_values.append(t)
+        y_values.append(y)
+
+    return t_values, y_values
+
+# Example usage
+initial_population = 10  # Initial population
+growth_rate = 0.1  # Growth rate
+t0 = 0  # Initial time
+tf = 50  # Final time
+num_steps = 100  # Number of steps for Euler method
+
+# Compare exact solution with Euler method approximation
+t_exact = np.linspace(t0, tf, 100)  # Time points for exact solution
+N_exact = populationExpoFonction(t_exact, initial_population, growth_rate)
+
+
+# Perform Euler integration
+t_values, N_values = euler_method(variationExpoODE, initial_population, t0, tf, num_steps, growth_rate)
+
+# Plot the results
+import matplotlib.pyplot as plt
+
+# Plot both exact solution and Euler method approximation
+plt.plot(t_values, N_values, label='Euler Method Approximation')
+plt.plot(t_exact, N_exact, label='Exact Solution', linestyle='--')
 plt.xlabel('Time')
 plt.ylabel('Population')
-plt.title('Population Over Time (Exponential, Euler Approximation, Runge-Kutta Approximation)')
+plt.title('Population Growth: Euler Method vs Exact Solution')
 plt.legend()
+plt.grid(True)
 plt.show()
 
+# Plot 3 || Population Time (Exponential, Euler Approximation, Runge-Kutta Approximation)
+
+
+
+# Plot 4 || Population Over Time (Exponential, Euler Approximation, Runge-Kutta Approximation)
 
 
 
