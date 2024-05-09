@@ -3,6 +3,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.integrate as spi
 
+def euler_method(ode, y0, t, h):
+    '''Implementa el método de Euler para resolver ecuaciones diferenciales'''
+    return y0 + h * (ode(y0, t))
+
 def runge_kutta_4(ode, y0, t, h):
     '''Implementa el método de Runge-Kutta de orden 4 para resolver ecuaciones diferenciales'''
     k1 = h * np.array(ode(y0, t))

@@ -1,3 +1,5 @@
+los graficos
+
 Aca poner todos los graficos que vamos a estar haciendo (importante para ya ir armando el codigo)
 Let's not forget que este no es un TP de programacion que evalua Python, es un Informe en el que el codigo solo sirve para los resultados
 La funcion de todo este codigo es hacer los graficos correspondientes, y dichos graficos serán...
@@ -18,15 +20,31 @@ Actividad 1 [PvE]
     -> Curva 9 Logistique [N = 10, r = 0, K = 5000]
 
 || Grafico 2: Variacion Poblacional (dN/dt vs N) 
-    -> Curva 1: 
-    -> Curva 2:
-    -> Curva 3:
-    -> Curva 4:
-    -> Curva 5:
-    -> Curva 6:
-    -> Curva 7:
-    -> Curva 8:
-    
+    -> Curva 1: Exponential [N = 0, r = 0.5]
+    -> Curva 2: Logistique [N = 0, r = 0.5, K = 50]
+    -> Curva 3: Exponential [N = 10, r = 0,5]
+    -> Curva 4: Logistique [N = 10, r = 0.5, K = lim al que no llegue]
+    -> Curva 5: Logistque [N = 10, r = 0.5 K = lim que llegue]
+    -> Curva 6: Exponential [N = 10, r = -0.5]
+    -> Curva 7: Logistique [N = 10, r = -0.5, K = 5000]
+    -> Curva 8: Exonential [N = 10, r = 0]
+    -> Curva 9 Logistique [N = 10, r = 0, K = 5000]
+
+|| Grafico 3: Aprox Eulervs Runge Kutta Exponencial (groundtruth, euler, rk vs time)
+    -> Curva 1: Ground Truth Exponential con r positivo
+    -> Curva 2: Euler aprox con r positivo
+    -> Curva 3: RK aprox con r positivo
+    -> Curva 4: Ground Truth Exponential con r negativo
+    -> Curva 5: Euler aprox con r negativo
+    -> Curva 6: RK aprox con r negativo
+
+|| Grafico 4: Aprox Eulervs Runge Kutta Logistique (groundtruth, euler, rk vs time)
+    -> Curva 1: Ground Truth Exponential con K que no llegue
+    -> Curva 2: Euler aprox con K que no llegue
+    -> Curva 3: RK aprox con K que no llegue
+    -> Curva 4: Ground Truth Exponential con K que limite
+    -> Curva 5: Euler aprox con K que limite
+    -> Curva 6: RK aprox con K que limite
 
 
 Actividad 2 [PvP] // los inputs son (r1, r2, K1, K2, alpha12, alpha21, [y0], t=constant)
