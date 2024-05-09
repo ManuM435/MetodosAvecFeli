@@ -73,8 +73,6 @@ plt.title('Variacion de Población en base a Población')
 plt.legend()
 plt.show()
 
-
-
 # Valores Ejemplo para Aproximar
 initial_population = 10  
 growth_rate = 0.18  
@@ -82,7 +80,6 @@ t0 = 0
 tf = 50  
 num_steps = 100  
 limit = 1000
-
 
 # Exactas de Exponencial con los punticos
 t_exact = np.linspace(t0, tf, num_steps) 
