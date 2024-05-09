@@ -77,23 +77,25 @@ plt.show()
 
 # Valores Ejemplo para Aproximar
 initial_population = 10  
-growth_rate = 0.1  
+growth_rate = 0.18  
 t0 = 0  
 tf = 50  
 num_steps = 100  
+limit = 1000
 
-# Exactas con los punticos
+
+# Exactas de Exponencial con los punticos
 t_exact = np.linspace(t0, tf, num_steps) 
 N_exact = populationExpoFonction(t_exact, initial_population, growth_rate)
 
-# Euler & RK
-t_values, N_values = aux.euler_method(variationExpoODE, initial_population, t0, tf, num_steps, growth_rate)
+# Aproximacion de Exponencial con Euler & RK
+t_values_eu, N_values_eu = aux.euler_method(variationExpoODE, initial_population, t0, tf, num_steps, growth_rate)
 t_values_rk4, N_values_rk4 = aux.runge_kutta_4(variationExpoODE, initial_population, t0, tf, num_steps, growth_rate)
 
 # Plot both exact solution and Euler method approximation
-plt.plot(t_values, N_values, label='Aproximacion Euler')
+plt.plot(t_values_eu, N_values_eu, label='Aproximacion Euler')
 plt.plot(t_values_rk4, N_values_rk4, label='Aproximacion RK4')
-plt.plot(t_exact, N_exact, label='Exact Solution', linestyle='--')
+plt.plot(t_exact, N_exact, label='Ground Truth', linestyle='--')
 plt.xlabel('Tiempo')
 plt.ylabel('Población')
 plt.title('Crecimiento de Población Exponencial (G-Truth vs Euler vs RK4)')
@@ -101,8 +103,49 @@ plt.legend()
 plt.grid(True)
 plt.show()
 
+# Calculate the average relative error for Euler approximation
+euler_error = np.abs(N_exact - N_values_eu) / N_exact
+euler_avg_error = np.mean(euler_error)
+
+# Calculate the average relative error for Runge-Kutta approximation
+rk4_error = np.abs(N_exact - N_values_rk4) / N_exact
+rk4_avg_error = np.mean(rk4_error)
+
+print("Average Relative Error Euler (Exponential):", euler_avg_error)
+print("Average Relative Error Runge-Kutta (Exponential):", rk4_avg_error)
+
+#TODO: Graph both their errors as less or more num_steps are used
+
 
 # Plot 4 || Population Over Time (Exponential, Euler Approximation, Runge-Kutta Approximation)
 
+# Exactas de Logistica con los punticos
+t_logis_exact = np.linspace(t0, tf, num_steps)
+N_logis_exact = logistiquePopulation(t_logis_exact, initial_population, growth_rate, limit)
 
+# Aproximacion de Logistica con Euler & RK
+t_logis_eu, N_logis_eu = aux.euler_method(logistiqueODE, initial_population, t0, tf, num_steps, growth_rate, limit)
+t_logis_rk4, N_logis_rk4 = aux.runge_kutta_4(logistiqueODE, initial_population, t0, tf, num_steps, growth_rate, limit)
+
+# Plot both exact solution and Euler method approximation
+plt.plot(t_logis_eu, N_logis_eu, label='Aproximacion Euler')
+plt.plot(t_logis_rk4, N_logis_rk4, label='Aproximacion RK4')
+plt.plot(t_logis_exact, N_logis_exact, label='Ground Truth', linestyle='--')
+plt.xlabel('Tiempo')
+plt.ylabel('Población')
+plt.title('Crecimiento de Población Logistica (G-Truth vs Euler vs RK4)')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+euler_logis_error = np.abs(N_logis_exact - N_logis_eu) / N_logis_exact
+euler_logis_avg_error = np.mean(euler_logis_error)
+
+rk4_logis_error = np.abs(N_logis_exact - N_logis_rk4) / N_logis_exact
+rk4_logis_avg_error = np.mean(rk4_logis_error)
+
+print("Average Relative Error Euler (Logistique):", euler_logis_avg_error)
+print("Average Relative Error Runge-Kutta (Logistique):", rk4_logis_avg_error)
+
+#TODO Graph both their errors as less or more num_steps are used
 
