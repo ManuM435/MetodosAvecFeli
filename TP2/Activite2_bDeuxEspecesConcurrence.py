@@ -41,22 +41,90 @@ datos0 = (EquilibriumPoint(*pars0), pars0)
 
 
 # Isoclinas Cero
-N1 = np.linspace(0, 100, 100)
-N2 = np.linspace(0, 200, 100)
-K1 = 100
-K2 = 200
-alpha12 = 1/2
-alpha21 = 2
 
-# Isoclinas
-isoclineN1 = K1 - alpha12 * N2
-isoclineN2 = K2 - alpha21 * N1
+# Parametros Part 1
+N1a = np.linspace(0, 100, 100)
+N2a = np.linspace(0, 200, 100)
+K1a = 100
+K2a = 200
+alpha12a = 1/2
+alpha21a = 2
+# Si los alpha son inversos, la pendiente es la misma (entonces el que tiene K mas grande va a ser siempre mas grande)
+# Si K2 > K1, entonces [isoclina de N2 > isoclina de N1]
 
-# Graficar
-plt.plot(N1, isoclineN1, label='Isocline of N1')
-plt.plot(isoclineN2, N2, label='Isocline of N2')
+# Isoclinas Part 1
+isoclineN1a = K1a - alpha12a * N2a
+isoclineN2a = K2a - alpha21a * N1a
+
+# Graficar Part 1
+plt.plot(N1a, isoclineN1a, label='Isocline of N1')
+plt.plot(isoclineN2a, N2a, label='Isocline of N2')
 plt.xlabel('N1')
 plt.ylabel('N2')
 plt.legend()
 plt.show()
+
+# Parametros Part 2
+N1b = np.linspace(0, 200, 100)
+N2b = np.linspace(0, 100, 100)
+K1b = 200
+K2b = 100
+alpha12b = 2
+alpha21b = 1/2
+# Si los alpha son inversos, la pendiente es la misma (entonces el que tiene K mas grande va a ser siempre mas grande)
+# Si K1 > K2, entonces [isoclina de N1 > isoclina de N2]
+
+# Isoclinas Part 2
+isoclineN1b = K1b - alpha12b * N2b
+isoclineN2b = K2b - alpha21b * N1b
+
+# Graficar Part 2
+plt.plot(N1b, isoclineN1b, label='Isocline of N1')
+plt.plot(isoclineN2b, N2b, label='Isocline of N2')
+plt.xlabel('N1')
+plt.ylabel('N2')
+plt.legend()
+plt.show()
+
+# Parametros Part 3
+N1c = np.linspace(0, 200, 100)
+N2c = np.linspace(0, 100, 100)
+K1c = 400
+K2c = 400
+alpha12c = 4
+alpha21c = 2
+
+# Isoclinas Part 3
+isoclineN1c = K1c - alpha12c * N2c
+isoclineN2c = K2c - alpha21c * N1c
+
+# Graficar Part 3
+plt.plot(N1c, isoclineN1c, label='Isocline of N1')
+plt.plot(isoclineN2c, N2c, label='Isocline of N2')
+plt.xlabel('N1')
+plt.ylabel('N2')
+plt.legend()
+plt.show()
+
+
+# Parametros Part 4
+N1d = np.linspace(0, 100, 100)
+N2d = np.linspace(0, 200, 100)
+K1d = 400
+K2d = 400
+alpha12d = 2
+alpha21d = 4
+
+# Isoclinas Part 4
+isoclineN2d = K1d - alpha12d * N2d
+isoclineN1d = K2d - alpha21d * N1d
+
+# Graficar Part 4
+plt.plot(N1d, isoclineN1d, label='Isocline of N1')
+plt.plot(isoclineN2d, N2d, label='Isocline of N2')
+plt.xlabel('N1')
+plt.ylabel('N2')
+plt.legend()
+plt.show()
+
 
