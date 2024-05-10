@@ -107,6 +107,8 @@ plt.legend()
 plt.show()
 
 
+#TODO: Arreglar esta ultima
+
 # Parametros Part 4
 N1d = np.linspace(0, 100, 100)
 N2d = np.linspace(0, 200, 100)
