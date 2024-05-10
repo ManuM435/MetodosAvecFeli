@@ -38,4 +38,4 @@ def runge_kutta_4(func, initial_condition, t0, tf, num_steps, *args):
         t_values.append(t)
         y_values.append(y)
 
-    return t_values, y_values
+    return [t_values, y_values]
