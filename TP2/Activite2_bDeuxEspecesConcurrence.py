@@ -88,11 +88,11 @@ plt.show()
 
 # Parametros Part 3
 N1c = np.linspace(0, 100, 100)
-N2c = np.linspace(0, 100, 100)
-K1c = 200
-K2c = 150
+N2c = np.linspace(0, 180, 100)
+K1c = 360
+K2c = 300
 alpha12c = 2
-alpha21c = 3/2
+alpha21c = 3
 
 # Isoclinas Part 3
 isoclineN1c = K1c - alpha12c * N2c
@@ -105,48 +105,54 @@ plt.xlabel('N1')
 plt.ylabel('N2')
 plt.legend()
 plt.show()
+# Con alfas > 1
+# Arrancan con N1 mayor, luego N2 mayor 
+
 
 # Parametros Part 4
-N1d = np.linspace(0, 100, 100)
-N2d = np.linspace(0, 100, 100)
-K1d = 0
-K2d = 200
-alpha12d = -2
-alpha21d = 2
+N1e = np.linspace(0, 100, 100)
+N2e = np.linspace(0, 180, 100)
+K1e = 60
+K2e = 50
+alpha12e = 1/3
+alpha21e = 1/2
 
 # Isoclinas Part 4
-isoclineN1d = K1d - alpha12d * N2d
-isoclineN2d = K2d - alpha21d * N1d
+isoclineN1e = K1e - alpha12e * N2e
+isoclineN2e = K2e - alpha21e * N1e
 
 # Graficar Part 4
-plt.plot(N1d, isoclineN1d, label='Isocline of N1')
-plt.plot(isoclineN2d, N2d, label='Isocline of N2')
+plt.plot(N1e, isoclineN1e, label='Isocline of N1')
+plt.plot(isoclineN2e, N2e, label='Isocline of N2')
 plt.xlabel('N1')
 plt.ylabel('N2')
 plt.legend()
 plt.show()
+# Con alfas < 1
+# Empiezan al reves, y terminan al reves
 
 
 
-#TODO Para el Appendix, saber que cuando ambos alfas son >=1, entonces la N1 arranca arriba, despues la N2 queda arriba
-# Pero si los alfas son ambos <=1, entonces la N2 arranca arriba, despues la N1 queda arriba
+#TODO Para el Appendix, saber que cuando ambos alfas son positivos, estas decrecen, pero si algun alfa es positivo 
 
-# # Parametros Part 3
-# N1e = np.linspace(0, 100, 100)
-# N2e = np.linspace(0, 100, 100)
-# K1e = 50
-# K2e = 50
-# alpha12e = 1/2
-# alpha21e = 1/2
+# # Parametros Part 5
+# N1d = np.linspace(0, 100, 100)
+# N2d = np.linspace(0, 100, 100)
+# K1d = 0
+# K2d = 200
+# alpha12d = -2
+# alpha21d = 2
 
-# # Isoclinas Part 3
-# isoclineN1e = K1e - alpha12e * N2e
-# isoclineN2e = K2e - alpha21e * N1e
+# # Isoclinas Part 5
+# isoclineN1d = K1d - alpha12d * N2d
+# isoclineN2d = K2d - alpha21d * N1d
 
-# # Graficar Part 3
-# plt.plot(N1e, isoclineN1e, label='Isocline of N1')
-# plt.plot(isoclineN2e, N2e, label='Isocline of N2')
+# # Graficar Part 5
+# plt.plot(N1d, isoclineN1d, label='Isocline of N1')
+# plt.plot(isoclineN2d, N2d, label='Isocline of N2')
 # plt.xlabel('N1')
 # plt.ylabel('N2')
 # plt.legend()
 # plt.show()
+
+
