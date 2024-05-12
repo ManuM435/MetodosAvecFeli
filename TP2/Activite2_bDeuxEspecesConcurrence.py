@@ -21,8 +21,8 @@ def EquilibriumPoint(r1, r2, K1, K2, alpha12, alpha21):
 # Data for The Multiple Curves
 d1 = [60, 60, 0.1, 0.1, 500, 500, 3, 1, 0.1, 250] # a1>a2
 d2 = [60, 60, 0.1, 0.1, 500, 500, -2, 1, 0.1, 250] # a1<a2
-d3 = [60, 120, 0.1, 0.1, 500, 500, 1, 1, 0.1, 250] # NI1 < NI2
-d4 = [60, 60, 0.1, 0.1, 500, 500, 1, 1, 0.1, 250] # NI1 > NI2
+d3 = [60, 120, 0.1, 0.1, 500, 500, 1, 1, 0.1, 250] # N01 < N02
+d4 = [60, 60, 0.1, 0.1, 500, 500, 1, 1, 0.1, 250] # N01 > N02
 
 
 # Graphing all the Curves
@@ -30,7 +30,7 @@ N1_values, N2_values = rkSolver(lotkaVolterra, d1[0], d1[1], d1[2], d1[3], d1[4]
 N1_valuesb, N2_valuesb = rkSolver(lotkaVolterra, d2[0], d2[1], d2[2], d2[3], d2[4], d2[5], d2[6], d2[7], d2[8], d2[9])
 N1_valuesc, N2_valuesc = rkSolver(lotkaVolterra, d3[0], d3[1], d3[2], d3[3], d3[4], d3[5], d3[6], d3[7], d3[8], d3[9])
 
-# TODO: Maybe replace "N1_values" and "N2_values" with "Pandas" and "Peacocks" 
+# TODO: Maybe replace "N1_values" and "N2_values" with "Pandas" and "Tigers" 
 # Maybe!!
 
 # Plotting the results
@@ -38,8 +38,8 @@ plt.plot(N1_values, label='Species 1 (a1 > a2)')
 plt.plot(N2_values, label='Species 2 (a1 > a2)')
 plt.plot(N1_valuesb, label='Species 1 (a1 < a2)')
 plt.plot(N2_valuesb, label='Species 2 (a1 < a2)')
-plt.plot(N1_valuesc, label='Species 1 (NI1 < NI2)')
-plt.plot(N2_valuesc, label='Species 2 (NI1 < NI2)')
+plt.plot(N1_valuesc, label='Species 1 (N01 < N02)')
+plt.plot(N2_valuesc, label='Species 2 (N01 < N02)')
 plt.xlabel('Time')
 plt.ylabel('Population')
 plt.title('Population dynamics of two species')
