@@ -18,6 +18,7 @@ def euler_method(func, initial_condition, t0, tf, num_steps, *args):
 
     return t_values, y_values
 
+
 def runge_kutta_4(func, initial_condition, t0, tf, num_steps, *args):
     h = (tf - t0) / num_steps
     t_values = [t0]
@@ -39,6 +40,7 @@ def runge_kutta_4(func, initial_condition, t0, tf, num_steps, *args):
         y_values.append(y)
 
     return [t_values, y_values]
+
 
 def rungeKutta4TwoSpecies(ode, N1, N2, r1, r2, K1, K2, alpha12, alpha21, dt, t_end):
     t = 0
