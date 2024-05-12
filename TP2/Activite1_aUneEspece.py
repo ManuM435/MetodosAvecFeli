@@ -111,9 +111,6 @@ rk4_avg_error = np.mean(rk4_error)
 print("Average Relative Error Euler (Exponential):", euler_avg_error)
 print("Average Relative Error Runge-Kutta (Exponential):", rk4_avg_error)
 
-#TODO: Graph both their errors as less or more num_steps are used
-
-
 # Plot 4 || Population Over Time (Exponential, Euler Approximation, Runge-Kutta Approximation)
 
 # Exactas de Logistica con los punticos
