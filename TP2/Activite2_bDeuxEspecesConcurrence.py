@@ -87,12 +87,12 @@ plt.legend()
 plt.show()
 
 # Parametros Part 3
-N1c = np.linspace(0, 200, 100)
+N1c = np.linspace(0, 100, 100)
 N2c = np.linspace(0, 100, 100)
-K1c = 400
-K2c = 400
-alpha12c = 4
-alpha21c = 2
+K1c = 200
+K2c = 150
+alpha12c = 2
+alpha21c = 3/2
 
 # Isoclinas Part 3
 isoclineN1c = K1c - alpha12c * N2c
@@ -106,20 +106,17 @@ plt.ylabel('N2')
 plt.legend()
 plt.show()
 
-
-#TODO: Arreglar esta ultima
-
 # Parametros Part 4
 N1d = np.linspace(0, 100, 100)
-N2d = np.linspace(0, 200, 100)
-K1d = 400
-K2d = 400
-alpha12d = 2
-alpha21d = 4
+N2d = np.linspace(0, 100, 100)
+K1d = 0
+K2d = 200
+alpha12d = -2
+alpha21d = 2
 
 # Isoclinas Part 4
-isoclineN2d = K1d - alpha12d * N2d
-isoclineN1d = K2d - alpha21d * N1d
+isoclineN1d = K1d - alpha12d * N2d
+isoclineN2d = K2d - alpha21d * N1d
 
 # Graficar Part 4
 plt.plot(N1d, isoclineN1d, label='Isocline of N1')
@@ -130,3 +127,26 @@ plt.legend()
 plt.show()
 
 
+
+#TODO Para el Appendix, saber que cuando ambos alfas son >=1, entonces la N1 arranca arriba, despues la N2 queda arriba
+# Pero si los alfas son ambos <=1, entonces la N2 arranca arriba, despues la N1 queda arriba
+
+# # Parametros Part 3
+# N1e = np.linspace(0, 100, 100)
+# N2e = np.linspace(0, 100, 100)
+# K1e = 50
+# K2e = 50
+# alpha12e = 1/2
+# alpha21e = 1/2
+
+# # Isoclinas Part 3
+# isoclineN1e = K1e - alpha12e * N2e
+# isoclineN2e = K2e - alpha21e * N1e
+
+# # Graficar Part 3
+# plt.plot(N1e, isoclineN1e, label='Isocline of N1')
+# plt.plot(isoclineN2e, N2e, label='Isocline of N2')
+# plt.xlabel('N1')
+# plt.ylabel('N2')
+# plt.legend()
+# plt.show()
