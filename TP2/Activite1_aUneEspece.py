@@ -134,6 +134,7 @@ plt.show()
 euler_logis_error = np.abs(N_logis_exact - N_logis_eu) / N_logis_exact
 euler_logis_avg_error = np.mean(euler_logis_error)
 
+# Calculate the average relative error for Runge-Kutta approximation
 rk4_logis_error = np.abs(N_logis_exact - N_logis_rk4) / N_logis_exact
 rk4_logis_avg_error = np.mean(rk4_logis_error)
 
