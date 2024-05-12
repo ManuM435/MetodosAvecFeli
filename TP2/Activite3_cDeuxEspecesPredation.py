@@ -14,8 +14,9 @@ def LVE(n, p, r, a, b, q, k):
     return [dNdT, dPdt]
 
 def rkSolve(ode, y0, t, h):
-    '''Resuelve el sistema de ecuaciones diferenciales con el método de Runge-Kutta'''
-    return aux.runge_kutta_4(ode, y0, t, h)
+    # Fijarse si sirve la 2 de species
+    return 
+
 
 #parametros
 par0 = (0.1, 0.5, 0.01, 0.66)     #rpos,a,b,q
@@ -28,10 +29,6 @@ num_steps = 1000
 t = np.linspace(t0,tf, num_steps)
 h = 0.1
 
-
-def rkSolve(ode, y0, t0,tf, yn, *args):
-    '''Resuelve el sistema de ecuaciones diferenciales con el método de Runge-Kutta'''
-    return aux.runge_kutta_4(ode, y0, t0,tf, yn, *args)
 
 #Ejercicio 3
 # rpos
