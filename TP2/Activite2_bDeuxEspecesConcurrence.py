@@ -34,57 +34,63 @@ N1_valuesc, N2_valuesc = rkSolver(lotkaVolterra, d3[0], d3[1], d3[2], d3[3], d3[
 # Maybe!!
 
 # Plotting the results
-plt.plot(N1_values, label='Species 1 (a1 > a2)')
-plt.plot(N2_values, label='Species 2 (a1 > a2)')
-plt.plot(N1_valuesb, label='Species 1 (a1 < a2)')
-plt.plot(N2_valuesb, label='Species 2 (a1 < a2)')
-plt.plot(N1_valuesc, label='Species 1 (N01 < N02)')
-plt.plot(N2_valuesc, label='Species 2 (N01 < N02)')
-plt.xlabel('Time')
-plt.ylabel('Population')
-plt.title('Population dynamics of two species')
-plt.legend()
-plt.show()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# TODO Descomentar Isoclinas
-# # Isoclinas Cero
-
-# # Parametros Part 1
-# N1a = np.linspace(0, 100, 100)
-# N2a = np.linspace(0, 200, 100)
-# K1a = 100
-# K2a = 200
-# alpha12a = 1/2
-# alpha21a = 2
-# # Si los alpha son inversos, la pendiente es la misma (entonces el que tiene K mas grande va a ser siempre mas grande)
-# # Si K2 > K1, entonces [isoclina de N2 > isoclina de N1]
-
-# # Isoclinas Part 1
-# isoclineN1a = K1a - alpha12a * N2a
-# isoclineN2a = K2a - alpha21a * N1a
-
-# # Graficar Part 1
-# plt.plot(N1a, isoclineN1a, label='Isocline of N1')
-# plt.plot(isoclineN2a, N2a, label='Isocline of N2')
-# plt.xlabel('N1')
-# plt.ylabel('N2')
+#TODO descomentar
+# plt.plot(N1_values, color = 'blue', label='Species 1 (a1 > a2)')
+# plt.plot(N2_values, color = 'blue', label='Species 2 (a1 > a2)')
+# plt.plot(N1_valuesb, color = 'red', label='Species 1 (a1 < a2)')
+# plt.plot(N2_valuesb, color = 'red', label='Species 2 (a1 < a2)')
+# plt.plot(N1_valuesc, color = 'green', label='Species 1 (N01 < N02)')
+# plt.plot(N2_valuesc, color = 'green', label='Species 2 (N01 < N02)')
+# plt.xlabel('Time')
+# plt.ylabel('Population')
+# plt.title('Population dynamics of two species')
 # plt.legend()
 # plt.show()
+
+
+# Isoclinas Cero
+
+# Parametros Part 1
+N1a = np.linspace(0, 100, 100)
+N2a = np.linspace(0, 200, 100)
+K1a = 100
+K2a = 200
+alpha12a = 1/2
+alpha21a = 2
+# Si los alpha son inversos, la pendiente es la misma (entonces el que tiene K mas grande va a ser siempre mas grande)
+# Si K2 > K1, entonces [isoclina de N2 > isoclina de N1]
+
+equia = EquilibriumPoint(0.1, 0.1, K1a, K2a, alpha12a, alpha21a)
+
+# Isoclinas Part 1
+isoclineN1a = K1a - alpha12a * N2a
+isoclineN2a = K2a - alpha21a * N1a
+
+#Vectores
+selected_points = np.random.uniform(0, 200, size=(50, 2))
+
+vector_dN1dt = []
+vector_dN2dt = []
+for point in selected_points:
+    dN1dt, dN2dt = lotkaVolterra(point[0], point[1], d1[2], d1[3], d1[4], d1[5], d1[6], d1[7])
+    vector_dN1dt.append(dN1dt)
+    vector_dN2dt.append(dN2dt)
+
+# Normalizar los vectores para que tengan longitud unitaria
+norm_vector_dN1dt = np.array(vector_dN1dt) / np.sqrt(np.array(vector_dN1dt)**2 + np.array(vector_dN2dt)**2)
+norm_vector_dN2dt = np.array(vector_dN2dt) / np.sqrt(np.array(vector_dN1dt)**2 + np.array(vector_dN2dt)**2)
+
+# Dibujar los vectores en el gráfico de isoclinas
+
+# Graficar Part 1
+plt.plot(N1a, isoclineN1a, label='Isocline of N1')
+plt.plot(isoclineN2a, N2a, label='Isocline of N2')
+plt.xlabel('N1')
+plt.ylabel('N2')
+plt.legend()
+plt.quiver(selected_points[:,0], selected_points[:,1], norm_vector_dN1dt, norm_vector_dN2dt, color='black', scale=30)
+
+plt.show()
 
 # # Parametros Part 2
 # N1b = np.linspace(0, 200, 100)
@@ -155,26 +161,26 @@ plt.show()
 
 
 
-# #TODO Para el Appendix, saber que cuando ambos alfas son positivos, estas decrecen, pero si algun alfa es positivo 
+# # #TODO Para el Appendix, saber que cuando ambos alfas son positivos, estas decrecen, pero si algun alfa es positivo 
 
-# # # Parametros Part 5
-# # N1d = np.linspace(0, 100, 100)
-# # N2d = np.linspace(0, 100, 100)
-# # K1d = 0
-# # K2d = 200
-# # alpha12d = -2
-# # alpha21d = 2
+# # # # Parametros Part 5
+# # # N1d = np.linspace(0, 100, 100)
+# # # N2d = np.linspace(0, 100, 100)
+# # # K1d = 0
+# # # K2d = 200
+# # # alpha12d = -2
+# # # alpha21d = 2
 
-# # # Isoclinas Part 5
-# # isoclineN1d = K1d - alpha12d * N2d
-# # isoclineN2d = K2d - alpha21d * N1d
+# # # # Isoclinas Part 5
+# # # isoclineN1d = K1d - alpha12d * N2d
+# # # isoclineN2d = K2d - alpha21d * N1d
 
-# # # Graficar Part 5
-# # plt.plot(N1d, isoclineN1d, label='Isocline of N1')
-# # plt.plot(isoclineN2d, N2d, label='Isocline of N2')
-# # plt.xlabel('N1')
-# # plt.ylabel('N2')
-# # plt.legend()
-# # plt.show()
+# # # # Graficar Part 5
+# # # plt.plot(N1d, isoclineN1d, label='Isocline of N1')
+# # # plt.plot(isoclineN2d, N2d, label='Isocline of N2')
+# # # plt.xlabel('N1')
+# # # plt.ylabel('N2')
+# # # plt.legend()
+# # # plt.show()
 
 
