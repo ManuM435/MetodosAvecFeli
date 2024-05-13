@@ -158,7 +158,7 @@ alpha21e = 2/3
 # Isoclinas Part 4
 isoclineN1e = K1e - alpha12e * N2e
 isoclineN2e = K2e - alpha21e * N1e
-#TODO Preguntar si esta bien eso del punto de equilibrio siendo la isct, si esta bien, despejatelo a mano y plotealo
+EquiPointE = [K1e/(1+alpha12e), K2e/(1+alpha21e)]
 
 #vectores
 vn1 = np.linspace(0, K1e, 40)
