@@ -113,25 +113,17 @@ plt.ylim(0,K2b)
 plt.show()
 
 # Parametros Part 3
-N1c = np.linspace(0, 100, 100)
-N2c = np.linspace(0, 180, 100)
-K1c = 360
-K2c = 300
+N1c = np.linspace(0, 50, 100)
+N2c = np.linspace(0, 50, 100)
+K1c = 100
+K2c = 100
 alpha12c = 2
-alpha21c = 3
+alpha21c = 2
 
 # Isoclinas Part 3
 isoclineN1c = K1c - alpha12c * N2c
 isoclineN2c = K2c - alpha21c * N1c
-EquiPointC = (60, 144)
-# Despejado a mano, el punto de equilibrio es (60, 144)
-# Ya que con igualas N1 a N2 y despejas para que las isoclinas sean iguales, y queda N1 = 60
-# Luego, reemplazando y teniendo en cuenta el que N1 va hasta 100 y N2 hasta 180, queda la ecuacion de IsoclinaN1
-# El despeje es N2 = 360 - a * x con x en (0, 180) en el rango de N2
-# Asi que si N1 = 60, el reemplazo con X seria 60 * 1.8 ya que N1 va de 0 a 100, N2 va de 0 a 180
-# La ecuacion queda: N2 = 360 - 2 * 60 * 1.8
-# N2 = 360 - 216 = 144
-# EquiPoint es (60, 144)
+EquiPointC = [K1c/(1+alpha12c), K2c/(1+alpha21c)]
 
 # Vectores
 vn1 = np.linspace(0, K1c, 40)
@@ -156,12 +148,12 @@ plt.show()
 # Arrancan con N1 mayor, luego N2 mayor 
 
 # Parametros Part 4
-N1e = np.linspace(0, 100, 100)
-N2e = np.linspace(0, 180, 100)
-K1e = 60
-K2e = 50
-alpha12e = 1/3
-alpha21e = 1/2
+N1e = np.linspace(0, 150, 100)
+N2e = np.linspace(0, 150, 100)
+K1e = 100
+K2e = 100
+alpha12e = 2/3
+alpha21e = 2/3
 
 # Isoclinas Part 4
 isoclineN1e = K1e - alpha12e * N2e

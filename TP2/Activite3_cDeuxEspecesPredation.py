@@ -16,6 +16,5 @@ def LVE(n, p, r, a, b, q, k):
 def rkSolver(ode, a, b, q, r, n0, p0, dt, t_end):
     return aux.rungeKutta4TwoSpecies(ode, n0, p0, r, a, b, q, dt, t_end)
 
-def equilibrium
 
 
