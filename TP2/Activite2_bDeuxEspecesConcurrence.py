@@ -120,19 +120,40 @@ K2c = 300
 alpha12c = 2
 alpha21c = 3
 
-# # Isoclinas Part 3
-# isoclineN1c = K1c - alpha12c * N2c
-# isoclineN2c = K2c - alpha21c * N1c
+# Isoclinas Part 3
+isoclineN1c = K1c - alpha12c * N2c
+isoclineN2c = K2c - alpha21c * N1c
+EquiPointC = (60, 144)
+# Despejado a mano, el punto de equilibrio es (60, 144)
+# Ya que con igualas N1 a N2 y despejas para que las isoclinas sean iguales, y queda N1 = 60
+# Luego, reemplazando y teniendo en cuenta el que N1 va hasta 100 y N2 hasta 180, queda la ecuacion de IsoclinaN1
+# El despeje es N2 = 360 - a * x con x en (0, 180) en el rango de N2
+# Asi que si N1 = 60, el reemplazo con X seria 60 * 1.8 ya que N1 va de 0 a 100, N2 va de 0 a 180
+# La ecuacion queda: N2 = 360 - 2 * 60 * 1.8
+# N2 = 360 - 216 = 144
+# EquiPoint es (60, 144)
 
-# # Graficar Part 3
-# plt.plot(N1c, isoclineN1c, label='Isocline of N1')
-# plt.plot(isoclineN2c, N2c, label='Isocline of N2')
-# plt.xlabel('N1')
-# plt.ylabel('N2')
-# plt.legend()
-# plt.show()
-# # Con alfas > 1
-# # Arrancan con N1 mayor, luego N2 mayor 
+# Vectores
+vn1 = np.linspace(0, K1c, 40)
+vn2 = np.linspace(0, K2c, 40)
+VN1, VN2 = np.meshgrid(vn1, vn2)
+
+dN1 = r1 * VN1 * (K1c - VN1 - alpha12c * VN2) / K1c
+dN2 = r2 * VN2 * (K2c - VN2 - alpha21c * VN1) / K2c
+
+# Graficar Part 3
+plt.plot(N1c, isoclineN1c, label='Isocline of N1')
+plt.plot(isoclineN2c, N2c, label='Isocline of N2')
+plt.scatter(EquiPointC[0], EquiPointC[1], color='red', label='Intersection Point')
+plt.xlabel('N1')
+plt.ylabel('N2')
+plt.legend()
+plt.streamplot(vn1, vn2, dN1, dN2, color = dN1, cmap='inferno', density=1.5, arrowstyle='->')
+plt.xlim(0,K1c)
+plt.ylim(0,K2c)
+plt.show()
+# Con alfas > 1
+# Arrancan con N1 mayor, luego N2 mayor 
 
 # Parametros Part 4
 N1e = np.linspace(0, 100, 100)
@@ -145,6 +166,7 @@ alpha21e = 1/2
 # Isoclinas Part 4
 isoclineN1e = K1e - alpha12e * N2e
 isoclineN2e = K2e - alpha21e * N1e
+#TODO Preguntar si esta bien eso del punto de equilibrio siendo la isct, si esta bien, despejatelo a mano y plotealo
 
 #vectores
 vn1 = np.linspace(0, K1e, 40)
