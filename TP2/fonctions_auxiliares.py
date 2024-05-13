@@ -60,3 +60,9 @@ def rungeKutta4TwoSpecies(ode, N1, N2, r1, r2, K1, K2, alpha12, alpha21, dt, t_e
         t += dt
     
     return N1_values, N2_values
+
+def EquilibriumPoint(K1, K2, alpha12, alpha21):
+    '''Calcula el punto de equilibrio del sistema de ecuaciones diferenciales'''
+    N1 = K1 - alpha12 * (K2 - alpha21 * K1) / (1 - alpha12 * alpha21)
+    N2 = (K2 - alpha21 * K1) / (1 - alpha12 * alpha21)
+    return [N1, N2]

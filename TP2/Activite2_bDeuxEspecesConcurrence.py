@@ -12,12 +12,6 @@ def lotkaVolterra(N1, N2, r1, r2, K1, K2, alpha12, alpha21):
 def rkSolver(ode, N1, N2, r1, r2, K1, K2, alpha12, alpha21, dt, t_end):
     return aux.rungeKutta4TwoSpecies(ode, N1, N2, r1, r2, K1, K2, alpha12, alpha21, dt, t_end)
 
-def EquilibriumPoint(r1, r2, K1, K2, alpha12, alpha21):
-    '''Calcula el punto de equilibrio del sistema de ecuaciones diferenciales'''
-    N1 = K1 - alpha12 * (K2 - alpha21 * K1) / (1 - alpha12 * alpha21)
-    N2 = (K2 - alpha21 * K1) / (1 - alpha12 * alpha21)
-    return [N1, N2]
-
 # Data for The Multiple Curves
 d1 = [60, 60, 0.1, 0.1, 500, 500, 3, 1, 0.1, 250] # a1>a2
 d2 = [60, 60, 0.1, 0.1, 500, 500, -2, 1, 0.1, 250] # a1<a2
@@ -59,8 +53,6 @@ alpha12a = 1/2
 alpha21a = 2
 # Si los alpha son inversos, la pendiente es la misma (entonces el que tiene K mas grande va a ser siempre mas grande)
 # Si K2 > K1, entonces [isoclina de N2 > isoclina de N1]
-
-equia = EquilibriumPoint(0.1, 0.1, K1a, K2a, alpha12a, alpha21a)
 
 # Isoclinas Part 1
 isoclineN1a = K1a - alpha12a * N2a
@@ -114,27 +106,38 @@ plt.show()
 # plt.legend()
 # plt.show()
 
-# # Parametros Part 3
-# N1c = np.linspace(0, 100, 100)
-# N2c = np.linspace(0, 180, 100)
-# K1c = 360
-# K2c = 300
-# alpha12c = 2
-# alpha21c = 3
+# Parametros Part 3
+N1c = np.linspace(0, 100, 100)
+N2c = np.linspace(0, 180, 100)
+K1c = 360
+K2c = 300
+alpha12c = 2
+alpha21c = 3
 
-# # Isoclinas Part 3
-# isoclineN1c = K1c - alpha12c * N2c
-# isoclineN2c = K2c - alpha21c * N1c
+# Isoclinas Part 3
+isoclineN1c = K1c - alpha12c * N2c
+isoclineN2c = K2c - alpha21c * N1c
+EquiPointC = (60, 144)
 
-# # Graficar Part 3
-# plt.plot(N1c, isoclineN1c, label='Isocline of N1')
-# plt.plot(isoclineN2c, N2c, label='Isocline of N2')
-# plt.xlabel('N1')
-# plt.ylabel('N2')
-# plt.legend()
-# plt.show()
-# # Con alfas > 1
-# # Arrancan con N1 mayor, luego N2 mayor 
+# Despejado a mano, el punto de equilibrio es (60, 144)
+# Ya que con igualas N1 a N2 y despejas para que las isoclinas sean iguales, y queda N1 = 60
+# Luego, reemplazando y teniendo en cuenta el que N1 va hasta 100 y N2 hasta 180, queda la ecuacion de IsoclinaN1
+# El despeje es N2 = 360 - a * x con x en (0, 180) en el rango de N2
+# Asi que si N1 = 60, el reemplazo con X seria 60 * 1.8 ya que N1 va de 0 a 100, N2 va de 0 a 180
+# La ecuacion queda: N2 = 360 - 2 * 60 * 1.8
+# N2 = 360 - 216 = 144
+# EquiPoint es (60, 144)
+
+# Graficar Part 3
+plt.plot(N1c, isoclineN1c, label='Isocline of N1')
+plt.plot(isoclineN2c, N2c, label='Isocline of N2')
+plt.scatter(EquiPointC[0], EquiPointC[1], color='red', label='Equilibrium Point')
+plt.xlabel('N1')
+plt.ylabel('N2')
+plt.legend()
+plt.show()
+# Con alfas > 1
+# Arrancan con N1 mayor, luego N2 mayor 
 
 
 # # Parametros Part 4
