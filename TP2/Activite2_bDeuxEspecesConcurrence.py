@@ -43,6 +43,8 @@ N1_valuesc, N2_valuesc = rkSolver(lotkaVolterra, d3[0], d3[1], d3[2], d3[3], d3[
 
 
 # Isoclinas Cero
+r1 = 0.1
+r2 = 0.1
 
 # Parametros Part 1
 N1a = np.linspace(0, 100, 100)
@@ -51,6 +53,7 @@ K1a = 100
 K2a = 200
 alpha12a = 1/2
 alpha21a = 2
+
 # Si los alpha son inversos, la pendiente es la misma (entonces el que tiene K mas grande va a ser siempre mas grande)
 # Si K2 > K1, entonces [isoclina de N2 > isoclina de N1]
 
@@ -58,53 +61,57 @@ alpha21a = 2
 isoclineN1a = K1a - alpha12a * N2a
 isoclineN2a = K2a - alpha21a * N1a
 
-#Vectores
-selected_points = np.random.uniform(0, 200, size=(50, 2))
+#vectores
+vn1 = np.linspace(0, K1a, 40)
+vn2 = np.linspace(0, K2a, 40)
+VN1, VN2 = np.meshgrid(vn1, vn2)
 
-vector_dN1dt = []
-vector_dN2dt = []
-for point in selected_points:
-    dN1dt, dN2dt = lotkaVolterra(point[0], point[1], d1[2], d1[3], d1[4], d1[5], d1[6], d1[7])
-    vector_dN1dt.append(dN1dt)
-    vector_dN2dt.append(dN2dt)
-
-# Normalizar los vectores para que tengan longitud unitaria
-norm_vector_dN1dt = np.array(vector_dN1dt) / np.sqrt(np.array(vector_dN1dt)**2 + np.array(vector_dN2dt)**2)
-norm_vector_dN2dt = np.array(vector_dN2dt) / np.sqrt(np.array(vector_dN1dt)**2 + np.array(vector_dN2dt)**2)
-
-# Dibujar los vectores en el gráfico de isoclinas
+dN1 = r1 * VN1 * (K1a - VN1 - alpha12a * VN2) / K1a
+dN2 = r2 * VN2 * (K2a - VN2 - alpha21a * VN1) / K2a
 
 # Graficar Part 1
-plt.plot(N1a, isoclineN1a, label='Isocline of N1')
-plt.plot(isoclineN2a, N2a, label='Isocline of N2')
+plt.plot(N1a, isoclineN1a, label='Isocline of N1', color = 'indigo')
+plt.plot(isoclineN2a, N2a, label='Isocline of N2', color = 'limegreen')
 plt.xlabel('N1')
 plt.ylabel('N2')
 plt.legend()
-plt.quiver(selected_points[:,0], selected_points[:,1], norm_vector_dN1dt, norm_vector_dN2dt, color='black', scale=30)
-
+plt.streamplot(vn1, vn2, dN1, dN2, color = dN1, cmap='plasma', density=1.5, arrowstyle='->')
+plt.xlim(0,K1a)
+plt.ylim(0,K2a)
 plt.show()
 
 # # Parametros Part 2
-# N1b = np.linspace(0, 200, 100)
-# N2b = np.linspace(0, 100, 100)
-# K1b = 200
-# K2b = 100
-# alpha12b = 2
-# alpha21b = 1/2
-# # Si los alpha son inversos, la pendiente es la misma (entonces el que tiene K mas grande va a ser siempre mas grande)
-# # Si K1 > K2, entonces [isoclina de N1 > isoclina de N2]
+N1b = np.linspace(0, 200, 100)
+N2b = np.linspace(0, 100, 100)
+K1b = 200
+K2b = 100
+alpha12b = 2
+alpha21b = 1/2
+# Si los alpha son inversos, la pendiente es la misma (entonces el que tiene K mas grande va a ser siempre mas grande)
+# Si K1 > K2, entonces [isoclina de N1 > isoclina de N2]
 
-# # Isoclinas Part 2
-# isoclineN1b = K1b - alpha12b * N2b
-# isoclineN2b = K2b - alpha21b * N1b
+# Isoclinas Part 2
+isoclineN1b = K1b - alpha12b * N2b
+isoclineN2b = K2b - alpha21b * N1b
 
-# # Graficar Part 2
-# plt.plot(N1b, isoclineN1b, label='Isocline of N1')
-# plt.plot(isoclineN2b, N2b, label='Isocline of N2')
-# plt.xlabel('N1')
-# plt.ylabel('N2')
-# plt.legend()
-# plt.show()
+#vectores
+vn1 = np.linspace(0, K1b, 40)
+vn2 = np.linspace(0, K2b, 40)
+VN1, VN2 = np.meshgrid(vn1, vn2)
+
+dN1 = r1 * VN1 * (K1b - VN1 - alpha12b * VN2) / K1b
+dN2 = r2 * VN2 * (K2b - VN2 - alpha21b * VN1) / K2b
+
+# Graficar Part 2
+plt.plot(N1b, isoclineN1b, label='Isocline of N1', color = 'indigo')
+plt.plot(isoclineN2b, N2b, label='Isocline of N2', color = 'limegreen')
+plt.xlabel('N1')
+plt.ylabel('N2')
+plt.legend()
+plt.streamplot(vn1, vn2, dN1, dN2, color = dN1, cmap='inferno', density=1.5, arrowstyle='->')
+plt.xlim(0,K1b)
+plt.ylim(0,K2b)
+plt.show()
 
 # Parametros Part 3
 N1c = np.linspace(0, 100, 100)
@@ -114,76 +121,75 @@ K2c = 300
 alpha12c = 2
 alpha21c = 3
 
-# Isoclinas Part 3
-isoclineN1c = K1c - alpha12c * N2c
-isoclineN2c = K2c - alpha21c * N1c
-EquiPointC = (60, 144)
+# # Isoclinas Part 3
+# isoclineN1c = K1c - alpha12c * N2c
+# isoclineN2c = K2c - alpha21c * N1c
 
-# Despejado a mano, el punto de equilibrio es (60, 144)
-# Ya que con igualas N1 a N2 y despejas para que las isoclinas sean iguales, y queda N1 = 60
-# Luego, reemplazando y teniendo en cuenta el que N1 va hasta 100 y N2 hasta 180, queda la ecuacion de IsoclinaN1
-# El despeje es N2 = 360 - a * x con x en (0, 180) en el rango de N2
-# Asi que si N1 = 60, el reemplazo con X seria 60 * 1.8 ya que N1 va de 0 a 100, N2 va de 0 a 180
-# La ecuacion queda: N2 = 360 - 2 * 60 * 1.8
-# N2 = 360 - 216 = 144
-# EquiPoint es (60, 144)
-
-# Graficar Part 3
-plt.plot(N1c, isoclineN1c, label='Isocline of N1')
-plt.plot(isoclineN2c, N2c, label='Isocline of N2')
-plt.scatter(EquiPointC[0], EquiPointC[1], color='red', label='Equilibrium Point')
-plt.xlabel('N1')
-plt.ylabel('N2')
-plt.legend()
-plt.show()
-# Con alfas > 1
-# Arrancan con N1 mayor, luego N2 mayor 
-
-
-# # Parametros Part 4
-# N1e = np.linspace(0, 100, 100)
-# N2e = np.linspace(0, 180, 100)
-# K1e = 60
-# K2e = 50
-# alpha12e = 1/3
-# alpha21e = 1/2
-
-# # Isoclinas Part 4
-# isoclineN1e = K1e - alpha12e * N2e
-# isoclineN2e = K2e - alpha21e * N1e
-
-# # Graficar Part 4
-# plt.plot(N1e, isoclineN1e, label='Isocline of N1')
-# plt.plot(isoclineN2e, N2e, label='Isocline of N2')
+# # Graficar Part 3
+# plt.plot(N1c, isoclineN1c, label='Isocline of N1')
+# plt.plot(isoclineN2c, N2c, label='Isocline of N2')
 # plt.xlabel('N1')
 # plt.ylabel('N2')
 # plt.legend()
 # plt.show()
-# # Con alfas < 1
-# # Empiezan al reves, y terminan al reves
+# # Con alfas > 1
+# # Arrancan con N1 mayor, luego N2 mayor 
+
+# Parametros Part 4
+N1e = np.linspace(0, 100, 100)
+N2e = np.linspace(0, 180, 100)
+K1e = 60
+K2e = 50
+alpha12e = 1/3
+alpha21e = 1/2
+
+# Isoclinas Part 4
+isoclineN1e = K1e - alpha12e * N2e
+isoclineN2e = K2e - alpha21e * N1e
+
+#vectores
+vn1 = np.linspace(0, K1e, 40)
+vn2 = np.linspace(0, K2e, 40)
+VN1, VN2 = np.meshgrid(vn1, vn2)
+
+dN1 = r1 * VN1 * (K1e - VN1 - alpha12e * VN2) / K1e
+dN2 = r2 * VN2 * (K2e - VN2 - alpha21e * VN1) / K2e
+
+# Graficar Part 4
+plt.plot(N1e, isoclineN1e, label='Isocline of N1', color = 'indigo')
+plt.plot(isoclineN2e, N2e, label='Isocline of N2', color = 'limegreen')
+plt.xlabel('N1')
+plt.ylabel('N2')
+plt.legend()
+plt.streamplot(vn1, vn2, dN1, dN2, color = dN1, cmap='plasma', density=1.5, arrowstyle='->')
+plt.xlim(0,K1e)
+plt.ylim(0,K2e)
+plt.show()
+# Con alfas < 1
+# Empiezan al reves, y terminan al reves
 
 
 
-# # #TODO Para el Appendix, saber que cuando ambos alfas son positivos, estas decrecen, pero si algun alfa es positivo 
+# #TODO Para el Appendix, saber que cuando ambos alfas son positivos, estas decrecen, pero si algun alfa es positivo 
 
-# # # # Parametros Part 5
-# # # N1d = np.linspace(0, 100, 100)
-# # # N2d = np.linspace(0, 100, 100)
-# # # K1d = 0
-# # # K2d = 200
-# # # alpha12d = -2
-# # # alpha21d = 2
+# # # Parametros Part 5
+# # N1d = np.linspace(0, 100, 100)
+# # N2d = np.linspace(0, 100, 100)
+# # K1d = 0
+# # K2d = 200
+# # alpha12d = -2
+# # alpha21d = 2
 
-# # # # Isoclinas Part 5
-# # # isoclineN1d = K1d - alpha12d * N2d
-# # # isoclineN2d = K2d - alpha21d * N1d
+# # # Isoclinas Part 5
+# # isoclineN1d = K1d - alpha12d * N2d
+# # isoclineN2d = K2d - alpha21d * N1d
 
-# # # # Graficar Part 5
-# # # plt.plot(N1d, isoclineN1d, label='Isocline of N1')
-# # # plt.plot(isoclineN2d, N2d, label='Isocline of N2')
-# # # plt.xlabel('N1')
-# # # plt.ylabel('N2')
-# # # plt.legend()
-# # # plt.show()
+# # # Graficar Part 5
+# # plt.plot(N1d, isoclineN1d, label='Isocline of N1')
+# # plt.plot(isoclineN2d, N2d, label='Isocline of N2')
+# # plt.xlabel('N1')
+# # plt.ylabel('N2')
+# # plt.legend()
+# # plt.show()
 
 
