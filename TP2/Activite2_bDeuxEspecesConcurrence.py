@@ -34,18 +34,17 @@ N1_valuesc, N2_valuesc = rkSolver(lotkaVolterra, d3[0], d3[1], d3[2], d3[3], d3[
 # Maybe!!
 
 # Plotting the results
-#TODO descomentar
-# plt.plot(N1_values, color = 'blue', label='Species 1 (a1 > a2)')
-# plt.plot(N2_values, color = 'blue', label='Species 2 (a1 > a2)')
-# plt.plot(N1_valuesb, color = 'red', label='Species 1 (a1 < a2)')
-# plt.plot(N2_valuesb, color = 'red', label='Species 2 (a1 < a2)')
-# plt.plot(N1_valuesc, color = 'green', label='Species 1 (N01 < N02)')
-# plt.plot(N2_valuesc, color = 'green', label='Species 2 (N01 < N02)')
-# plt.xlabel('Time')
-# plt.ylabel('Population')
-# plt.title('Population dynamics of two species')
-# plt.legend()
-# plt.show()
+plt.plot(N1_values, color = 'blue', label='Species 1 (a1 > a2)')
+plt.plot(N2_values, color = 'blue', label='Species 2 (a1 > a2)')
+plt.plot(N1_valuesb, color = 'red', label='Species 1 (a1 < a2)')
+plt.plot(N2_valuesb, color = 'red', label='Species 2 (a1 < a2)')
+plt.plot(N1_valuesc, color = 'green', label='Species 1 (N01 < N02)')
+plt.plot(N2_valuesc, color = 'green', label='Species 2 (N01 < N02)')
+plt.xlabel('Time')
+plt.ylabel('Population')
+plt.title('Population dynamics of two species')
+plt.legend()
+plt.show()
 
 
 # Isoclinas Cero
@@ -184,29 +183,3 @@ plt.ylim(0,K2e)
 plt.show()
 # Con alfas < 1
 # Empiezan al reves, y terminan al reves
-
-
-
-# #TODO Para el Appendix, saber que cuando ambos alfas son positivos, estas decrecen, pero si algun alfa es positivo 
-
-# # # Parametros Part 5
-# # N1d = np.linspace(0, 100, 100)
-# # N2d = np.linspace(0, 100, 100)
-# # K1d = 0
-# # K2d = 200
-# # alpha12d = -2
-# # alpha21d = 2
-
-# # # Isoclinas Part 5
-# # isoclineN1d = K1d - alpha12d * N2d
-# # isoclineN2d = K2d - alpha21d * N1d
-
-# # # Graficar Part 5
-# # plt.plot(N1d, isoclineN1d, label='Isocline of N1')
-# # plt.plot(isoclineN2d, N2d, label='Isocline of N2')
-# # plt.xlabel('N1')
-# # plt.ylabel('N2')
-# # plt.legend()
-# # plt.show()
-
-
