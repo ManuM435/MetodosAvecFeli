@@ -12,12 +12,6 @@ def lotkaVolterra(N1, N2, r1, r2, K1, K2, alpha12, alpha21):
 def rkSolver(ode, N1, N2, r1, r2, K1, K2, alpha12, alpha21, dt, t_end):
     return aux.rungeKutta4TwoSpecies(ode, N1, N2, r1, r2, K1, K2, alpha12, alpha21, dt, t_end)
 
-def EquilibriumPoint(r1, r2, K1, K2, alpha12, alpha21):
-    '''Calcula el punto de equilibrio del sistema de ecuaciones diferenciales'''
-    N1 = K1 - alpha12 * (K2 - alpha21 * K1) / (1 - alpha12 * alpha21)
-    N2 = (K2 - alpha21 * K1) / (1 - alpha12 * alpha21)
-    return [N1, N2]
-
 # Data for The Multiple Curves
 d1 = [60, 60, 0.1, 0.1, 500, 500, 3, 1, 0.1, 250] # a1>a2
 d2 = [60, 60, 0.1, 0.1, 500, 500, -2, 1, 0.1, 250] # a1<a2
@@ -126,30 +120,19 @@ K2c = 300
 alpha12c = 2
 alpha21c = 3
 
-# Isoclinas Part 3
-isoclineN1c = K1c - alpha12c * N2c
-isoclineN2c = K2c - alpha21c * N1c
+# # Isoclinas Part 3
+# isoclineN1c = K1c - alpha12c * N2c
+# isoclineN2c = K2c - alpha21c * N1c
 
-#vectores
-vn1 = np.linspace(0, K1c, 40)
-vn2 = np.linspace(0, K2c, 40)
-VN1, VN2 = np.meshgrid(vn1, vn2)
-
-dN1 = r1 * VN1 * (K1c - VN1 - alpha12c * VN2) / K1c
-dN2 = r2 * VN2 * (K2c - VN2 - alpha21c * VN1) / K2c
-
-# Graficar Part 3
-plt.plot(N1c, isoclineN1c, label='Isocline of N1', color = 'indigo')
-plt.plot(isoclineN2c, N2c, label='Isocline of N2', color = 'limegreen')
-plt.xlabel('N1')
-plt.ylabel('N2')
-plt.legend()
-plt.streamplot(vn1, vn2, dN1, dN2, color = dN1, cmap='viridis', density=1.5, arrowstyle='->')
-plt.xlim(0,K1c)
-plt.ylim(0,K2c)
-plt.show()
-# Con alfas > 1
-# Arrancan con N1 mayor, luego N2 mayor 
+# # Graficar Part 3
+# plt.plot(N1c, isoclineN1c, label='Isocline of N1')
+# plt.plot(isoclineN2c, N2c, label='Isocline of N2')
+# plt.xlabel('N1')
+# plt.ylabel('N2')
+# plt.legend()
+# plt.show()
+# # Con alfas > 1
+# # Arrancan con N1 mayor, luego N2 mayor 
 
 # Parametros Part 4
 N1e = np.linspace(0, 100, 100)
