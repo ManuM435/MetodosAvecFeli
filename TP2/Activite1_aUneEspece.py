@@ -62,11 +62,13 @@ plt.plot(popuLogi1, logistiqueODE(t, popuLogi1, r, 1500), label='LogisLowCap')
 plt.plot(popuLogi2, logistiqueODE(t, popuLogi2, r, k), label='LogisNormal')
 plt.plot(popuExpo2, variationExpoODE(t, popuExpo2, (-1 * r)), label='ExpNegGrowth')
 plt.plot(popuLogi3, logistiqueODE(t, popuLogi3, (-1 * r), k), label='LogisNegGrowth')
-# TODO: Descomentar estos para el grafico de esos casos triviales, Appendix 2
-# plt.plot(popuExpo0, variationExpoODE(r, popuExpo0), label='Exp0Starter')
-# plt.plot(popuLogi0, logistiqueODE(r, popuLogi0, k), label='Logis0Starter')
-# plt.plot(popuExpo3, variationExpoODE(0, popuExpo3), label='ExpNoGrowth')
-# plt.plot(popuLogi4, logistiqueODE(0, popuLogi4, k), label='LogisNoGrowth')
+
+# # TODO: Descomentar estos para el grafico de esos casos triviales, Appendix 2
+# # plt.plot(popuExpo0, variationExpoODE(r, popuExpo0), label='Exp0Starter')
+# # plt.plot(popuLogi0, logistiqueODE(r, popuLogi0, k), label='Logis0Starter')
+# # plt.plot(popuExpo3, variationExpoODE(0, popuExpo3), label='ExpNoGrowth')
+# # plt.plot(popuLogi4, logistiqueODE(0, popuLogi4, k), label='LogisNoGrowth')
+
 plt.xlabel('Población')
 plt.ylabel('Variacion')
 plt.title('Variacion de Población en base a Población')
@@ -101,13 +103,14 @@ plt.grid(True)
 plt.show()
 
 # Calculate the average relative error for Euler approximation
+euler_expo_error = np.abs(N_exact - N_values_eu[:-1]) / N_exact
+euler_expo_avg_error = np.mean(euler_expo_error)
 
+rk4_expo_error = np.abs(N_exact - N_values_rk4[:-1]) / N_exact
+rk4_expo_avg_error = np.mean(rk4_expo_error)
 
-# Calculate the average relative error for Runge-Kutta approximation
-
-
-print("Average Relative Error Euler (Exponential):", euler_avg_error)
-print("Average Relative Error Runge-Kutta (Exponential):", rk4_avg_error)
+print("Average Relative Error Euler (Exponential):", euler_expo_avg_error)
+print("Average Relative Error Runge-Kutta (Exponential):", rk4_expo_avg_error)
 
 # Plot 4 || Population Over Time (Exponential, Euler Approximation, Runge-Kutta Approximation)
 
@@ -131,15 +134,14 @@ plt.grid(True)
 plt.show()
 
 # Calculate the average relative error for Euler approximation
-euler_logis_error = np.abs(N_logis_exact - N_logis_eu) / N_logis_exact
+euler_logis_error = np.abs(N_logis_exact - N_logis_eu[:-1]) / N_logis_exact
 euler_logis_avg_error = np.mean(euler_logis_error)
 
-# Calculate the average relative error for Runge-Kutta approximation
-rk4_logis_error = np.abs(N_logis_exact - N_logis_rk4) / N_logis_exact
+rk4_logis_error = np.abs(N_logis_exact - N_logis_rk4[:-1]) / N_logis_exact
 rk4_logis_avg_error = np.mean(rk4_logis_error)
 
 print("Average Relative Error Euler (Logistique):", euler_logis_avg_error)
 print("Average Relative Error Runge-Kutta (Logistique):", rk4_logis_avg_error)
 
-#TODO Graph both their errors as less or more num_steps are used
+#TODO (Maybe) Graph both their errors as less or more num_steps are used
 
