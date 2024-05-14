@@ -71,7 +71,7 @@ pandas1, leopards1 = rungeKuttaPredatorPrey(PredatorPreyLotVol, Pandas0, Leopard
 
 
 plt.plot(pandas1, label='Pandas Normal')
-plt.plot(tigers1, label='Predator Normal')
+plt.plot(leopards1, label='Predator Normal')
 plt.xlabel('Time')
 plt.ylabel('Population')
 plt.legend()
@@ -91,7 +91,7 @@ plt.show()
 
 #Parámetros part 1
 Na = np.linspace(0, 100, 100)
-Pa = np.linspace(0, 200, 100)
+Pa = np.linspace(0, 100, 100)
 alphaa = 10
 betaa = 10
 ra = 0.1
