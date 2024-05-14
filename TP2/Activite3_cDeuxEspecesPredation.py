@@ -52,8 +52,10 @@ def rungeKuttaLotVolExt(ode, n, p, r, a, b, q, k, dt, t_end):
         t += dt
     return n_values, p_values
 
-# Approximate Predator-Prey with Runge Kutta
 
+# PREDATOR PREY RUNGE KUTTA (1 graph, 10 curves, 5 data sets)
+
+# Approximate Predator-Prey with Runge Kutta
 Pandas0 = 120  # initial population of prey species
 Tigers0 = 30  # initial population of predator species
 dt = 0.1 # time step size
@@ -74,3 +76,12 @@ plt.xlabel('Time')
 plt.ylabel('Population')
 plt.legend()
 plt.show()
+
+# LOTKA VOLTERRA EXTENDED RUNGE KUTTA (1 graph with 12 curves, 6 data sets)
+
+
+
+
+
+# GRAPHING BOTH DIFFERENTIAL EQUATIONS (no approximations, just the 2 differential equations)
+# TODO PREGUNTAR SI ES DN/DT OVER T OR OVER N(T)
