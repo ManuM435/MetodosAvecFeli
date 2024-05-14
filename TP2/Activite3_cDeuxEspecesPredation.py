@@ -70,12 +70,13 @@ d5 = [0.2, 0.02, 0.004, 0.6] # Higher Predator Death Rate aka Higher q
 pandas1, tigers1 = rungeKuttaPredatorPrey(PredatorPreyLotVol, Pandas0, Tigers0, d1[0], d1[1], d1[2], d1[3], dt, t_end)
 
 
-plt.plot(pandas1, label='Pandas Normal')
-plt.plot(tigers1, label='Predator Normal')
-plt.xlabel('Time')
-plt.ylabel('Population')
-plt.legend()
-plt.show()
+#TODO descomentar
+# plt.plot(pandas1, label='Pandas Normal')
+# plt.plot(tigers1, label='Predator Normal')
+# plt.xlabel('Time')
+# plt.ylabel('Population')
+# plt.legend()
+# plt.show()
 
 # LOTKA VOLTERRA EXTENDED RUNGE KUTTA (1 graph with 10 curves, 5 data sets)
 # Jugar un poco con el k y K, pero un poco menos enfasis en jugar con la de predadores que ya jugaste en el grafico anterior
@@ -86,3 +87,34 @@ plt.show()
 
 # GRAPHING BOTH DIFFERENTIAL EQUATIONS (no approximations, just the 2 differential equations)
 # TODO PREGUNTAR SI ES DN/DT OVER T OR OVER N(T)
+
+#Isoclinas Cero
+
+#Parámetros part 1
+Na = np.linspace(0, 100, 100)
+Pa = np.linspace(0, 200, 100)
+alphaa = 10
+betaa = 10
+ra = 0.1
+qa = 0.1
+
+#Isoclinas part 1
+isocline_Na = qa/betaa
+isocline_Pa = ra/alphaa
+
+#Graficar las isoclinas
+plt.plot(Na, isocline_Na*np.ones(100), label='Isocline N')
+plt.plot(isocline_Pa*np.ones(100), Pa, label='Isocline P')
+plt.xlabel('N')
+plt.ylabel('P')
+plt.legend()
+plt.show()
+
+#Parámetros part 2
+Nb = np.linspace(0, 100, 100)
+Pb = np.linspace(0, 200, 100)
+alphab = 10
+betab = 10
+rb = 0.1
+qb = 0.1
+
