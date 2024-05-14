@@ -70,12 +70,12 @@ d5 = [0.2, 0.02, 0.004, 0.6] # Higher Predator Death Rate aka Higher q
 pandas1, leopards1 = rungeKuttaPredatorPrey(PredatorPreyLotVol, Pandas0, Leopards0, d1[0], d1[1], d1[2], d1[3], dt, t_end)
 
 
-# plt.plot(pandas1, label='Pandas Normal')
-# plt.plot(tigers1, label='Predator Normal')
-# plt.xlabel('Time')
-# plt.ylabel('Population')
-# plt.legend()
-# plt.show()
+plt.plot(pandas1, label='Pandas Normal')
+plt.plot(tigers1, label='Predator Normal')
+plt.xlabel('Time')
+plt.ylabel('Population')
+plt.legend()
+plt.show()
 
 # LOTKA VOLTERRA EXTENDED RUNGE KUTTA (1 graph with 10 curves, 5 data sets)
 # Jugar un poco con el k y K, pero un poco menos enfasis en jugar con la de predadores que ya jugaste en el grafico anterior
@@ -90,8 +90,10 @@ pandas1, leopards1 = rungeKuttaPredatorPrey(PredatorPreyLotVol, Pandas0, Leopard
 #Isoclinas Cero
 
 #Parámetros part 1
-Na = np.linspace(0, 10, 10)
-Pa = np.linspace(0, 10, 10)
+Na = np.linspace(0, 100, 100)
+Pa = np.linspace(0, 200, 100)
+alphaa = 10
+betaa = 10
 ra = 0.1
 qa = 0.1
 alphaa = 0.1

@@ -12,12 +12,13 @@ def lotkaVolterra(N1, N2, r1, r2, K1, K2, alpha12, alpha21):
 def rkSolver(ode, N1, N2, r1, r2, K1, K2, alpha12, alpha21, dt, t_end):
     return aux.rungeKutta4TwoSpecies(ode, N1, N2, r1, r2, K1, K2, alpha12, alpha21, dt, t_end)
 
-# Data for Graph Part 1
+# Data for Graph Part 1 
+# TODO Convertirlos en una figura con 2 subplots
 d1 = [60, 60, 0.1, 0.1, 500, 500, 3, 1, 0.1, 250] # aP > aT
-d2 = [60, 60, 0.1, 0.1, 500, 500, 1, 1, 0.1, 250] # N0P > N0T
+d2 = [100, 60, 0.1, 0.1, 500, 500, 1, 1, 0.1, 250] # N0P > N0T
 
 # Data for Graph Part 2
-
+# TODO COnvertirlos en una figura con 2 subplots
 d3 = [60, 60, 0.1, 0.5, 500, 500, 1, 1, 0.1, 250] # rP > rT
 d4 = [60, 60, 0.1, 0.1, 200, 800, 1, 1, 0.1, 250] # KP > KT
 
@@ -26,22 +27,29 @@ d4 = [60, 60, 0.1, 0.1, 200, 800, 1, 1, 0.1, 250] # KP > KT
 pandas1, turtles1 = rkSolver(lotkaVolterra, d1[0], d1[1], d1[2], d1[3], d1[4], d1[5], d1[6], d1[7], d1[8], d1[9])
 pandas2, turtles2 = rkSolver(lotkaVolterra, d2[0], d2[1], d2[2], d2[3], d2[4], d2[5], d2[6], d2[7], d2[8], d2[9])
 
-# TODO: Maybe replace "N1_values" and "N2_values" with "Pandas" and "Turtles" 
-# Maybe!!
+pandas3, turtles3 = rkSolver(lotkaVolterra, d3[0], d3[1], d3[2], d3[3], d3[4], d3[5], d3[6], d3[7], d3[8], d3[9])
+pandas4, turtles4 = rkSolver(lotkaVolterra, d4[0], d4[1], d4[2], d4[3], d4[4], d4[5], d4[6], d4[7], d4[8], d4[9])
 
 # Plotting the results Part 1
-#TODO descomentar
-# plt.plot(pandas1, color = 'blue', label='Pandas (a1 > a2)')
-# plt.plot(turtles1, color = 'blue', label='Turtles (a1 > a2)')
-# plt.plot(pandas2, color = 'red', label='Pandas (N0P > N0T)')
-# plt.plot(turtles2, color = 'red', label='Turtles (N0P > N0T)')
-# plt.xlabel('Time')
-# plt.ylabel('Population')
-# plt.title('Population dynamics of two species')
-# plt.legend()
-# plt.show()
+plt.plot(pandas1, color = 'blue', label='Pandas (a1 > a2)')
+plt.plot(turtles1, color = 'blue', label='Turtles (a1 > a2)')
+plt.plot(pandas2, color = 'red', label='Pandas (N0P > N0T)')
+plt.plot(turtles2, color = 'red', label='Turtles (N0P > N0T)')
+plt.xlabel('Time')
+plt.ylabel('Population')
+plt.title('Population dynamics of two species')
+plt.legend()
+plt.show()
 
 # Plotting the results Part 2
+
+
+
+
+
+
+
+
 
 # # Isoclinas Cero
 r1 = 0.1
