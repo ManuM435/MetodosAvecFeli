@@ -70,11 +70,21 @@ d5 = [0.2, 0.02, 0.004, 0.6] # Higher Predator Death Rate aka Higher q
 pandas1, leopards1 = rungeKuttaPredatorPrey(PredatorPreyLotVol, Pandas0, Leopards0, d1[0], d1[1], d1[2], d1[3], dt, t_end)
 
 
-plt.plot(pandas1, label='Pandas Normal')
-plt.plot(tigers1, label='Predator Normal')
-plt.xlabel('Time')
-plt.ylabel('Population')
-plt.legend()
+fig, axs = plt.subplots(2, 2, figsize=(10, 8))
+
+axs[0, 0].plot(pandas1, label='Pandas Normal')
+axs[0, 0].set_xlabel('Time')
+axs[0, 0].set_ylabel('Population')
+axs[0, 0].legend()
+
+axs[0, 1].plot(leopards1, label='Predator Normal')
+axs[0, 1].set_xlabel('Time')
+axs[0, 1].set_ylabel('Population')
+axs[0, 1].legend()
+
+# Add code for the other two subplots here
+
+plt.tight_layout()
 plt.show()
 
 # LOTKA VOLTERRA EXTENDED RUNGE KUTTA (1 graph with 10 curves, 5 data sets)
