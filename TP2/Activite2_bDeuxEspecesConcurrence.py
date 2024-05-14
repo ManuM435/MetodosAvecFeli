@@ -12,11 +12,18 @@ def lotkaVolterra(N1, N2, r1, r2, K1, K2, alpha12, alpha21):
 def rkSolver(ode, N1, N2, r1, r2, K1, K2, alpha12, alpha21, dt, t_end):
     return aux.rungeKutta4TwoSpecies(ode, N1, N2, r1, r2, K1, K2, alpha12, alpha21, dt, t_end)
 
-# Data for The Multiple Curves
+# Data for Graph Part 1
 d1 = [60, 60, 0.1, 0.1, 500, 500, 3, 1, 0.1, 250] # a1>a2
 d2 = [60, 60, 0.1, 0.1, 500, 500, -2, 1, 0.1, 250] # a1<a2
 d3 = [60, 120, 0.1, 0.1, 500, 500, 1, 1, 0.1, 250] # N01 < N02
 d4 = [60, 60, 0.1, 0.1, 500, 500, 1, 1, 0.1, 250] # N01 > N02
+
+# Data for Graph Part 2
+
+d5 = [60, 60, 0.1, 0.5, 500, 500, 1, 1, 0.1, 250] # r1 > r2
+d6 = [60, 60, 0.5, 0.1, 500, 500, 1, 1, 0.1, 250] # r1 < r2
+d7 = [60, 60, 0.1, 0.1, 250, 750, 1, 1, 0.1, 250] # K1 < K2
+d8 = [60, 60, 0.1, 0.1, 750, 250, 1, 1, 0.1, 250] # K1 > K2
 
 
 # Graphing all the Curves
@@ -27,7 +34,7 @@ N1_valuesc, N2_valuesc = rkSolver(lotkaVolterra, d3[0], d3[1], d3[2], d3[3], d3[
 # TODO: Maybe replace "N1_values" and "N2_values" with "Pandas" and "Tigers" 
 # Maybe!!
 
-# Plotting the results
+# Plotting the results Part 1
 plt.plot(N1_values, color = 'blue', label='Species 1 (a1 > a2)')
 plt.plot(N2_values, color = 'blue', label='Species 2 (a1 > a2)')
 plt.plot(N1_valuesb, color = 'red', label='Species 1 (a1 < a2)')
@@ -39,6 +46,11 @@ plt.ylabel('Population')
 plt.title('Population dynamics of two species')
 plt.legend()
 plt.show()
+
+# Plotting the results Part 2
+
+
+
 
 
 # Isoclinas Cero
@@ -171,6 +183,7 @@ dN2 = r2 * VN2 * (K2e - VN2 - alpha21e * VN1) / K2e
 # Graficar Part 4
 plt.plot(N1e, isoclineN1e, label='Isocline of N1', color = 'indigo')
 plt.plot(isoclineN2e, N2e, label='Isocline of N2', color = 'limegreen')
+plt.scatter(EquiPointE[0], EquiPointE[1], color='red', label='Intersection Point')
 plt.xlabel('N1')
 plt.ylabel('N2')
 plt.legend()

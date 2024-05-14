@@ -3,12 +3,12 @@ import fonctions_auxiliares as aux
 import numpy as np
 import matplotlib.pyplot as plt
 
-def ODE(n, p, r, a, b, q):
+def ODE(t, n, p, r, a, b, q):
     dNdt = r * n - a * n * p
     dPdt = b * n * p - q * p
     return [dNdt, dPdt]
 
-def LVE(n, p, r, a, b, q, k):
+def LVE(t, n, p, r, a, b, q, k):
     dNdT = r * n * (1 - n / k) - a * n * p
     dPdt = b * n * p - q * p
     return [dNdT, dPdt]
