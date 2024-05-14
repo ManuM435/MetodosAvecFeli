@@ -94,8 +94,7 @@ plt.show()
 
 
 
-# GRAPHING BOTH DIFFERENTIAL EQUATIONS (no approximations, just the 2 differential equations)
-# TODO PREGUNTAR SI ES DN/DT OVER T OR OVER N(T)
+
 
 #Isoclinas Cero
 
