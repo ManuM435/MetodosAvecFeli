@@ -3,18 +3,54 @@ import fonctions_auxiliares as aux
 import numpy as np
 import matplotlib.pyplot as plt
 
-def ODE(t, n, p, r, a, b, q):
+def PredatorPreyLotVol(t, n, p, r, a, b, q):
     dNdt = r * n - a * n * p
     dPdt = b * n * p - q * p
     return [dNdt, dPdt]
 
-def LVE(t, n, p, r, a, b, q, k):
+def LotkaVolterraExtODE(t, n, p, r, a, b, q, k):
     dNdT = r * n * (1 - n / k) - a * n * p
     dPdt = b * n * p - q * p
     return [dNdT, dPdt]
 
-def rkSolver(ode, a, b, q, r, n0, p0, dt, t_end):
-    return aux.rungeKutta4TwoSpecies(ode, n0, p0, r, a, b, q, dt, t_end)
 
+# Probar con estas 2 funciones de RK, despues se pasan a las auxiliares, primero probarlas aca
 
+def rungeKuttaPredatorPrey(ode, n, p, r, a, b, q, dt, t_end):
+    t = 0
+    n_values = [n]
+    p_values = [p]
+    while t < t_end:
+        k1 = ode(t, n, p, r, a, b, q)
+        k2 = ode(t + 0.5 * dt, n + 0.5 * dt * k1[0], p + 0.5 * dt * k1[1], r, a, b, q)
+        k3 = ode(t + 0.5 * dt, n + 0.5 * dt * k2[0], p + 0.5 * dt * k2[1], r, a, b, q)
+        k4 = ode(t + dt, n + dt * k3[0], p + dt * k3[1], r, a, b, q)
+        
+        n += (dt / 6) * (k1[0] + 2 * k2[0] + 2 * k3[0] + k4[0])
+        p += (dt / 6) * (k1[1] + 2 * k2[1] + 2 * k3[1] + k4[1])
+        
+        n_values.append(n)
+        p_values.append(p)
+        t += dt
+    return n_values, p_values
+
+def rungeKuttaPredatorPreyExt(ode, n, p, r, a, b, q, k, dt, t_end):
+    t = 0
+    n_values = [n]
+    p_values = [p]
+    while t < t_end:
+        k1 = ode(t, n, p, r, a, b, q, k)
+        k2 = ode(t + 0.5 * dt, n + 0.5 * dt * k1[0], p + 0.5 * dt * k1[1], r, a, b, q, k)
+        k3 = ode(t + 0.5 * dt, n + 0.5 * dt * k2[0], p + 0.5 * dt * k2[1], r, a, b, q, k)
+        k4 = ode(t + dt, n + dt * k3[0], p + dt * k3[1], r, a, b, q, k)
+        
+        n += (dt / 6) * (k1[0] + 2 * k2[0] + 2 * k3[0] + k4[0])
+        p += (dt / 6) * (k1[1] + 2 * k2[1] + 2 * k3[1] + k4[1])
+        
+        n_values.append(n)
+        p_values.append(p)
+        t += dt
+    return n_values, p_values
+
+# Aproximar
 
