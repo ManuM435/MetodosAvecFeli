@@ -30,73 +30,74 @@ pandas2, turtles2 = rkSolver(lotkaVolterra, d2[0], d2[1], d2[2], d2[3], d2[4], d
 # Maybe!!
 
 # Plotting the results Part 1
-plt.plot(pandas1, color = 'blue', label='Pandas (a1 > a2)')
-plt.plot(turtles1, color = 'blue', label='Turtles (a1 > a2)')
-plt.plot(pandas2, color = 'red', label='Pandas (N0P > N0T)')
-plt.plot(turtles2, color = 'red', label='Turtles (N0P > N0T)')
-plt.xlabel('Time')
-plt.ylabel('Population')
-plt.title('Population dynamics of two species')
-plt.legend()
-plt.show()
+#TODO descomentar
+# plt.plot(pandas1, color = 'blue', label='Pandas (a1 > a2)')
+# plt.plot(turtles1, color = 'blue', label='Turtles (a1 > a2)')
+# plt.plot(pandas2, color = 'red', label='Pandas (N0P > N0T)')
+# plt.plot(turtles2, color = 'red', label='Turtles (N0P > N0T)')
+# plt.xlabel('Time')
+# plt.ylabel('Population')
+# plt.title('Population dynamics of two species')
+# plt.legend()
+# plt.show()
 
 # Plotting the results Part 2
 
-
-
-
-
-
-
-
-
 # # Isoclinas Cero
-# r1 = 0.1
-# r2 = 0.1
+r1 = 0.1
+r2 = 0.1
 
-# # Parametros Part 1
-# N1a = np.linspace(0, 100, 100)
-# N2a = np.linspace(0, 200, 100)
-# K1a = 100
-# K2a = 200
-# alpha12a = 1/2
-# alpha21a = 2
+# Parametros Part 1
+N1a = np.linspace(0, 100, 100)
+N2a = np.linspace(0, 200, 100)
+K1a = 100
+K2a = 200
+alpha12a = 1/2
+alpha21a = 2
 
-# # Si los alpha son inversos, la pendiente es la misma (entonces el que tiene K mas grande va a ser siempre mas grande)
-# # Si K2 > K1, entonces [isoclina de N2 > isoclina de N1]
+# Si los alpha son inversos, la pendiente es la misma (entonces el que tiene K mas grande va a ser siempre mas grande)
+# Si K2 > K1, entonces [isoclina de N2 > isoclina de N1]
 
-# # Isoclinas Part 1
-# isoclineN1a = K1a - alpha12a * N2a
-# isoclineN2a = K2a - alpha21a * N1a
+# Isoclinas Part 1
+isoclineN1a = K1a - alpha12a * N2a
+isoclineN2a = K2a - alpha21a * N1a
 
-# #vectores
-# vn1 = np.linspace(0, K1a, 40)
-# vn2 = np.linspace(0, K2a, 40)
-# VN1, VN2 = np.meshgrid(vn1, vn2)
+#vectores
+x = np.linspace(0, 200, num=10)
+y = np.linspace(0, 200, num=10)
 
-# dN1 = r1 * VN1 * (K1a - VN1 - alpha12a * VN2) / K1a
-# dN2 = r2 * VN2 * (K2a - VN2 - alpha21a * VN1) / K2a
+X, Y = np.meshgrid(x, y)
 
-# # Graficar Part 1
-# plt.plot(N1a, isoclineN1a, label='Isocline of N1', color = 'indigo')
-# plt.plot(isoclineN2a, N2a, label='Isocline of N2', color = 'limegreen')
-# plt.xlabel('N1')
-# plt.ylabel('N2')
-# plt.legend()
-# plt.streamplot(vn1, vn2, dN1, dN2, color = dN1, cmap='plasma', density=1.5, arrowstyle='->')
-# plt.xlim(0,K1a)
-# plt.ylim(0,K2a)
-# plt.show()
+selected_points = np.vstack([X.ravel(), Y.ravel()]).T
+vector_dN1dt = []
+vector_dN2dt = []
+for point in selected_points:
+    dN1dt, dN2dt = lotkaVolterra(point[0], point[1], d1[2], d1[3], d1[4], d1[5], d1[6], d1[7])
+    vector_dN1dt.append(dN1dt)
+    vector_dN2dt.append(dN2dt)
 
-# # # Parametros Part 2
-# N1b = np.linspace(0, 200, 100)
-# N2b = np.linspace(0, 100, 100)
-# K1b = 200
-# K2b = 100
-# alpha12b = 2
-# alpha21b = 1/2
-# # Si los alpha son inversos, la pendiente es la misma (entonces el que tiene K mas grande va a ser siempre mas grande)
-# # Si K1 > K2, entonces [isoclina de N1 > isoclina de N2]
+# Normalizar los vectores para que tengan longitud unitaria
+norm_vector_dN1dt = np.array(vector_dN1dt) / np.sqrt(np.array(vector_dN1dt)**2 + np.array(vector_dN2dt)**2) * 2
+norm_vector_dN2dt = np.array(vector_dN2dt) / np.sqrt(np.array(vector_dN1dt)**2 + np.array(vector_dN2dt)**2) * 2
+
+# Graficar Part 1
+plt.plot(N1a, isoclineN1a, label='Isocline of N1', color = 'indigo')
+plt.plot(isoclineN2a, N2a, label='Isocline of N2', color = 'limegreen')
+plt.xlabel('N1')
+plt.ylabel('N2')
+plt.legend()
+plt.quiver(selected_points[:,0], selected_points[:,1], norm_vector_dN1dt, norm_vector_dN2dt, color='black', scale=30, width=0.005)
+plt.show()
+
+# # Parametros Part 2
+N1b = np.linspace(0, 200, 100)
+N2b = np.linspace(0, 100, 100)
+K1b = 200
+K2b = 100
+alpha12b = 2
+alpha21b = 1/2
+# Si los alpha son inversos, la pendiente es la misma (entonces el que tiene K mas grande va a ser siempre mas grande)
+# Si K1 > K2, entonces [isoclina de N1 > isoclina de N2]
 
 # # Isoclinas Part 2
 # isoclineN1b = K1b - alpha12b * N2b
