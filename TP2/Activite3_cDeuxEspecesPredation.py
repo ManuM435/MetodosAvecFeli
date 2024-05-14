@@ -111,4 +111,23 @@ plt.ylabel('P')
 plt.legend()
 plt.show()
 
+#Parametros part2 LVE
+Nb = np.linspace(0, 10, 10)
+Pb = np.linspace(0, 10, 10)
+rb = 0.1
+qb = 0.1
+alphab = 0.1
+betab = 0.1
+k = 10
+
 #Isoclinas LVE
+isocline_Nlve = np.full_like(Nb, alphab/betab)
+isocline_Plve = np.full_like(Pb, 1 - (alphab/(betab*k)) - alphab/rb)
+
+#Graficar las isoclinas
+plt.plot(Nb, isocline_Nlve, label='Isocline of N', color = 'indigo')
+plt.plot(isocline_Plve, Pb, label='Isocline of P', color = 'limegreen')
+plt.xlabel('N')
+plt.ylabel('P')
+plt.legend()
+plt.show()
