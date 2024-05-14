@@ -71,7 +71,7 @@ pandas1, leopards1 = rungeKuttaPredatorPrey(PredatorPreyLotVol, Pandas0, Leopard
 
 
 plt.plot(pandas1, label='Pandas Normal')
-plt.plot(leopards1, label='Predator Normal')
+plt.plot(tigers1, label='Predator Normal')
 plt.xlabel('Time')
 plt.ylabel('Population')
 plt.legend()
@@ -91,29 +91,45 @@ plt.show()
 
 #Parámetros part 1
 Na = np.linspace(0, 100, 100)
-Pa = np.linspace(0, 100, 100)
+Pa = np.linspace(0, 200, 100)
 alphaa = 10
 betaa = 10
 ra = 0.1
 qa = 0.1
+alphaa = 0.1
+betaa = 0.1
 
-#Isoclinas part 1
-isocline_Na = qa/betaa
-isocline_Pa = ra/alphaa
+#Isoclinas predador-presa
+# isocline_Na = qa/betaa
+# isocline_Pa = ra/alphaa
+isocline_Na = np.full_like(Na, qa/betaa)
+isocline_Pa = np.full_like(Pa, ra/alphaa)
 
 #Graficar las isoclinas
-plt.plot(Na, isocline_Na*np.ones(100), label='Isocline N')
-plt.plot(isocline_Pa*np.ones(100), Pa, label='Isocline P')
+plt.plot(Na, isocline_Na, label='Isocline of N', color = 'indigo')
+plt.plot(isocline_Pa, Pa, label='Isocline of P', color = 'limegreen')
 plt.xlabel('N')
 plt.ylabel('P')
 plt.legend()
 plt.show()
 
-#Parámetros part 2
-Nb = np.linspace(0, 100, 100)
-Pb = np.linspace(0, 200, 100)
-alphab = 10
-betab = 10
+#Parametros part2 LVE
+Nb = np.linspace(0, 10, 10)
+Pb = np.linspace(0, 10, 10)
 rb = 0.1
 qb = 0.1
+alphab = 0.1
+betab = 0.1
+k = 10
 
+#Isoclinas LVE
+isocline_Nlve = np.full_like(Nb, alphab/betab)
+isocline_Plve = np.full_like(Pb, 1 - (alphab/(betab*k)) - alphab/rb)
+
+#Graficar las isoclinas
+plt.plot(Nb, isocline_Nlve, label='Isocline of N', color = 'indigo')
+plt.plot(isocline_Plve, Pb, label='Isocline of P', color = 'limegreen')
+plt.xlabel('N')
+plt.ylabel('P')
+plt.legend()
+plt.show()
