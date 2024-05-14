@@ -77,7 +77,8 @@ plt.ylabel('Population')
 plt.legend()
 plt.show()
 
-# LOTKA VOLTERRA EXTENDED RUNGE KUTTA (1 graph with 12 curves, 6 data sets)
+# LOTKA VOLTERRA EXTENDED RUNGE KUTTA (1 graph with 10 curves, 5 data sets)
+# Jugar un poco con el k y K, pero un poco menos enfasis en jugar con la de predadores que ya jugaste en el grafico anterior
 
 
 
