@@ -29,16 +29,42 @@ pandas2, turtles2 = rkSolver(lotkaVolterra, d2[0], d2[1], d2[2], d2[3], d2[4], d
 pandas3, turtles3 = rkSolver(lotkaVolterra, d3[0], d3[1], d3[2], d3[3], d3[4], d3[5], d3[6], d3[7], h, t) # rP > rT
 pandas4, turtles4 = rkSolver(lotkaVolterra, d4[0], d4[1], d4[2], d4[3], d4[4], d4[5], d4[6], d4[7], h, t) # KP > KT
 
+fig, axs = plt.subplots(2, 2, figsize=(10, 8))
+
+# Subplot 1
+axs[0, 0].plot(turtles0, color='black', linestyle=':', alpha=0.7, label='Regular Values (Ps & Ts)')
+axs[0, 0].plot(pandas1, color='blue', label='Pandas (Higher aP)')
+axs[0, 0].plot(turtles1, color='red', label='Turtles (Higher aP)')
+axs[0, 0].set_title('Population dynamics with a Higher Panda Growth Rate')
+axs[0, 0].legend(loc='upper right')
+
+# Subplot 2
+axs[0, 1].plot(turtles0, color='black', linestyle=':', alpha=0.7, label='Regular Values (Ps & Ts)')
+axs[0, 1].plot(pandas2, color='blue', label='Pandas (Higher N0P)')
+axs[0, 1].plot(turtles2, color='red', label='Turtles (Higher N0P)')
+axs[0, 1].set_title('Population dynamics with a Higher Initial Panda Population')
+axs[0, 1].legend(loc='upper right')
+
+# Subplot 3
+axs[1, 0].plot(turtles0, color='black', linestyle=':', alpha=0.7, label='Regular Values (Ps & Ts)')
+axs[1, 0].plot(pandas3, color='blue', label='Pandas (Higher rP)')
+axs[1, 0].plot(turtles3, color='red', label='Turtles (Higher rP)')
+axs[1, 0].set_title('Population dynamics with a Higher Panda Growth Rate')
+axs[1, 0].legend(loc='upper right')
+
+# Subplot 4
+axs[1, 1].plot(turtles0, color='black', linestyle=':', alpha=0.7, label='Regular Values (Ps & Ts)')
+axs[1, 1].plot(pandas4, color='blue', label='Pandas (Higher KP)')
+axs[1, 1].plot(turtles4, color='red', label='Turtles (Lower KT)')
+axs[1, 1].set_title('Population dynamics with a Higher Panda Carrying Capacity')
+axs[1, 1].legend(loc='upper right')
+
+plt.tight_layout()
+plt.show()
 
 
 
-
-
-
-
-
-
-# # Isoclinas Cero
+# Isoclinas Cero
 r1 = 0.1
 r2 = 0.1
 
