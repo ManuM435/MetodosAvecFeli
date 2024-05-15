@@ -114,11 +114,28 @@ betaa = 0.1
 isocline_Na = np.full_like(Na, qa/betaa)
 isocline_Pa = np.full_like(Pa, ra/alphaa)
 
+#campo de vectores
+vN = np.linspace(0, 10, 40)
+vP = np.linspace(0, 10, 40)
+VN, VP = np.meshgrid(vN, vP)
+
+dN = ra * VN - alphaa * VN * VP
+dP = alphaa * VN * VP - qa * VP
+
+#Trayectoria con runge kutta
+Na_values_1, Pa_values_1 = rungeKuttaPredatorPrey(PredatorPreyLotVol, 5, 5, ra, alphaa, betaa, qa, 0.1, 100)
+Na_values_2, Pa_values_2 = rungeKuttaPredatorPrey(PredatorPreyLotVol, 2, 2, ra, alphaa, betaa, qa, 0.1, 100)
+Na_values_3, Pa_values_3 = rungeKuttaPredatorPrey(PredatorPreyLotVol, 8, 2, ra, alphaa, betaa, qa, 0.1, 100)
+
 #Graficar las isoclinas
 plt.plot(Na, isocline_Na, label='Isocline of N', color = 'indigo')
 plt.plot(isocline_Pa, Pa, label='Isocline of P', color = 'limegreen')
 plt.xlabel('N')
 plt.ylabel('P')
+plt.plot(Na_values_1, Pa_values_1, color = 'red', label='Trajectory 1')
+plt.plot(Na_values_2, Pa_values_2, color = 'dodgerblue', label='Trajectory 2')
+plt.plot(Na_values_3, Pa_values_3, color = 'deeppink', label='Trajectory 3')
+plt.streamplot(vN, vP, dN, dP, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
 plt.legend()
 plt.show()
 
@@ -133,11 +150,11 @@ k = 10
 
 #Isoclinas LVE
 isocline_Nlve = np.full_like(Nb, alphab/betab)
-isocline_Plve = np.full_like(Pb, 1 - (Nb/k) - alphab/rb)
+isocline_Plve = k* (1 - (alphab/rb)*Pb)
 
 #Graficar las isoclinas
 plt.plot(Nb, isocline_Nlve, label='Isocline of N', color = 'indigo')
-plt.plot(isocline_Plve, Pb, label='Isocline of P', color = 'limegreen')
+plt.plot(Nb, isocline_Plve, label='Isocline of P', color = 'limegreen')
 plt.xlabel('N')
 plt.ylabel('P')
 plt.legend()
