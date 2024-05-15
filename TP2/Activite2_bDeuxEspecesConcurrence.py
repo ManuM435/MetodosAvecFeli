@@ -82,6 +82,7 @@ alpha21a = 1
 # Isoclinas Part 1
 isoclineN1a = K1a/alpha12a - 1/alpha12a * N1a
 isoclineN2a = K2a - alpha21a * N1a
+EquiPointA = [0, K2a]
 
 #vectores
 vn1 = np.linspace(0, 100, 40)
@@ -100,13 +101,15 @@ N1a_values_3, N2a_values_3 = rkSolver(lotkaVolterra, 40, 5, r1, r2, K1a, K2a, al
 # Graficar Part 1
 plt.plot(N1a, isoclineN1a, label='Isocline of N1', color = 'indigo', linewidth=2.5, linestyle='--')
 plt.plot(N1a, isoclineN2a, label='Isocline of N2', color = 'limegreen', linewidth=2.5, linestyle='--')
+plt.scatter(EquiPointA[0], EquiPointA[1], color='red', label='Punto De Equilibrio (Estable)', zorder=10)
 plt.xlabel('N1')
 plt.ylabel('N2')
-plt.legend()
+plt.legend(loc='upper right')
 plt.streamplot(vn1, vn2, dN1, dN2, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
-plt.plot(N1a_values_1, N2a_values_1, color = 'red', label='Trajectory 1')
-plt.plot(N1a_values_2, N2a_values_2, color = 'dodgerblue', label='Trajectory 2')
-plt.plot(N1a_values_3, N2a_values_3, color = 'deeppink', label='Trajectory 3')
+plt.plot(N1a_values_1, N2a_values_1, color = 'chocolate', label='Trayectoria 1')
+plt.plot(N1a_values_2, N2a_values_2, color = 'dodgerblue', label='Trayectoria 2')
+plt.plot(N1a_values_3, N2a_values_3, color = 'deeppink', label='Trayectoria 3')
+
 plt.xlim(0,80)
 plt.ylim(0,80)
 plt.show()
@@ -125,6 +128,7 @@ alpha21b = 3/2
 # isoclineN1a = K1a/alpha12a - 1/alpha12a * N1a
 isoclineN1b = K1b/alpha12b - 1/alpha12b * N1b
 isoclineN2b = K2b - alpha21b * N1b
+EquiPointB = [K1b, 0]
 
 #vectores
 vn1 = np.linspace(0, 100, 40)
@@ -142,13 +146,14 @@ N1b_values_3, N2b_values_3 = rkSolver(lotkaVolterra, 2, 40, r1, r2, K1b, K2b, al
 # Graficar Part 2
 plt.plot(N1b, isoclineN1b, label='Isocline of N1', color = 'indigo', linewidth=2.5, linestyle='--')
 plt.plot(N1b, isoclineN2b, label='Isocline of N2', color = 'limegreen', linewidth=2.5, linestyle='--')
+plt.scatter(EquiPointB[0], EquiPointB[1], color='red', label='Punto De Equilibrio (Estable)', zorder=10)
 plt.xlabel('N1')
 plt.ylabel('N2')
-plt.legend()
+plt.legend(loc='upper right')
 plt.streamplot(vn1, vn2, dN1, dN2, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
-plt.plot(N1b_values_1, N2b_values_1, color = 'red', label='Trajectory 1')
-plt.plot(N1b_values_2, N2b_values_2, color = 'dodgerblue', label='Trajectory 2')
-plt.plot(N1b_values_3, N2b_values_3, color = 'deeppink', label='Trajectory 3')
+plt.plot(N1b_values_1, N2b_values_1, color = 'chocolate', label='Trayectoria 1')
+plt.plot(N1b_values_2, N2b_values_2, color = 'dodgerblue', label='Trayectoria 2')
+plt.plot(N1b_values_3, N2b_values_3, color = 'deeppink', label='Trayectoria 3')
 plt.xlim(0,80)
 plt.ylim(0,80)
 plt.show()
@@ -164,7 +169,9 @@ alpha21c = 2
 # Isoclinas Part 3
 isoclineN1c = K1c - alpha12c * N2c
 isoclineN2c = K2c - alpha21c * N1c
-EquiPointC = [K1c/(1+alpha12c), K2c/(1+alpha21c)]
+EquiPointC1 = [0, K2c]
+EquiPointC2 = [K1c, 0]
+EquiPointC3 = [K1c/(1+alpha12c), K2c/(1+alpha21c)]
 
 # Vectores
 vn1 = np.linspace(0, 120, 20)
@@ -183,15 +190,17 @@ N1c_values_4, N2c_values_4 = rkSolver(lotkaVolterra, 115, 60, r1, r2, K1c, K2c, 
 # Graficar Part 3
 plt.plot(N1c, isoclineN1c, label='Isocline of N1', color = 'indigo', linewidth=2.5, linestyle='--')
 plt.plot(isoclineN2c, N2c, label='Isocline of N2', color = 'limegreen', linewidth=2.5, linestyle='--')
-plt.scatter(EquiPointC[0], EquiPointC[1], color='red', label='Punto De Equilibrio (Inestable)')
+plt.scatter(EquiPointC1[0], EquiPointC1[1], color='red', label='Punto De Equilibrio 1 (Estable)', zorder=10)
+plt.scatter(EquiPointC2[0], EquiPointC2[1], color='red', label='Punto De Equilibrio 2 (Estable)', zorder=10)
+plt.scatter(EquiPointC3[0], EquiPointC3[1], color='maroon', label='Punto De Equilibrio 3 (Inestable)', zorder=10)
 plt.xlabel('N1')
 plt.ylabel('N2')
-plt.legend()
+plt.legend(loc='upper right')
 plt.streamplot(vn1, vn2, dN1, dN2, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
-plt.plot(N1c_values_1, N2c_values_1, color = 'red', label='Trajectory 1')
-plt.plot(N1c_values_2, N2c_values_2, color = 'dodgerblue', label='Trajectory 2')
-plt.plot(N1c_values_3, N2c_values_3, color = 'deeppink', label='Trajectory 3')
-plt.plot(N1c_values_4, N2c_values_4, color = 'orange', label='Trajectory 4')
+plt.plot(N1c_values_1, N2c_values_1, color = 'aquamarine', label='Trayectoria 1')
+plt.plot(N1c_values_2, N2c_values_2, color = 'dodgerblue', label='Trayectoria 2')
+plt.plot(N1c_values_3, N2c_values_3, color = 'deeppink', label='Trayectoria 3')
+plt.plot(N1c_values_4, N2c_values_4, color = 'chocolate', label='Trayectoria 4')
 plt.xlim(0,120)
 plt.ylim(0,120)
 plt.show()
@@ -228,15 +237,15 @@ N1e_values_4, N2e_values_4 = rkSolver(lotkaVolterra, 198, 50, r1, r2, K1e, K2e, 
 # Graficar Part 4
 plt.plot(N1e, isoclineN1e, label='Isocline of N1', color = 'indigo', linewidth=2.5, linestyle='--')
 plt.plot(isoclineN2e, N2e, label='Isocline of N2', color = 'limegreen', linewidth=2.5, linestyle='--')
-plt.scatter(EquiPointE[0], EquiPointE[1], color='red', label='Punto de Equilibrio (Estable)')
+plt.scatter(EquiPointE[0], EquiPointE[1], color='red', label='Punto de Equilibrio (Estable)', zorder=10)
 plt.xlabel('N1')
 plt.ylabel('N2')
-plt.legend()
+plt.legend(loc='upper right')
 plt.streamplot(vn1, vn2, dN1, dN2, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
-plt.plot(N1e_values_1, N2e_values_1, color = 'red', label='Trajectory 1')
-plt.plot(N1e_values_2, N2e_values_2, color = 'dodgerblue', label='Trajectory 2')
-plt.plot(N1e_values_3, N2e_values_3, color = 'deeppink', label='Trajectory 3')
-plt.plot(N1e_values_4, N2e_values_4, color = 'orange', label='Trajectory 4')
+plt.plot(N1e_values_1, N2e_values_1, color = 'aquamarine', label='Trayectoria 1')
+plt.plot(N1e_values_2, N2e_values_2, color = 'dodgerblue', label='Trayectoria 2')
+plt.plot(N1e_values_3, N2e_values_3, color = 'deeppink', label='Trayectoria 3')
+plt.plot(N1e_values_4, N2e_values_4, color = 'chocolate', label='Trayectoria 4')
 plt.xlim(0,200)
 plt.ylim(0,200)
 plt.show()
