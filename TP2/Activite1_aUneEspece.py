@@ -62,7 +62,7 @@ axs[0].plot(t, popuLogi1, label='LogisHighInitialLowCap')
 
 axs[0].set_xlabel('Tiempo')
 axs[0].set_ylabel('Población')
-axs[0].set_title('Población en el tiempo (Normal Growth)')
+axs[0].set_title('Pandas en el tiempo (Normal Growth)')
 axs[0].legend()
 
 # Subplot 2
@@ -74,7 +74,7 @@ axs[1].plot(t, expoLowGrowth, linestyle=':', color='yellow', label='ExpLowGrowth
 axs[1].plot(t, logiLowGrowth, linestyle=':', color='black', label='LogisLowGrowth')
 axs[1].set_xlabel('Tiempo')
 axs[1].set_ylabel('Población')
-axs[1].set_title('Población en el tiempo (Varying Growth)')
+axs[1].set_title('Pandas en el tiempo (Varying Growth)')
 axs[1].legend()
 
 plt.tight_layout()
@@ -84,10 +84,8 @@ plt.show()
 
 # Plot 2 || Population Variation Over Population
 plt.plot(popuExpo1, variationExpoODE(t, popuExpo1, r), label='ExpNormal')
-plt.plot(popuLogi1, logistiqueODE(t, popuLogi1, r, 1500), label='LogisLowCap')
 plt.plot(popuLogi2, logistiqueODE(t, popuLogi2, r, k), label='LogisNormal')
-plt.plot(popuExpo2, variationExpoODE(t, popuExpo2, (-1 * r)), label='ExpNegGrowth')
-plt.plot(popuLogi3, logistiqueODE(t, popuLogi3, (-1 * r), k), label='LogisNegGrowth')
+plt.plot(popuLogi1, logistiqueODE(t, popuLogi1, r, 1500), label='LogisHighGrowthLowCap')
 plt.plot(expoLowGrowth, variationExpoODE(t, expoLowGrowth, r2), label='ExpLowGrowth')
 plt.plot(logiLowGrowth, logistiqueODE(t, logiLowGrowth, r2, k), label='LogisLowGrowth')
 
@@ -142,7 +140,7 @@ axs[0].plot(t_values_rk4, N_values_rk4, label='Aproximacion RK4')
 axs[0].plot(t_exact, N_exact, label='Ground Truth', linestyle='--')
 axs[0].set_xlabel('Tiempo')
 axs[0].set_ylabel('Población')
-axs[0].set_title('Crecimiento de Población Exponencial (G-Truth vs Euler vs RK4)')
+axs[0].set_title('Pandas en el tiempo (Exponencial, Euler vs RK)')
 axs[0].legend()
 axs[0].grid(True)
 
@@ -152,7 +150,7 @@ axs[1].plot(t_logis_rk4, N_logis_rk4, label='Aproximacion RK4')
 axs[1].plot(t_logis_exact, N_logis_exact, label='Ground Truth', linestyle='--')
 axs[1].set_xlabel('Tiempo')
 axs[1].set_ylabel('Población')
-axs[1].set_title('Crecimiento de Población Logistica (G-Truth vs Euler vs RK4)')
+axs[1].set_title('Pandas en el tiempo (Logistica, Euler vs RK)')
 axs[1].legend()
 axs[1].grid(True)
 
