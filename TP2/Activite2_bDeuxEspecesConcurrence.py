@@ -12,35 +12,22 @@ def lotkaVolterra(N1, N2, r1, r2, K1, K2, alpha12, alpha21):
 def rkSolver(ode, N1, N2, r1, r2, K1, K2, alpha12, alpha21, dt, t_end):
     return aux.rungeKutta4TwoSpecies(ode, N1, N2, r1, r2, K1, K2, alpha12, alpha21, dt, t_end)
 
-# Data for Graph Part 1
-d1 = [60, 60, 0.1, 0.1, 500, 500, 3, 1, 0.1, 250] # aP > aT
-d2 = [60, 60, 0.1, 0.1, 500, 500, 1, 1, 0.1, 250] # N0P > N0T
-
-# Data for Graph Part 2
-
-d3 = [60, 60, 0.1, 0.5, 500, 500, 1, 1, 0.1, 250] # rP > rT
-d4 = [60, 60, 0.1, 0.1, 200, 800, 1, 1, 0.1, 250] # KP > KT
-
-
-# Graphing all the Curves
-pandas1, turtles1 = rkSolver(lotkaVolterra, d1[0], d1[1], d1[2], d1[3], d1[4], d1[5], d1[6], d1[7], d1[8], d1[9])
-pandas2, turtles2 = rkSolver(lotkaVolterra, d2[0], d2[1], d2[2], d2[3], d2[4], d2[5], d2[6], d2[7], d2[8], d2[9])
+# Data for Graphs
+h = 0.1
+t = 250
+d0 = [60, 60, 0.1, 0.1, 500, 500, 1, 1] # Normal
+d1 = [60, 60, 0.1, 0.1, 500, 500, 3, 1] # aP > aT
+d2 = [120, 60, 0.1, 0.1, 500, 500, 1, 1] # N0P > N0T
+d3 = [60, 60, 0.1, 0.5, 500, 500, 1, 1] # rP > rT
+d4 = [60, 60, 0.1, 0.1, 800, 200, 1, 1] # KP > KT
 
 
-
-# Plotting the results Part 1
-plt.plot(pandas1, color = 'blue', label='Pandas (a1 > a2)')
-plt.plot(turtles1, color = 'blue', label='Turtles (a1 > a2)')
-plt.plot(pandas2, color = 'red', label='Pandas (N0P > N0T)')
-plt.plot(turtles2, color = 'red', label='Turtles (N0P > N0T)')
-plt.xlabel('Time')
-plt.ylabel('Population')
-plt.title('Population dynamics of two species')
-plt.legend()
-plt.show()
-
-# Plotting the results Part 2
-
+# Creating the Curves
+pandas0, turtles0 = rkSolver(lotkaVolterra, d0[0], d0[1], d0[2], d0[3], d0[4], d0[5], d0[6], d0[7], h, t) # Normal
+pandas1, turtles1 = rkSolver(lotkaVolterra, d1[0], d1[1], d1[2], d1[3], d1[4], d1[5], d1[6], d1[7], h, t) # aP > aT
+pandas2, turtles2 = rkSolver(lotkaVolterra, d2[0], d2[1], d2[2], d2[3], d2[4], d2[5], d2[6], d2[7], h, t) # N0P > N0T
+pandas3, turtles3 = rkSolver(lotkaVolterra, d3[0], d3[1], d3[2], d3[3], d3[4], d3[5], d3[6], d3[7], h, t) # rP > rT
+pandas4, turtles4 = rkSolver(lotkaVolterra, d4[0], d4[1], d4[2], d4[3], d4[4], d4[5], d4[6], d4[7], h, t) # KP > KT
 
 
 
