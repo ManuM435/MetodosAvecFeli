@@ -51,14 +51,13 @@ def rungeKuttaLotVolExt(ode, n, p, r, a, b, q, k, dt, t_end):
     return n_values, p_values
 
 
-# PREDATOR PREY RUNGE KUTTA (1 graph, 10 curves, 5 data sets)
-
-# Approximate Predator-Prey with Runge Kutta
+# Runge Kutta Approximations
 Pandas0 = 120  # initial population of prey species
 Leopards0 = 30  # initial population of predator species
-dt = 0.2 # time step size
-t_end = 60 # end time
+dt = 0.25 # time step size
+t_end = 100 # end time
 
+# Approximate Predator-Prey with Runge Kutta
 d1 = [0.2, 0.02, 0.004, 0.2] # Normal Values
 d2 = [0.2, 0.005, 0.004, 0.2] # Lower Predation Rate aka Lower a
 d3 = [0.8, 0.02, 0.004, 0.2] # Higher Panda Growth Rate aka Higher r
@@ -108,21 +107,12 @@ axs[1, 1].legend(loc='upper right')
 plt.tight_layout()
 plt.show()
 
-
-# LOTKA VOLTERRA EXTENDED RUNGE KUTTA (1 graph with 10 curves, 5 data sets)
-# Jugar un poco con el K, pero un poco menos enfasis en jugar con la de predadores que ya jugaste en el grafico anterior
-
 # Approximate Lotka Volterra Extended with Runge Kutta
-Pandas0 = 120  # initial population of prey species
-Leopards0 = 30  # initial population of predator species
-dt = 0.1 # time step size
-t_end = 10 # end time
-
-d1 = [0.2, 0.02, 0.004, 0.2, 100] # Normal Values
-d2 = [0.2, 0.005, 0.004, 0.2, 100] # Lower Predation Rate aka Lower a
-d3 = [0.8, 0.02, 0.004, 0.2, 100] # Higher Panda Growth Rate aka Higher r
-d4 = [0.2, 0.02, 0.004, 0.2, 400] # Higher Carrying Capacity aka Higher K
-d5 = [0.2, 0.02, 0.004, 0.2, 50] # Lower Carrying Capacity aka Lower K
+d1 = [0.2, 0.02, 0.004, 0.2, 200] # Normal Values
+d2 = [0.2, 0.005, 0.004, 0.2, 200] # Lower Predation Rate aka Lower a
+d3 = [0.8, 0.02, 0.004, 0.2, 200] # Higher Panda Growth Rate aka Higher r
+d4 = [0.2, 0.02, 0.004, 0.2, 800] # Higher Carrying Capacity aka Higher K
+d5 = [0.2, 0.02, 0.004, 0.2, 120] # Lower Carrying Capacity aka Lower K
 
 pandas1, leopards1 = rungeKuttaLotVolExt(LotkaVolterraExtODE, Pandas0, Leopards0, d1[0], d1[1], d1[2], d1[3], d1[4], dt, t_end)
 pandas2, leopards2 = rungeKuttaLotVolExt(LotkaVolterraExtODE, Pandas0, Leopards0, d2[0], d2[1], d2[2], d2[3], d2[4], dt, t_end)
@@ -153,4 +143,17 @@ axs[1, 0].plot(pandas1, color='grey', linestyle=':', alpha=0.7, label='Pandas "N
 axs[1, 0].plot(leopards1, color='black', linestyle=':', alpha=0.7, label='Leopards "Normal"')
 axs[1, 0].plot(pandas4, color='blue', label='Pandas (Higher K)')
 axs[1, 0].plot(leopards4, color='red', label='Leopards (Higher K)')
-axs[1, 0].set_title('Population dynamics with a Higher ')
+axs[1, 0].set_title('Population dynamics with a Higher Panda Carrying Capacity')
+axs[1, 0].legend(loc='upper right')
+
+# Subplot 4
+axs[1, 1].plot(pandas1, color='grey', linestyle=':', alpha=0.7, label='Pandas "Normal"')
+axs[1, 1].plot(leopards1, color='black', linestyle=':', alpha=0.7, label='Leopards "Normal"')
+axs[1, 1].plot(pandas5, color='blue', label='Pandas (Lower K)')
+axs[1, 1].plot(leopards5, color='red', label='Leopards (Lower K)')
+axs[1, 1].set_title('Population dynamics with a Lower Panda Carrying Capacity')
+axs[1, 1].legend(loc='upper right')
+
+plt.tight_layout()
+plt.show()
+
