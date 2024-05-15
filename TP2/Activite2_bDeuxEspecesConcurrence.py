@@ -33,29 +33,29 @@ fig, axs = plt.subplots(2, 2, figsize=(10, 8))
 
 # Subplot 1
 axs[0, 0].plot(turtles0, color='black', linestyle=':', alpha=0.7, label='Regular Values (Ps & Ts)')
-axs[0, 0].plot(pandas1, color='blue', label='Pandas (Higher aP)')
-axs[0, 0].plot(turtles1, color='red', label='Turtles (Higher aP)')
+axs[0, 0].plot(pandas1, color='navy', label='Pandas (Higher aP)')
+axs[0, 0].plot(turtles1, color='orangered', label='Turtles (Higher aP)')
 axs[0, 0].set_title('Population dynamics with a Higher Panda Growth Rate')
 axs[0, 0].legend(loc='upper right')
 
 # Subplot 2
 axs[0, 1].plot(turtles0, color='black', linestyle=':', alpha=0.7, label='Regular Values (Ps & Ts)')
-axs[0, 1].plot(pandas2, color='blue', label='Pandas (Higher N0P)')
-axs[0, 1].plot(turtles2, color='red', label='Turtles (Higher N0P)')
+axs[0, 1].plot(pandas2, color='navy', label='Pandas (Higher N0P)')
+axs[0, 1].plot(turtles2, color='orangered', label='Turtles (Higher N0P)')
 axs[0, 1].set_title('Population dynamics with a Higher Initial Panda Population')
 axs[0, 1].legend(loc='upper right')
 
 # Subplot 3
 axs[1, 0].plot(turtles0, color='black', linestyle=':', alpha=0.7, label='Regular Values (Ps & Ts)')
-axs[1, 0].plot(pandas3, color='blue', label='Pandas (Higher rP)')
-axs[1, 0].plot(turtles3, color='red', label='Turtles (Higher rP)')
+axs[1, 0].plot(pandas3, color='navy', label='Pandas (Higher rP)')
+axs[1, 0].plot(turtles3, color='orangered', label='Turtles (Higher rP)')
 axs[1, 0].set_title('Population dynamics with a Higher Panda Growth Rate')
 axs[1, 0].legend(loc='upper right')
 
 # Subplot 4
 axs[1, 1].plot(turtles0, color='black', linestyle=':', alpha=0.7, label='Regular Values (Ps & Ts)')
-axs[1, 1].plot(pandas4, color='blue', label='Pandas (Higher KP)')
-axs[1, 1].plot(turtles4, color='red', label='Turtles (Lower KT)')
+axs[1, 1].plot(pandas4, color='navy', label='Pandas (Higher KP)')
+axs[1, 1].plot(turtles4, color='orangered', label='Turtles (Lower KT)')
 axs[1, 1].set_title('Population dynamics with a Higher Panda Carrying Capacity')
 axs[1, 1].legend(loc='upper right')
 
