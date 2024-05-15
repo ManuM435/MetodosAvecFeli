@@ -19,42 +19,68 @@ def logistiquePopulation(t, N0, r, K):
     return K * N0 / (N0 + (K - N0) * np.exp(-r * t))
 
 # Set some default values
-t = np.linspace(0, 75, 100)
+t = np.linspace(0, 50, 100)
 r = 0.1
+r2 = 0.08
 k = 10000
-N0 = 25
-N1 = 6 # for the exponential
+N0 = 20
+N1 = 4 # for the exponential
 
 # Les curves (exponentielle)
 popuExpo0 = populationExpoFonction(t, 0, r)
-popuExpo1 = populationExpoFonction(t, N1, r) # TODO Appendix 1 Cambiar el 6 por "N1" para simular el que tienen todos el mismo comienzo 
-popuExpo2 = populationExpoFonction(t, 10, (-1 * r))
-popuExpo3 = populationExpoFonction(t, 10, 0)
+popuExpo1 = populationExpoFonction(t, N0, r) # TODO Appendix 1 Cambiar el 6 por "N1" para simular el que tienen todos el mismo comienzo 
+popuExpo2 = populationExpoFonction(t, N1, (-1 * r))
+popuExpo3 = populationExpoFonction(t, N1, 0)
+popuExpo4 = populationExpoFonction(t, N1, r) # 4Starter
 
 # Les curves (logistique)
 popuLogi0 = logistiquePopulation(t, 0, r, k)
-popuLogi1 = logistiquePopulation(t, N0, r, 2000)
+popuLogi1 = logistiquePopulation(t, N0, r, 1000)
 popuLogi2 = logistiquePopulation(t, N0, r, k)
-popuLogi3 = logistiquePopulation(t, N0, (-1 * r), k)
-popuLogi4 = logistiquePopulation(t, N0, 0, k)
+popuLogi3 = logistiquePopulation(t, N1, (-1 * r), k)
+popuLogi4 = logistiquePopulation(t, N1, 0, k)
+popuLogi5 = logistiquePopulation(t, N1, r, k) # 4Starter
+
+expoLowGrowth = populationExpoFonction(t, N0, r2)
+logiLowGrowth = logistiquePopulation(t, N0, r2, k)
+
+
 
 # Les plots 
 
 # Plot 1 || Expo vs Logis, Population over Time
-plt.plot(t, popuExpo0, label='Exp0Starter')
-plt.plot(t, popuLogi0, label='Logis0Starter')
-plt.plot(t, popuExpo1, label='ExpNormal')
-plt.plot(t, popuLogi1, label='LogisLowCap')
-plt.plot(t, popuLogi2, label='LogisNormal')
-plt.plot(t, popuExpo2, label='ExpNegGrowth')
-plt.plot(t, popuLogi3, label='LogisNegGrowth')
-plt.plot(t, popuExpo3, label='ExpNoGrowth')
-plt.plot(t, popuLogi4, label='LogisNoGrowth')
-plt.xlabel('Tiempo')
-plt.ylabel('Población')
-plt.title('Población en el tiempo')
-plt.legend()
+fig, axs = plt.subplots(1, 2, figsize=(8, 4))
+
+# Subplot 1
+axs[0].plot(t, popuExpo0, label='ExpZeroInitial')
+axs[0].plot(t, popuLogi0, label='LogisZeroInitial')
+axs[0].plot(t, popuExpo4, label='ExpLowInitial')
+axs[0].plot(t, popuLogi5, label='LogisLowInitial')
+axs[0].plot(t, popuExpo1, label='ExpHighInitial')
+axs[0].plot(t, popuLogi2, label='LogisHighInitial')
+axs[0].plot(t, popuLogi1, label='LogisHighInitialLowCap')
+
+axs[0].set_xlabel('Tiempo')
+axs[0].set_ylabel('Población')
+axs[0].set_title('Población en el tiempo (Normal Growth)')
+axs[0].legend()
+
+# Subplot 2
+axs[1].plot(t, popuExpo2, label='ExpNegGrowth', alpha=0.7)
+axs[1].plot(t, popuLogi3, label='LogisNegGrowth', alpha=0.7)
+axs[1].plot(t, popuExpo3, label='ExpNoGrowth', alpha=0.7)
+axs[1].plot(t, popuLogi4, label='LogisNoGrowth', alpha=0.7)
+axs[1].plot(t, expoLowGrowth, linestyle=':', color='yellow', label='ExpLowGrowth')
+axs[1].plot(t, logiLowGrowth, linestyle=':', color='black', label='LogisLowGrowth')
+axs[1].set_xlabel('Tiempo')
+axs[1].set_ylabel('Población')
+axs[1].set_title('Población en el tiempo (Varying Growth)')
+axs[1].legend()
+
+plt.tight_layout()
 plt.show()
+
+
 
 # Plot 2 || Population Variation Over Population
 plt.plot(popuExpo1, variationExpoODE(t, popuExpo1, r), label='ExpNormal')
@@ -62,6 +88,8 @@ plt.plot(popuLogi1, logistiqueODE(t, popuLogi1, r, 1500), label='LogisLowCap')
 plt.plot(popuLogi2, logistiqueODE(t, popuLogi2, r, k), label='LogisNormal')
 plt.plot(popuExpo2, variationExpoODE(t, popuExpo2, (-1 * r)), label='ExpNegGrowth')
 plt.plot(popuLogi3, logistiqueODE(t, popuLogi3, (-1 * r), k), label='LogisNegGrowth')
+plt.plot(expoLowGrowth, variationExpoODE(t, expoLowGrowth, r2), label='ExpLowGrowth')
+plt.plot(logiLowGrowth, logistiqueODE(t, logiLowGrowth, r2, k), label='LogisLowGrowth')
 
 # # TODO: Descomentar estos para el grafico de esos casos triviales, Appendix 2
 # # plt.plot(popuExpo0, variationExpoODE(r, popuExpo0), label='Exp0Starter')
@@ -74,6 +102,10 @@ plt.ylabel('Variacion')
 plt.title('Variacion de Población en base a Población')
 plt.legend()
 plt.show()
+
+
+
+
 
 # Valores Ejemplo para Aproximar
 initial_population = 10  
@@ -91,16 +123,44 @@ N_exact = populationExpoFonction(t_exact, initial_population, growth_rate)
 t_values_eu, N_values_eu = aux.euler_method(variationExpoODE, initial_population, t0, tf, num_steps, growth_rate)
 t_values_rk4, N_values_rk4 = aux.runge_kutta_4(variationExpoODE, initial_population, t0, tf, num_steps, growth_rate)
 
-# Plot both exact solution and Euler method approximation
-plt.plot(t_values_eu, N_values_eu, label='Aproximacion Euler')
-plt.plot(t_values_rk4, N_values_rk4, label='Aproximacion RK4')
-plt.plot(t_exact, N_exact, label='Ground Truth', linestyle='--')
-plt.xlabel('Tiempo')
-plt.ylabel('Población')
-plt.title('Crecimiento de Población Exponencial (G-Truth vs Euler vs RK4)')
-plt.legend()
-plt.grid(True)
+# Exactas de Logistica con los punticos
+t_logis_exact = np.linspace(t0, tf, num_steps)
+N_logis_exact = logistiquePopulation(t_logis_exact, initial_population, growth_rate, limit)
+
+# Aproximacion de Logistica con Euler & RK
+t_logis_eu, N_logis_eu = aux.euler_method(logistiqueODE, initial_population, t0, tf, num_steps, growth_rate, limit)
+t_logis_rk4, N_logis_rk4 = aux.runge_kutta_4(logistiqueODE, initial_population, t0, tf, num_steps, growth_rate, limit)
+
+
+
+# Plot both exact solution and Euler method approximation for Exponential
+fig, axs = plt.subplots(1, 2, figsize=(8, 4))
+
+# Subplot 1
+axs[0].plot(t_values_eu, N_values_eu, label='Aproximacion Euler')
+axs[0].plot(t_values_rk4, N_values_rk4, label='Aproximacion RK4')
+axs[0].plot(t_exact, N_exact, label='Ground Truth', linestyle='--')
+axs[0].set_xlabel('Tiempo')
+axs[0].set_ylabel('Población')
+axs[0].set_title('Crecimiento de Población Exponencial (G-Truth vs Euler vs RK4)')
+axs[0].legend()
+axs[0].grid(True)
+
+# Subplot 2
+axs[1].plot(t_logis_eu, N_logis_eu, label='Aproximacion Euler')
+axs[1].plot(t_logis_rk4, N_logis_rk4, label='Aproximacion RK4')
+axs[1].plot(t_logis_exact, N_logis_exact, label='Ground Truth', linestyle='--')
+axs[1].set_xlabel('Tiempo')
+axs[1].set_ylabel('Población')
+axs[1].set_title('Crecimiento de Población Logistica (G-Truth vs Euler vs RK4)')
+axs[1].legend()
+axs[1].grid(True)
+
+plt.tight_layout()
 plt.show()
+
+
+
 
 # Calculate the average relative error for Euler approximation
 euler_expo_error = np.abs(N_exact - N_values_eu[:-1]) / N_exact
@@ -111,27 +171,6 @@ rk4_expo_avg_error = np.mean(rk4_expo_error)
 
 print("Average Relative Error Euler (Exponential):", euler_expo_avg_error)
 print("Average Relative Error Runge-Kutta (Exponential):", rk4_expo_avg_error)
-
-# Plot 4 || Population Over Time (Exponential, Euler Approximation, Runge-Kutta Approximation)
-
-# Exactas de Logistica con los punticos
-t_logis_exact = np.linspace(t0, tf, num_steps)
-N_logis_exact = logistiquePopulation(t_logis_exact, initial_population, growth_rate, limit)
-
-# Aproximacion de Logistica con Euler & RK
-t_logis_eu, N_logis_eu = aux.euler_method(logistiqueODE, initial_population, t0, tf, num_steps, growth_rate, limit)
-t_logis_rk4, N_logis_rk4 = aux.runge_kutta_4(logistiqueODE, initial_population, t0, tf, num_steps, growth_rate, limit)
-
-# Plot both exact solution and Euler method approximation
-plt.plot(t_logis_eu, N_logis_eu, label='Aproximacion Euler')
-plt.plot(t_logis_rk4, N_logis_rk4, label='Aproximacion RK4')
-plt.plot(t_logis_exact, N_logis_exact, label='Ground Truth', linestyle='--')
-plt.xlabel('Tiempo')
-plt.ylabel('Población')
-plt.title('Crecimiento de Población Logistica (G-Truth vs Euler vs RK4)')
-plt.legend()
-plt.grid(True)
-plt.show()
 
 # Calculate the average relative error for Euler approximation
 euler_logis_error = np.abs(N_logis_exact - N_logis_eu[:-1]) / N_logis_exact
