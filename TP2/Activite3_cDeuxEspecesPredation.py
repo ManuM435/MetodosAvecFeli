@@ -50,7 +50,6 @@ def rungeKuttaLotVolExt(ode, n, p, r, a, b, q, k, dt, t_end):
         t += dt
     return n_values, p_values
 
-
 # Runge Kutta Approximations
 Pandas0 = 120  # initial population of prey species
 Leopards0 = 30  # initial population of predator species
@@ -65,23 +64,47 @@ d4 = [0.2, 0.02, 0.024, 0.2] # Lower Predator Efficiency Rate aka Lower b
 d5 = [0.2, 0.02, 0.004, 0.6] # Higher Predator Death Rate aka Higher q
 
 pandas1, leopards1 = rungeKuttaPredatorPrey(PredatorPreyLotVol, Pandas0, Leopards0, d1[0], d1[1], d1[2], d1[3], dt, t_end)
+pandas2, leopards2 = rungeKuttaPredatorPrey(PredatorPreyLotVol, Pandas0, Leopards0, d2[0], d2[1], d2[2], d2[3], dt, t_end)
+pandas3, leopards3 = rungeKuttaPredatorPrey(PredatorPreyLotVol, Pandas0, Leopards0, d3[0], d3[1], d3[2], d3[3], dt, t_end)
+pandas4, leopards4 = rungeKuttaPredatorPrey(PredatorPreyLotVol, Pandas0, Leopards0, d4[0], d4[1], d4[2], d4[3], dt, t_end)
+pandas5, leopards5 = rungeKuttaPredatorPrey(PredatorPreyLotVol, Pandas0, Leopards0, d5[0], d5[1], d5[2], d5[3], dt, t_end)
 
 fig, axs = plt.subplots(2, 2, figsize=(10, 8))
 
-axs[0, 0].plot(pandas1, label='Pandas Normal')
-axs[0, 0].set_xlabel('Time')
-axs[0, 0].set_ylabel('Population')
-axs[0, 0].legend()
+# Subplot 1
+axs[0, 0].plot(pandas1, color='grey', linestyle=':', alpha=0.7, label='Pandas "Normal"')
+axs[0, 0].plot(leopards1, color='black', linestyle=':', alpha=0.7, label='Leopards "Normal"')
+axs[0, 0].plot(pandas2, color='blue', label='Pandas (Lower a)')
+axs[0, 0].plot(leopards2, color='red', label='Leopards2 (Lower a)')
+axs[0, 0].set_title('Population dynamics with a Lower Predation Rate')
+axs[0, 0].legend(loc='upper right')
 
-axs[0, 1].plot(leopards1, label='Predator Normal')
-axs[0, 1].set_xlabel('Time')
-axs[0, 1].set_ylabel('Population')
-axs[0, 1].legend()
+# Subplot 2
+axs[0, 1].plot(pandas1, color='grey', linestyle=':', alpha=0.7, label='Pandas "Normal"')
+axs[0, 1].plot(leopards1, color='black', linestyle=':', alpha=0.7, label='Leopards "Normal"')
+axs[0, 1].plot(pandas3, color='blue', label='Pandas (Higher r)')
+axs[0, 1].plot(leopards3, color='red', label='Leopards (Higher r)')
+axs[0, 1].set_title('Population dynamics with a Higher Panda Growth Rate')
+axs[0, 1].legend(loc='upper right')
 
-# Add code for the other two subplots here
+# Subplot 3
+axs[1, 0].plot(pandas1, color='grey', linestyle=':', alpha=0.7, label='Pandas "Normal"')
+axs[1, 0].plot(leopards1, color='black', linestyle=':', alpha=0.7, label='Leopards "Normal"')
+axs[1, 0].plot(pandas4, color='blue', label='Pandas (Lower B)')
+axs[1, 0].plot(leopards4, color='red', label='Leopards (Lower B)')
+axs[1, 0].set_title('Population dynamics with a Lower Predator Efficiency Rate')
+axs[1, 0].legend(loc='upper right')
 
-# plt.tight_layout()
-# plt.show()
+# Subplot 4
+axs[1, 1].plot(pandas1, color='grey', linestyle=':', alpha=0.7, label='Pandas "Normal"')
+axs[1, 1].plot(leopards1, color='black', linestyle=':', alpha=0.7, label='Leopards "Normal"')
+axs[1, 1].plot(pandas5, color='blue', label='Pandas (Higher q)')
+axs[1, 1].plot(leopards5, color='red', label='Leopards (Higher q)')
+axs[1, 1].set_title('Population dynamics with a Higher Predator Death Rate')
+axs[1, 1].legend(loc='upper right')
+
+plt.tight_layout()
+plt.show()
 
 # Approximate Lotka Volterra Extended with Runge Kutta
 d1 = [0.2, 0.02, 0.004, 0.2, 200] # Normal Values
@@ -132,7 +155,6 @@ axs[1, 1].legend(loc='upper right')
 
 plt.tight_layout()
 plt.show()
-
 
 
 
