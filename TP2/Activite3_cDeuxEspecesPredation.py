@@ -246,7 +246,7 @@ plt.plot(isocline_Nlve, Nb, label='Isocline of N', color = 'indigo', linestyle='
 plt.plot(Nb, isocline_Plve, label='Isocline of P', color = 'limegreen', linestyle='--', linewidth=2)
 plt.xlabel('N')
 plt.ylabel('P')
-plt.title('Isoclines of Lotka-Volterra Extended')
+plt.title('Isoclinas de Lotka-Volterra Extendido')
 plt.plot(Nb_values_1, Pb_values_1, color = 'red', label='Trajectoria 1')
 plt.plot(Nb_values_2, Pb_values_2, color = 'dodgerblue', label='Trajectoria 2')
 plt.plot(Nb_values_3, Pb_values_3, color = 'deeppink', label='Trajectoria 3')
