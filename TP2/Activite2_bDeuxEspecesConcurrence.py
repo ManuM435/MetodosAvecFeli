@@ -26,8 +26,7 @@ d4 = [60, 60, 0.1, 0.1, 200, 800, 1, 1, 0.1, 250] # KP > KT
 pandas1, turtles1 = rkSolver(lotkaVolterra, d1[0], d1[1], d1[2], d1[3], d1[4], d1[5], d1[6], d1[7], d1[8], d1[9])
 pandas2, turtles2 = rkSolver(lotkaVolterra, d2[0], d2[1], d2[2], d2[3], d2[4], d2[5], d2[6], d2[7], d2[8], d2[9])
 
-# TODO: Maybe replace "N1_values" and "N2_values" with "Pandas" and "Turtles" 
-# Maybe!!
+
 
 # Plotting the results Part 1
 plt.plot(pandas1, color = 'blue', label='Pandas (a1 > a2)')
@@ -41,6 +40,16 @@ plt.legend()
 plt.show()
 
 # Plotting the results Part 2
+
+
+
+
+
+
+
+
+
+
 
 # # Isoclinas Cero
 r1 = 0.1
@@ -161,7 +170,7 @@ N1c_values_4, N2c_values_4 = rkSolver(lotkaVolterra, 115, 60, r1, r2, K1c, K2c, 
 # Graficar Part 3
 plt.plot(N1c, isoclineN1c, label='Isocline of N1', color = 'indigo', linewidth=2.5, linestyle='--')
 plt.plot(isoclineN2c, N2c, label='Isocline of N2', color = 'limegreen', linewidth=2.5, linestyle='--')
-plt.scatter(EquiPointC[0], EquiPointC[1], color='red', label='Intersection Point')
+plt.scatter(EquiPointC[0], EquiPointC[1], color='red', label='Punto De Equilibrio (Inestable)')
 plt.xlabel('N1')
 plt.ylabel('N2')
 plt.legend()
@@ -206,7 +215,7 @@ N1e_values_4, N2e_values_4 = rkSolver(lotkaVolterra, 198, 50, r1, r2, K1e, K2e, 
 # Graficar Part 4
 plt.plot(N1e, isoclineN1e, label='Isocline of N1', color = 'indigo', linewidth=2.5, linestyle='--')
 plt.plot(isoclineN2e, N2e, label='Isocline of N2', color = 'limegreen', linewidth=2.5, linestyle='--')
-plt.scatter(EquiPointE[0], EquiPointE[1], color='red', label='Intersection Point')
+plt.scatter(EquiPointE[0], EquiPointE[1], color='red', label='Punto de Equilibrio (Estable)')
 plt.xlabel('N1')
 plt.ylabel('N2')
 plt.legend()
