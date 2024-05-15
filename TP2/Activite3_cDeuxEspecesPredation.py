@@ -68,23 +68,24 @@ d4 = [0.2, 0.02, 0.024, 0.2] # Higher Predator Efficiency Rate aka Lower b
 d5 = [0.2, 0.02, 0.004, 0.6] # Higher Predator Death Rate aka Higher q
 
 pandas1, leopards1 = rungeKuttaPredatorPrey(PredatorPreyLotVol, Pandas0, Leopards0, d1[0], d1[1], d1[2], d1[3], dt, t_end)
+#TODO descomentar
 
-fig, axs = plt.subplots(2, 2, figsize=(10, 8))
+# fig, axs = plt.subplots(2, 2, figsize=(10, 8))
 
-axs[0, 0].plot(pandas1, label='Pandas Normal')
-axs[0, 0].set_xlabel('Time')
-axs[0, 0].set_ylabel('Population')
-axs[0, 0].legend()
+# axs[0, 0].plot(pandas1, label='Pandas Normal')
+# axs[0, 0].set_xlabel('Time')
+# axs[0, 0].set_ylabel('Population')
+# axs[0, 0].legend()
 
-axs[0, 1].plot(leopards1, label='Predator Normal')
-axs[0, 1].set_xlabel('Time')
-axs[0, 1].set_ylabel('Population')
-axs[0, 1].legend()
+# axs[0, 1].plot(leopards1, label='Predator Normal')
+# axs[0, 1].set_xlabel('Time')
+# axs[0, 1].set_ylabel('Population')
+# axs[0, 1].legend()
 
-# Add code for the other two subplots here
+# # Add code for the other two subplots here
 
-plt.tight_layout()
-plt.show()
+# plt.tight_layout()
+# plt.show()
 
 # LOTKA VOLTERRA EXTENDED RUNGE KUTTA (1 graph with 10 curves, 5 data sets)
 # Jugar un poco con el k y K, pero un poco menos enfasis en jugar con la de predadores que ya jugaste en el grafico anterior
@@ -124,34 +125,34 @@ dN = ra * VN - alphaa * VN * VP
 dP = alphaa * VN * VP - qa * VP
 
 #Trayectoria con runge kutta
-Na_values_1, Pa_values_1 = rungeKuttaPredatorPrey(PredatorPreyLotVol, 5, 5, ra, alphaa, betaa, qa, 0.1, 100)
-Na_values_2, Pa_values_2 = rungeKuttaPredatorPrey(PredatorPreyLotVol, 2, 2, ra, alphaa, betaa, qa, 0.1, 100)
-Na_values_3, Pa_values_3 = rungeKuttaPredatorPrey(PredatorPreyLotVol, 8, 2, ra, alphaa, betaa, qa, 0.1, 100)
+Na_values_1, Pa_values_1 = rungeKuttaPredatorPrey(PredatorPreyLotVol, 5, 1, ra, alphaa, betaa, qa, 0.1, 100)
+Na_values_2, Pa_values_2 = rungeKuttaPredatorPrey(PredatorPreyLotVol, 1.5, 1.5, ra, alphaa, betaa, qa, 0.1, 100)
+Na_values_3, Pa_values_3 = rungeKuttaPredatorPrey(PredatorPreyLotVol, 8, 0.6, ra, alphaa, betaa, qa, 0.1, 150)
 
 #Graficar las isoclinas
-plt.plot(Na, isocline_Na, label='Isocline of N', color = 'indigo', linewidth=2, linestyle='--')
-plt.plot(isocline_Pa, Pa, label='Isocline of P', color = 'limegreen', linewidth=2, linestyle='--')
-plt.xlabel('N')
-plt.ylabel('P')
-plt.plot(Na_values_1, Pa_values_1, color = 'red', label='Trajectory 1')
-plt.plot(Na_values_2, Pa_values_2, color = 'dodgerblue', label='Trajectory 2')
-plt.plot(Na_values_3, Pa_values_3, color = 'deeppink', label='Trajectory 3')
-plt.title('Isoclines of Predator-Prey')
-plt.scatter(eq1, eq1b, color='red', label='Equilibrium Point', s=100, zorder = 10)
-plt.streamplot(vN, vP, dN, dP, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
-plt.xlim(0, 10)
-plt.ylim(0, 10)
-plt.legend()
-plt.show()
+# plt.plot(Na, isocline_Na, label='Isocline of N', color = 'indigo', linewidth=2, linestyle='--')
+# plt.plot(isocline_Pa, Pa, label='Isocline of P', color = 'limegreen', linewidth=2, linestyle='--')
+# plt.xlabel('N')
+# plt.ylabel('P')
+# plt.plot(Na_values_1, Pa_values_1, color = 'deeppink', label='Trajectory 1')
+# plt.plot(Na_values_2, Pa_values_2, color = 'hotpink', label='Trajectory 2')
+# plt.plot(Na_values_3, Pa_values_3, color = 'mediumvioletred', label='Trajectory 3')
+# plt.title('Isoclines of Predator-Prey')
+# plt.scatter(eq1, eq1b, color='red', label='Equilibrium Point', s=100, zorder = 10)
+# plt.streamplot(vN, vP, dN, dP, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
+# plt.xlim(0, 10)
+# plt.ylim(0, 10)
+# plt.legend()
+# plt.show()
 
 #Parametros part2 LVE
 #Caso 1
 Nb = np.linspace(0, 10, 10)
 Pb = np.linspace(0, 10, 10)
-rb = 0.1
-qb = 0.1
-alphab = 0.1
-betab = 0.1
+rb = 0.5
+qb = 0.5
+alphab = 0.3
+betab = 0.3
 k = 10
 
 #Isoclinas LVE
@@ -171,9 +172,9 @@ dN = rb * VN * (1 - VN/k) - alphab * VN * VP
 dP = alphab * VN * VP - qb * VP
 
 #Trayectoria con runge kutta
-Nb_values_1, Pb_values_1 = rungeKuttaLotVolExt(LotkaVolterraExtODE, 5, 5, rb, alphab, betab, qb, k, 0.1, 100)
-Nb_values_2, Pb_values_2 = rungeKuttaLotVolExt(LotkaVolterraExtODE, 2, 2, rb, alphab, betab, qb, k, 0.1, 100)
-Nb_values_3, Pb_values_3 = rungeKuttaLotVolExt(LotkaVolterraExtODE, 8, 2, rb, alphab, betab, qb, k, 0.1, 100)
+Nb_values_1, Pb_values_1 = rungeKuttaLotVolExt(LotkaVolterraExtODE, 1, 2, rb, alphab, betab, qb, k, 0.1, 200)
+Nb_values_2, Pb_values_2 = rungeKuttaLotVolExt(LotkaVolterraExtODE, 0.5, 3, rb, alphab, betab, qb, k, 0.1, 300)
+Nb_values_3, Pb_values_3 = rungeKuttaLotVolExt(LotkaVolterraExtODE, 0.25, 4, rb, alphab, betab, qb, k, 0.1, 300)
 
 #Graficar las isoclinas
 plt.plot(Nb, isocline_Nlve, label='Isocline of N', color = 'indigo', linestyle='--', linewidth=2)
@@ -181,12 +182,12 @@ plt.plot(Nb, isocline_Plve, label='Isocline of P', color = 'limegreen', linestyl
 plt.xlabel('N')
 plt.ylabel('P')
 plt.title('Isoclines of Lotka-Volterra Extended')
-plt.plot(Nb_values_1, Pb_values_1, color = 'red', label='Trajectory 1')
-plt.plot(Nb_values_2, Pb_values_2, color = 'dodgerblue', label='Trajectory 2')
-plt.plot(Nb_values_3, Pb_values_3, color = 'deeppink', label='Trajectory 3')
+plt.plot(Nb_values_1, Pb_values_1, color = 'deeppink', label='Trajectory 1')
+plt.plot(Nb_values_2, Pb_values_2, color = 'hotpink', label='Trajectory 2')
+plt.plot(Nb_values_3, Pb_values_3, color = 'mediumvioletred', label='Trajectory 3')
 plt.streamplot(vN, vP, dN, dP, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
 # plt.scatter(eq2, eq2b, color='red', label='Equilibrium Point', s=100, zorder = 10)
-plt.xlim(0, 2)
+plt.xlim(0, 10)
 plt.ylim(0, 10)
 plt.legend()
 plt.show()
@@ -220,16 +221,16 @@ Nc_values_2, Pc_values_2 = rungeKuttaLotVolExt(LotkaVolterraExtODE, 2, 2, rc, al
 Nc_values_3, Pc_values_3 = rungeKuttaLotVolExt(LotkaVolterraExtODE, 8, 2, rc, alphac, betac, qc, kc, 0.1, 100)
 
 #Graficar las isoclinas
-plt.plot(Nc, isocline_Nlve, label='Isocline of N', color = 'indigo', linestyle='--', linewidth=2)
-plt.plot(Nc, isocline_Plve, label='Isocline of P', color = 'limegreen', linestyle='--', linewidth=2)
-plt.xlabel('N')
-plt.ylabel('P')
-plt.title('Isoclines of Lotka-Volterra Extended')
-plt.plot(Nc_values_1, Pc_values_1, color = 'red', label='Trajectory 1')
-plt.plot(Nc_values_2, Pc_values_2, color = 'dodgerblue', label='Trajectory 2')
-plt.plot(Nc_values_3, Pc_values_3, color = 'deeppink', label='Trajectory 3')
-plt.streamplot(vN, vP, dN, dP, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
-plt.xlim(0, 2)
-plt.ylim(0, 10)
-plt.legend()
-plt.show()
+# plt.plot(Nc, isocline_Nlve, label='Isocline of N', color = 'indigo', linestyle='--', linewidth=2)
+# plt.plot(Nc, isocline_Plve, label='Isocline of P', color = 'limegreen', linestyle='--', linewidth=2)
+# plt.xlabel('N')
+# plt.ylabel('P')
+# plt.title('Isoclines of Lotka-Volterra Extended')
+# plt.plot(Nc_values_1, Pc_values_1, color = 'red', label='Trajectory 1')
+# plt.plot(Nc_values_2, Pc_values_2, color = 'dodgerblue', label='Trajectory 2')
+# plt.plot(Nc_values_3, Pc_values_3, color = 'deeppink', label='Trajectory 3')
+# plt.streamplot(vN, vP, dN, dP, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
+# plt.xlim(0, 2)
+# plt.ylim(0, 10)
+# plt.legend()
+# plt.show()
