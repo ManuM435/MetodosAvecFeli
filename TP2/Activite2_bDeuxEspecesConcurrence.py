@@ -12,37 +12,59 @@ def lotkaVolterra(N1, N2, r1, r2, K1, K2, alpha12, alpha21):
 def rkSolver(ode, N1, N2, r1, r2, K1, K2, alpha12, alpha21, dt, t_end):
     return aux.rungeKutta4TwoSpecies(ode, N1, N2, r1, r2, K1, K2, alpha12, alpha21, dt, t_end)
 
-# Data for Graph Part 1
-d1 = [60, 60, 0.1, 0.1, 500, 500, 3, 1, 0.1, 250] # aP > aT
-d2 = [60, 60, 0.1, 0.1, 500, 500, 1, 1, 0.1, 250] # N0P > N0T
+# Data for Graphs
+h = 0.1
+t = 250
+d0 = [60, 60, 0.1, 0.1, 500, 500, 1, 1] # Normal
+d1 = [60, 60, 0.1, 0.1, 500, 500, 3, 1] # aP > aT
+d2 = [120, 60, 0.1, 0.1, 500, 500, 1, 1] # N0P > N0T
+d3 = [60, 60, 0.1, 0.5, 500, 500, 1, 1] # rP > rT
+d4 = [60, 60, 0.1, 0.1, 800, 200, 1, 1] # KP > KT
 
-# Data for Graph Part 2
 
-d3 = [60, 60, 0.1, 0.5, 500, 500, 1, 1, 0.1, 250] # rP > rT
-d4 = [60, 60, 0.1, 0.1, 200, 800, 1, 1, 0.1, 250] # KP > KT
+# Creating the Curves
+pandas0, turtles0 = rkSolver(lotkaVolterra, d0[0], d0[1], d0[2], d0[3], d0[4], d0[5], d0[6], d0[7], h, t) # Normal
+pandas1, turtles1 = rkSolver(lotkaVolterra, d1[0], d1[1], d1[2], d1[3], d1[4], d1[5], d1[6], d1[7], h, t) # aP > aT
+pandas2, turtles2 = rkSolver(lotkaVolterra, d2[0], d2[1], d2[2], d2[3], d2[4], d2[5], d2[6], d2[7], h, t) # N0P > N0T
+pandas3, turtles3 = rkSolver(lotkaVolterra, d3[0], d3[1], d3[2], d3[3], d3[4], d3[5], d3[6], d3[7], h, t) # rP > rT
+pandas4, turtles4 = rkSolver(lotkaVolterra, d4[0], d4[1], d4[2], d4[3], d4[4], d4[5], d4[6], d4[7], h, t) # KP > KT
 
+fig, axs = plt.subplots(2, 2, figsize=(10, 8))
 
-# Graphing all the Curves
-pandas1, turtles1 = rkSolver(lotkaVolterra, d1[0], d1[1], d1[2], d1[3], d1[4], d1[5], d1[6], d1[7], d1[8], d1[9])
-pandas2, turtles2 = rkSolver(lotkaVolterra, d2[0], d2[1], d2[2], d2[3], d2[4], d2[5], d2[6], d2[7], d2[8], d2[9])
+# Subplot 1
+axs[0, 0].plot(turtles0, color='black', linestyle=':', alpha=0.7, label='Regular Values (Ps & Ts)')
+axs[0, 0].plot(pandas1, color='navy', label='Pandas (Higher aP)')
+axs[0, 0].plot(turtles1, color='orangered', label='Turtles (Higher aP)')
+axs[0, 0].set_title('Population dynamics with a Higher Panda Growth Rate')
+axs[0, 0].legend(loc='upper right')
 
-# TODO: Maybe replace "N1_values" and "N2_values" with "Pandas" and "Turtles" 
-# Maybe!!
+# Subplot 2
+axs[0, 1].plot(turtles0, color='black', linestyle=':', alpha=0.7, label='Regular Values (Ps & Ts)')
+axs[0, 1].plot(pandas2, color='navy', label='Pandas (Higher N0P)')
+axs[0, 1].plot(turtles2, color='orangered', label='Turtles (Higher N0P)')
+axs[0, 1].set_title('Population dynamics with a Higher Initial Panda Population')
+axs[0, 1].legend(loc='upper right')
 
-# Plotting the results Part 1
-plt.plot(pandas1, color = 'blue', label='Pandas (a1 > a2)')
-plt.plot(turtles1, color = 'blue', label='Turtles (a1 > a2)')
-plt.plot(pandas2, color = 'red', label='Pandas (N0P > N0T)')
-plt.plot(turtles2, color = 'red', label='Turtles (N0P > N0T)')
-plt.xlabel('Time')
-plt.ylabel('Population')
-plt.title('Population dynamics of two species')
-plt.legend()
+# Subplot 3
+axs[1, 0].plot(turtles0, color='black', linestyle=':', alpha=0.7, label='Regular Values (Ps & Ts)')
+axs[1, 0].plot(pandas3, color='navy', label='Pandas (Higher rP)')
+axs[1, 0].plot(turtles3, color='orangered', label='Turtles (Higher rP)')
+axs[1, 0].set_title('Population dynamics with a Higher Panda Growth Rate')
+axs[1, 0].legend(loc='upper right')
+
+# Subplot 4
+axs[1, 1].plot(turtles0, color='black', linestyle=':', alpha=0.7, label='Regular Values (Ps & Ts)')
+axs[1, 1].plot(pandas4, color='navy', label='Pandas (Higher KP)')
+axs[1, 1].plot(turtles4, color='orangered', label='Turtles (Lower KT)')
+axs[1, 1].set_title('Population dynamics with a Higher Panda Carrying Capacity')
+axs[1, 1].legend(loc='upper right')
+
+plt.tight_layout()
 plt.show()
 
-# Plotting the results Part 2
 
-# # Isoclinas Cero
+
+# Isoclinas Cero
 r1 = 0.1
 r2 = 0.1
 
@@ -60,6 +82,7 @@ alpha21a = 1
 # Isoclinas Part 1
 isoclineN1a = K1a/alpha12a - 1/alpha12a * N1a
 isoclineN2a = K2a - alpha21a * N1a
+EquiPointA = [0, K2a]
 
 #vectores
 vn1 = np.linspace(0, 100, 40)
@@ -78,13 +101,15 @@ N1a_values_3, N2a_values_3 = rkSolver(lotkaVolterra, 40, 5, r1, r2, K1a, K2a, al
 # Graficar Part 1
 plt.plot(N1a, isoclineN1a, label='Isocline of N1', color = 'indigo', linewidth=2.5, linestyle='--')
 plt.plot(N1a, isoclineN2a, label='Isocline of N2', color = 'limegreen', linewidth=2.5, linestyle='--')
+plt.scatter(EquiPointA[0], EquiPointA[1], color='red', label='Punto De Equilibrio (Estable)', zorder=10)
 plt.xlabel('N1')
 plt.ylabel('N2')
-plt.legend()
+plt.legend(loc='upper right')
 plt.streamplot(vn1, vn2, dN1, dN2, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
-plt.plot(N1a_values_1, N2a_values_1, color = 'red', label='Trajectory 1')
-plt.plot(N1a_values_2, N2a_values_2, color = 'dodgerblue', label='Trajectory 2')
-plt.plot(N1a_values_3, N2a_values_3, color = 'deeppink', label='Trajectory 3')
+plt.plot(N1a_values_1, N2a_values_1, color = 'chocolate', label='Trayectoria 1')
+plt.plot(N1a_values_2, N2a_values_2, color = 'dodgerblue', label='Trayectoria 2')
+plt.plot(N1a_values_3, N2a_values_3, color = 'deeppink', label='Trayectoria 3')
+
 plt.xlim(0,80)
 plt.ylim(0,80)
 plt.show()
@@ -103,6 +128,7 @@ alpha21b = 3/2
 # isoclineN1a = K1a/alpha12a - 1/alpha12a * N1a
 isoclineN1b = K1b/alpha12b - 1/alpha12b * N1b
 isoclineN2b = K2b - alpha21b * N1b
+EquiPointB = [K1b, 0]
 
 #vectores
 vn1 = np.linspace(0, 100, 40)
@@ -120,13 +146,14 @@ N1b_values_3, N2b_values_3 = rkSolver(lotkaVolterra, 2, 40, r1, r2, K1b, K2b, al
 # Graficar Part 2
 plt.plot(N1b, isoclineN1b, label='Isocline of N1', color = 'indigo', linewidth=2.5, linestyle='--')
 plt.plot(N1b, isoclineN2b, label='Isocline of N2', color = 'limegreen', linewidth=2.5, linestyle='--')
+plt.scatter(EquiPointB[0], EquiPointB[1], color='red', label='Punto De Equilibrio (Estable)', zorder=10)
 plt.xlabel('N1')
 plt.ylabel('N2')
-plt.legend()
+plt.legend(loc='upper right')
 plt.streamplot(vn1, vn2, dN1, dN2, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
-plt.plot(N1b_values_1, N2b_values_1, color = 'red', label='Trajectory 1')
-plt.plot(N1b_values_2, N2b_values_2, color = 'dodgerblue', label='Trajectory 2')
-plt.plot(N1b_values_3, N2b_values_3, color = 'deeppink', label='Trajectory 3')
+plt.plot(N1b_values_1, N2b_values_1, color = 'chocolate', label='Trayectoria 1')
+plt.plot(N1b_values_2, N2b_values_2, color = 'dodgerblue', label='Trayectoria 2')
+plt.plot(N1b_values_3, N2b_values_3, color = 'deeppink', label='Trayectoria 3')
 plt.xlim(0,80)
 plt.ylim(0,80)
 plt.show()
@@ -142,7 +169,9 @@ alpha21c = 2
 # Isoclinas Part 3
 isoclineN1c = K1c - alpha12c * N2c
 isoclineN2c = K2c - alpha21c * N1c
-EquiPointC = [K1c/(1+alpha12c), K2c/(1+alpha21c)]
+EquiPointC1 = [0, K2c]
+EquiPointC2 = [K1c, 0]
+EquiPointC3 = [K1c/(1+alpha12c), K2c/(1+alpha21c)]
 
 # Vectores
 vn1 = np.linspace(0, 120, 20)
@@ -161,15 +190,17 @@ N1c_values_4, N2c_values_4 = rkSolver(lotkaVolterra, 115, 60, r1, r2, K1c, K2c, 
 # Graficar Part 3
 plt.plot(N1c, isoclineN1c, label='Isocline of N1', color = 'indigo', linewidth=2.5, linestyle='--')
 plt.plot(isoclineN2c, N2c, label='Isocline of N2', color = 'limegreen', linewidth=2.5, linestyle='--')
-plt.scatter(EquiPointC[0], EquiPointC[1], color='red', label='Intersection Point')
+plt.scatter(EquiPointC1[0], EquiPointC1[1], color='red', label='Punto De Equilibrio 1 (Estable)', zorder=10)
+plt.scatter(EquiPointC2[0], EquiPointC2[1], color='red', label='Punto De Equilibrio 2 (Estable)', zorder=10)
+plt.scatter(EquiPointC3[0], EquiPointC3[1], color='maroon', label='Punto De Equilibrio 3 (Inestable)', zorder=10)
 plt.xlabel('N1')
 plt.ylabel('N2')
-plt.legend()
+plt.legend(loc='upper right')
 plt.streamplot(vn1, vn2, dN1, dN2, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
-plt.plot(N1c_values_1, N2c_values_1, color = 'red', label='Trajectory 1')
-plt.plot(N1c_values_2, N2c_values_2, color = 'dodgerblue', label='Trajectory 2')
-plt.plot(N1c_values_3, N2c_values_3, color = 'deeppink', label='Trajectory 3')
-plt.plot(N1c_values_4, N2c_values_4, color = 'orange', label='Trajectory 4')
+plt.plot(N1c_values_1, N2c_values_1, color = 'aquamarine', label='Trayectoria 1')
+plt.plot(N1c_values_2, N2c_values_2, color = 'dodgerblue', label='Trayectoria 2')
+plt.plot(N1c_values_3, N2c_values_3, color = 'deeppink', label='Trayectoria 3')
+plt.plot(N1c_values_4, N2c_values_4, color = 'chocolate', label='Trayectoria 4')
 plt.xlim(0,120)
 plt.ylim(0,120)
 plt.show()
@@ -206,15 +237,15 @@ N1e_values_4, N2e_values_4 = rkSolver(lotkaVolterra, 198, 50, r1, r2, K1e, K2e, 
 # Graficar Part 4
 plt.plot(N1e, isoclineN1e, label='Isocline of N1', color = 'indigo', linewidth=2.5, linestyle='--')
 plt.plot(isoclineN2e, N2e, label='Isocline of N2', color = 'limegreen', linewidth=2.5, linestyle='--')
-plt.scatter(EquiPointE[0], EquiPointE[1], color='red', label='Intersection Point')
+plt.scatter(EquiPointE[0], EquiPointE[1], color='red', label='Punto de Equilibrio (Estable)', zorder=10)
 plt.xlabel('N1')
 plt.ylabel('N2')
-plt.legend()
+plt.legend(loc='upper right')
 plt.streamplot(vn1, vn2, dN1, dN2, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
-plt.plot(N1e_values_1, N2e_values_1, color = 'red', label='Trajectory 1')
-plt.plot(N1e_values_2, N2e_values_2, color = 'dodgerblue', label='Trajectory 2')
-plt.plot(N1e_values_3, N2e_values_3, color = 'deeppink', label='Trajectory 3')
-plt.plot(N1e_values_4, N2e_values_4, color = 'orange', label='Trajectory 4')
+plt.plot(N1e_values_1, N2e_values_1, color = 'aquamarine', label='Trayectoria 1')
+plt.plot(N1e_values_2, N2e_values_2, color = 'dodgerblue', label='Trayectoria 2')
+plt.plot(N1e_values_3, N2e_values_3, color = 'deeppink', label='Trayectoria 3')
+plt.plot(N1e_values_4, N2e_values_4, color = 'chocolate', label='Trayectoria 4')
 plt.xlim(0,200)
 plt.ylim(0,200)
 plt.show()
