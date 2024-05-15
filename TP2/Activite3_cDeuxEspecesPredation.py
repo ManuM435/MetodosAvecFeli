@@ -130,20 +130,20 @@ Na_values_2, Pa_values_2 = rungeKuttaPredatorPrey(PredatorPreyLotVol, 1.5, 1.5, 
 Na_values_3, Pa_values_3 = rungeKuttaPredatorPrey(PredatorPreyLotVol, 8, 0.6, ra, alphaa, betaa, qa, 0.1, 150)
 
 #Graficar las isoclinas
-# plt.plot(Na, isocline_Na, label='Isocline of N', color = 'indigo', linewidth=2, linestyle='--')
-# plt.plot(isocline_Pa, Pa, label='Isocline of P', color = 'limegreen', linewidth=2, linestyle='--')
-# plt.xlabel('N')
-# plt.ylabel('P')
-# plt.plot(Na_values_1, Pa_values_1, color = 'deeppink', label='Trajectory 1')
-# plt.plot(Na_values_2, Pa_values_2, color = 'hotpink', label='Trajectory 2')
-# plt.plot(Na_values_3, Pa_values_3, color = 'mediumvioletred', label='Trajectory 3')
-# plt.title('Isoclines of Predator-Prey')
-# plt.scatter(eq1, eq1b, color='red', label='Equilibrium Point', s=100, zorder = 10)
-# plt.streamplot(vN, vP, dN, dP, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
-# plt.xlim(0, 10)
-# plt.ylim(0, 10)
-# plt.legend()
-# plt.show()
+plt.plot(Na, isocline_Na, label='Isocline of N', color = 'indigo', linewidth=2, linestyle='--')
+plt.plot(isocline_Pa, Pa, label='Isocline of P', color = 'limegreen', linewidth=2, linestyle='--')
+plt.xlabel('N')
+plt.ylabel('P')
+plt.plot(Na_values_1, Pa_values_1, color = 'deeppink', label='Trajectory 1')
+plt.plot(Na_values_2, Pa_values_2, color = 'hotpink', label='Trajectory 2')
+plt.plot(Na_values_3, Pa_values_3, color = 'mediumvioletred', label='Trajectory 3')
+plt.title('Isoclines of Predator-Prey')
+plt.scatter(eq1, eq1b, color='red', label='Equilibrium Point', s=100, zorder = 10)
+plt.streamplot(vN, vP, dN, dP, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
+plt.xlim(0, 10)
+plt.ylim(0, 10)
+plt.legend()
+plt.show()
 
 #Parametros part2 LVE
 #Caso 1
@@ -156,8 +156,8 @@ betab = 0.3
 k = 10
 
 #Isoclinas LVE
-isocline_Nlve = np.full_like(Nb, alphab/betab)
-isocline_Plve = k* (1 - (alphab/rb)*Pb)
+isocline_Nlve = np.full_like(Nb, qb/betab)
+isocline_Plve = (rb/alphab) * (1 - Nb/k)
 
 # #encontrar punto de equilibrio
 # equiPointB = aux.findEquilibriumLVE(rb, alphab, betab, qb, k)
@@ -177,7 +177,7 @@ Nb_values_2, Pb_values_2 = rungeKuttaLotVolExt(LotkaVolterraExtODE, 0.5, 3, rb, 
 Nb_values_3, Pb_values_3 = rungeKuttaLotVolExt(LotkaVolterraExtODE, 0.25, 4, rb, alphab, betab, qb, k, 0.1, 300)
 
 #Graficar las isoclinas
-plt.plot(Nb, isocline_Nlve, label='Isocline of N', color = 'indigo', linestyle='--', linewidth=2)
+plt.plot(isocline_Nlve, Nb, label='Isocline of N', color = 'indigo', linestyle='--', linewidth=2)
 plt.plot(Nb, isocline_Plve, label='Isocline of P', color = 'limegreen', linestyle='--', linewidth=2)
 plt.xlabel('N')
 plt.ylabel('P')
@@ -192,43 +192,41 @@ plt.ylim(0, 10)
 plt.legend()
 plt.show()
 
-#Caso 2
-Nc = np.linspace(0, 10, 10)
-Pc = np.linspace(0, 10, 10)
-rc = 0.1
-qc = 0.1
-alphac = 0.1
-betac = 0.1
-kc = -10
 
-#Isoclinas LVE
-isocline_Nlve = np.full_like(Nc, alphac/betac)
-isocline_Plve = kc* (1 - (alphac/rc)*Pc)
+#Por ahora se puede ignorar este caso
+# #Caso 2
+# Nc = np.linspace(0, 10, 10)
+# Pc = np.linspace(0, 10, 10)
+# rc = 0.1
+# qc = 0.1
+# alphac = 0.1
+# betac = 0.1
+# kc = -10
 
-# #encontrar punto de equilibrio
+# #Isoclinas LVE
+# isocline_Nlve = np.full_like(Nc, qc/betac)
+# isocline_Plve = (rc/alphac) * (1 - Nc/k)
 
-#campo de vectores
-vN = np.linspace(0, 10, 40)
-vP = np.linspace(0, 10, 40)
-VN, VP = np.meshgrid(vN, vP)
+# # #encontrar punto de equilibrio
 
-dN = rc * VN * (1 - VN/kc) - alphac * VN * VP
-dP = alphac * VN * VP - qc * VP
+# #campo de vectores
+# vN = np.linspace(0, 10, 40)
+# vP = np.linspace(0, 10, 40)
+# VN, VP = np.meshgrid(vN, vP)
 
-#Trayectoria con runge kutta
-Nc_values_1, Pc_values_1 = rungeKuttaLotVolExt(LotkaVolterraExtODE, 5, 5, rc, alphac, betac, qc, kc, 0.1, 100)
-Nc_values_2, Pc_values_2 = rungeKuttaLotVolExt(LotkaVolterraExtODE, 2, 2, rc, alphac, betac, qc, kc, 0.1, 100)
-Nc_values_3, Pc_values_3 = rungeKuttaLotVolExt(LotkaVolterraExtODE, 8, 2, rc, alphac, betac, qc, kc, 0.1, 100)
+# dN = rc * VN * (1 - VN/kc) - alphac * VN * VP
+# dP = alphac * VN * VP - qc * VP
 
-#Graficar las isoclinas
-# plt.plot(Nc, isocline_Nlve, label='Isocline of N', color = 'indigo', linestyle='--', linewidth=2)
+# #Trayectoria con runge kutta
+# Nc_values_1, Pc_values_1 = rungeKuttaLotVolExt(LotkaVolterraExtODE, 1.5, 4, rc, alphac, betac, qc, kc, 0.1, 1000)
+
+# #Graficar las isoclinas
+# plt.plot(isocline_Nlve, Nc, label='Isocline of N', color = 'indigo', linestyle='--', linewidth=2)
 # plt.plot(Nc, isocline_Plve, label='Isocline of P', color = 'limegreen', linestyle='--', linewidth=2)
 # plt.xlabel('N')
 # plt.ylabel('P')
 # plt.title('Isoclines of Lotka-Volterra Extended')
-# plt.plot(Nc_values_1, Pc_values_1, color = 'red', label='Trajectory 1')
-# plt.plot(Nc_values_2, Pc_values_2, color = 'dodgerblue', label='Trajectory 2')
-# plt.plot(Nc_values_3, Pc_values_3, color = 'deeppink', label='Trajectory 3')
+# plt.plot(Nc_values_1, Pc_values_1, color = 'deeppink', label='Trajectory 1')
 # plt.streamplot(vN, vP, dN, dP, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
 # plt.xlim(0, 2)
 # plt.ylim(0, 10)
