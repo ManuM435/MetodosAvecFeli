@@ -99,8 +99,8 @@ plt.show()
 #Isoclinas Cero
 
 #Parámetros part 1
-Na = np.linspace(0, 100, 100)
-Pa = np.linspace(0, 200, 100)
+Na = np.linspace(0, 10, 10)
+Pa = np.linspace(0, 10, 10)
 alphaa = 10
 betaa = 10
 ra = 0.1
@@ -133,7 +133,7 @@ k = 10
 
 #Isoclinas LVE
 isocline_Nlve = np.full_like(Nb, alphab/betab)
-isocline_Plve = np.full_like(Pb, 1 - (alphab/(betab*k)) - alphab/rb)
+isocline_Plve = np.full_like(Pb, 1 - (Nb/k) - alphab/rb)
 
 #Graficar las isoclinas
 plt.plot(Nb, isocline_Nlve, label='Isocline of N', color = 'indigo')
