@@ -178,13 +178,19 @@ K1c = 100
 K2c = 100
 alpha12c = 2
 alpha21c = 2
-d0 = [100, 60, 0.2, 0.1, 550, 500, 2, 1] # Normal
+
+# ESTOS SON LOS DATOS CON LOS QUE HABRIA QUE HACER QUE SIRVA
+# d0 = [N01 = 100, N02 = 60, K1 = 550, K2 = 500, a12 = 2, a21 = 1] # Normal
+# Hay que cambiar los parametros, ajustar los vectores, agrandar los limites del grafico para acomodar, etc, etc.
+# Acomodar limites hasta 575 para que los K1 y K2 entren bien
+# Encontrar el nuevo punto de equilibrio con los nuevos parametros
+
 
 # Isoclinas Part 3
 isoclineN1c = K1c - alpha12c * N2c
 isoclineN2c = K2c - alpha21c * N1c
 EquiPointC1 = [0, K2c]
-EquiPointC2 = [K1c, 0]
+EquiPointC2 = [K2c, 0]
 EquiPointC3 = [K1c/(1+alpha12c), K2c/(1+alpha21c)]
 
 # Vectores
