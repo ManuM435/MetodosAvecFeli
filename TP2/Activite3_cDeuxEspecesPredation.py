@@ -177,8 +177,8 @@ betaa = 0.1
 isocline_Na = np.full_like(Na, qa/betaa)
 isocline_Pa = np.full_like(Pa, ra/alphaa)
 
-#encontrar pnuto de equilibrio
-equiPointA = aux.findEquilibrium(alphaa, betaa, ra, qa)
+# ENcontrar pnuto de equilibrio
+equiPointA = aux.findEquilibriumPredatorPrey(alphaa, betaa, ra, qa)
 eq1, eq1b = equiPointA[0], equiPointA[1]
 
 #campo de vectores
@@ -202,21 +202,21 @@ ax1.plot(Na, isocline_Na, label='Isocline of N', color='indigo', linewidth=2, li
 ax1.plot(isocline_Pa, Pa, label='Isocline of P', color='limegreen', linewidth=2, linestyle='--')
 ax1.set_xlabel('N')
 ax1.set_ylabel('P')
-ax1.plot(Na_values_1, Pa_values_1, color='deeppink', label='Trajectory 1')
-ax1.plot(Na_values_2, Pa_values_2, color='hotpink', label='Trajectory 2')
-ax1.plot(Na_values_3, Pa_values_3, color='mediumvioletred', label='Trajectory 3')
+ax1.plot(Na_values_1, Pa_values_1, color='deeppink', label='Trayectoria 1')
+ax1.plot(Na_values_2, Pa_values_2, color='hotpink', label='Trayectoria 2')
+ax1.plot(Na_values_3, Pa_values_3, color='mediumvioletred', label='Trayectoria 3')
 ax1.set_title('Isoclines of Predator-Prey')
-ax1.scatter(eq1, eq1b, color='red', label='Equilibrium Point', s=100, zorder=10)
+ax1.scatter(eq1, eq1b, color='red', label='Punto de Equilibrio', s=100, zorder=10)
 ax1.streamplot(vN, vP, dN, dP, color='gray', density=1, arrowstyle='->', linewidth=0.7)
 ax1.set_xlim(0, 10)
 ax1.set_ylim(0, 10)
 ax1.legend()
 
 # Segundo gráfico en ax2
-ax2.plot(Na_values_1, label='N- Trajectory 1', color='orangered')
-ax2.plot(Na_values_3, label='N - Trajectory 3', color='gold')
-ax2.plot(Pa_values_1, label='P - Trajectory 1', color='coral')
-ax2.plot(Pa_values_3, label='P - Trajectory 3', color='khaki')
+ax2.plot(Na_values_1, label='N- Trayectoria 1', color='orangered')
+ax2.plot(Na_values_3, label='N - Trayectoria 3', color='gold')
+ax2.plot(Pa_values_1, label='P - Trayectoria 1', color='coral')
+ax2.plot(Pa_values_3, label='P - Trayectoria 3', color='khaki')
 ax2.set_xlabel('Time')
 ax2.set_ylabel('N')
 ax2.set_title('Trajectories of Predator-Prey')
@@ -240,9 +240,9 @@ k = 10
 isocline_Nlve = np.full_like(Nb, qb/betab)
 isocline_Plve = (rb/alphab) * (1 - Nb/k)
 
-# #encontrar punto de equilibrio
-# equiPointB = aux.findEquilibriumLVE(rb, alphab, betab, qb, k)
-# eq2, eq2b = equiPointB[0], equiPointB[1]
+# Calculate the equilibrium point
+eq2xAxis = qb / betab
+eq2yAxis = (rb / alphab) * (1 - eq2xAxis / k)
 
 #campo de vectores
 vN = np.linspace(0, 10, 40)
@@ -253,7 +253,7 @@ dN = rb * VN * (1 - VN/k) - alphab * VN * VP
 dP = alphab * VN * VP - qb * VP
 
 #Trayectoria con runge kutta
-Nb_values_1, Pb_values_1 = rungeKuttaLotVolExt(LotkaVolterraExtODE, 5, 5, rb, alphab, betab, qb, k, 0.1, 1000)
+Nb_values_1, Pb_values_1 = rungeKuttaLotVolExt(LotkaVolterraExtODE, 5, 5, rb, alphab, betab, qb, k, 0.1, 150)
 
 # #Graficar las isoclinas
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 7))
@@ -265,14 +265,16 @@ ax1.set_xlabel('N')
 ax1.set_ylabel('P')
 ax1.set_title('Isoclinas de Lotka-Volterra Extendido')
 ax1.plot(Nb_values_1, Pb_values_1, color = 'violet', label='Trajectoria')
+ax1.scatter(eq2xAxis, eq2yAxis, color='red', label='Punto de Equilibrio', s=100, zorder=10)
 ax1.streamplot(vN, vP, dN, dP, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
 ax1.set_xlim(0, 10)
 ax1.set_ylim(0, 10)
 ax1.legend(loc='upper right')
 
 # Segundo gráfico (Trayectorias)
-ax2.plot(Nb_values_1, label='N - Trajectory 1', color = 'violet')
-ax2.plot(Pb_values_1, label='P - Trajectory 1', color = 'darkviolet')
+ax2.plot(Nb_values_1, label='N - Trayectoria 1', color = 'violet')
+ax2.plot(Pb_values_1, label='P - Trayectoria 1', color = 'darkviolet')
+# TODO agregar otra trayectoria
 ax2.set_xlabel('Time')
 ax2.set_ylabel('N')
 ax2.set_title('Trajectories of Lotka-Volterra Extended')
@@ -315,9 +317,9 @@ plt.show()
 # plt.xlabel('N')
 # plt.ylabel('P')
 # plt.title('Isoclines of Lotka-Volterra Extended')
-# plt.plot(Nc_values_1, Pc_values_1, color = 'red', label='Trajectory 1')
-# plt.plot(Nc_values_2, Pc_values_2, color = 'dodgerblue', label='Trajectory 2')
-# plt.plot(Nc_values_3, Pc_values_3, color = 'deeppink', label='Trajectory 3')
+# plt.plot(Nc_values_1, Pc_values_1, color = 'red', label='Trayectoria 1')
+# plt.plot(Nc_values_2, Pc_values_2, color = 'dodgerblue', label='Trayectoria 2')
+# plt.plot(Nc_values_3, Pc_values_3, color = 'deeppink', label='Trayectoria 3')
 # plt.streamplot(vN, vP, dN, dP, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
 # plt.xlim(0, 2)
 # plt.ylim(0, 10)

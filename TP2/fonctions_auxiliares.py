@@ -67,12 +67,8 @@ def EquilibriumPoint(K1, K2, alpha12, alpha21):
     N2 = (K2 - alpha21 * K1) / (1 - alpha12 * alpha21)
     return [N1, N2]
 
-def findEquilibrium(alpha, beta, r, q):
+def findEquilibriumPredatorPrey(alpha, beta, r, q):
     P = ((r*q)/(alpha*beta))**0.5
     N = (alpha*P)/r
     return [N, P]
 
-def findEquilibriumLVE(r, alpha, beta, q, k):
-    P = (q*r*(k-r))/(beta*alpha*k)
-    N = (alpha * P * k) / (r * (k - r))
-    return [N, P]
