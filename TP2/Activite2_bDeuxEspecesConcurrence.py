@@ -15,12 +15,12 @@ def rkSolver(ode, N1, N2, r1, r2, K1, K2, alpha12, alpha21, dt, t_end):
 # Data for Graphs
 h = 0.1
 # el sexto es turtles over pandas, el septimo es pandas over turtles
-t = 250
+t = 270
 d0 = [100, 60, 0.2, 0.1, 550, 500, 2, 1] # Normal
 d1 = [100, 60, 0.2, 0.1, 550, 500, 2, 2.5] # aP > aT
 d2 = [300, 60, 0.2, 0.1, 550, 500, 2, 1] # N0T > N0P
 d3 = [100, 60, 0.6, 0.1, 550, 500, 2, 1] # rT > rP
-d4 = [100, 60, 0.2, 0.1, 750, 500, 2, 1] # KP > KT
+d4 = [100, 60, 0.2, 0.1, 630, 500, 2, 1] # KP > KT
 
 # Creating the Curves
 pandas0, turtles0 = rkSolver(lotkaVolterra, d0[0], d0[1], d0[2], d0[3], d0[4], d0[5], d0[6], d0[7], h, t) # Normal
@@ -37,6 +37,8 @@ axs[0, 0].plot(turtles0, color='darkred', linestyle=':', alpha=0.7, label='Turtl
 axs[0, 0].plot(pandas1, color='navy', label='Pandas (Higher aP)')
 axs[0, 0].plot(turtles1, color='orangered', label='Turtles (Higher aP)')
 axs[0, 0].set_title('Pop. Dynamics with higher Panda Competition')
+axs[0, 0].set_xlabel('Time')
+axs[0, 0].set_ylabel('Population')
 axs[0, 0].legend(loc='upper right')
 
 # Subplot 2
@@ -45,6 +47,8 @@ axs[0, 1].plot(turtles0, color='darkred', linestyle=':', alpha=0.7, label='Turtl
 axs[0, 1].plot(pandas2, color='navy', label='Pandas (Higher N0P)')
 axs[0, 1].plot(turtles2, color='orangered', label='Turtles (Higher N0P)')
 axs[0, 1].set_title('Pop. Dynamics with even higher Panda Init. Population')
+axs[0, 1].set_xlabel('Time')
+axs[0, 1].set_ylabel('Population')
 axs[0, 1].legend(loc='upper right')
 
 # Subplot 3
@@ -53,6 +57,8 @@ axs[1, 0].plot(turtles0, color='darkred', linestyle=':', alpha=0.7, label='Turtl
 axs[1, 0].plot(pandas3, color='navy', label='Pandas (Higher rP)')
 axs[1, 0].plot(turtles3, color='orangered', label='Turtles (Higher rP)')
 axs[1, 0].set_title('Pop. Dynamics with Even Higher Panda Growth Rate')
+axs[1, 0].set_xlabel('Time')
+axs[1, 0].set_ylabel('Population')
 axs[1, 0].legend(loc='upper right')
 
 # Subplot 4
@@ -61,6 +67,8 @@ axs[1, 1].plot(turtles0, color='darkred', linestyle=':', alpha=0.7, label='Turtl
 axs[1, 1].plot(pandas4, color='navy', label='Pandas (Higher KP)')
 axs[1, 1].plot(turtles4, color='orangered', label='Turtles (Lower KT)')
 axs[1, 1].set_title('Pop. Dynamics with even Higher Panda Carrying Capacity')
+axs[1, 1].set_xlabel('Time')
+axs[1, 1].set_ylabel('Population')
 axs[1, 1].legend(loc='upper right')
 
 plt.tight_layout()
