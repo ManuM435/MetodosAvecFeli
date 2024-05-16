@@ -77,6 +77,8 @@ axs[0, 0].plot(leopards1, color='black', linestyle=':', alpha=0.7, label='Leopar
 axs[0, 0].plot(pandas2, color='blue', label='Pandas (Lower a)')
 axs[0, 0].plot(leopards2, color='red', label='Leopards2 (Lower a)')
 axs[0, 0].set_title('Population dynamics with a Lower Predation Rate')
+axs[0, 0].set_xlabel('Time')
+axs[0, 0].set_ylabel('Population')
 axs[0, 0].legend(loc='upper right')
 
 # Subplot 2
@@ -85,6 +87,8 @@ axs[0, 1].plot(leopards1, color='black', linestyle=':', alpha=0.7, label='Leopar
 axs[0, 1].plot(pandas3, color='blue', label='Pandas (Higher r)')
 axs[0, 1].plot(leopards3, color='red', label='Leopards (Higher r)')
 axs[0, 1].set_title('Population dynamics with a Higher Panda Growth Rate')
+axs[0, 1].set_xlabel('Time')
+axs[0, 1].set_ylabel('Population')
 axs[0, 1].legend(loc='upper right')
 
 # Subplot 3
@@ -93,6 +97,8 @@ axs[1, 0].plot(leopards1, color='black', linestyle=':', alpha=0.7, label='Leopar
 axs[1, 0].plot(pandas4, color='blue', label='Pandas (Lower B)')
 axs[1, 0].plot(leopards4, color='red', label='Leopards (Lower B)')
 axs[1, 0].set_title('Population dynamics with a Lower Predator Efficiency Rate')
+axs[1, 0].set_xlabel('Time')
+axs[1, 0].set_ylabel('Population')
 axs[1, 0].legend(loc='upper right')
 
 # Subplot 4
@@ -101,6 +107,8 @@ axs[1, 1].plot(leopards1, color='black', linestyle=':', alpha=0.7, label='Leopar
 axs[1, 1].plot(pandas5, color='blue', label='Pandas (Higher q)')
 axs[1, 1].plot(leopards5, color='red', label='Leopards (Higher q)')
 axs[1, 1].set_title('Population dynamics with a Higher Predator Death Rate')
+axs[1, 1].set_xlabel('Time')
+axs[1, 1].set_ylabel('Population')
 axs[1, 1].legend(loc='upper right')
 
 plt.tight_layout()
