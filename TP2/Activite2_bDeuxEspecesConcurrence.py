@@ -94,9 +94,9 @@ dN2 = r2 * VN2 * (K2a - VN2 - alpha21a * VN1) / K2a
 
 #Trayectoria con runge kutta 
 #def rkSolver(ode, N1, N2, r1, r2, K1, K2, alpha12, alpha21, dt, t_end):
-N1a_values_1, N2a_values_1 = rkSolver(lotkaVolterra, 80, 80, r1, r2, K1a, K2a, alpha12a, alpha21a, 0.1, 100)
-N1a_values_2, N2a_values_2 = rkSolver(lotkaVolterra, 2, 2, r1, r2, K1a, K2a, alpha12a, alpha21a, 0.1, 100)
-N1a_values_3, N2a_values_3 = rkSolver(lotkaVolterra, 40, 5, r1, r2, K1a, K2a, alpha12a, alpha21a, 0.1, 100)
+N1a_values_1, N2a_values_1 = rkSolver(lotkaVolterra, 80, 80, r1, r2, K1a, K2a, alpha12a, alpha21a, 0.1, 200)
+N1a_values_2, N2a_values_2 = rkSolver(lotkaVolterra, 2, 2, r1, r2, K1a, K2a, alpha12a, alpha21a, 0.1, 200)
+N1a_values_3, N2a_values_3 = rkSolver(lotkaVolterra, 40, 5, r1, r2, K1a, K2a, alpha12a, alpha21a, 0.1, 200)
 
 # Graficar Part 1
 plt.plot(N1a, isoclineN1a, label='Isocline of N1', color = 'indigo', linewidth=2.5, linestyle='--')
@@ -139,9 +139,9 @@ dN1 = r1 * VN1 * (K1b - VN1 - alpha12b * VN2) / K1b
 dN2 = r2 * VN2 * (K2b - VN2 - alpha21b * VN1) / K2b
 
 #Trayectoria con runge kutta
-N1b_values_1, N2b_values_1 = rkSolver(lotkaVolterra, 77, 77, r1, r2, K1b, K2b, alpha12b, alpha21b, 0.1, 100)
-N1b_values_2, N2b_values_2 = rkSolver(lotkaVolterra, 2, 2, r1, r2, K1b, K2b, alpha12b, alpha21b, 0.1, 100)
-N1b_values_3, N2b_values_3 = rkSolver(lotkaVolterra, 2, 40, r1, r2, K1b, K2b, alpha12b, alpha21b, 0.1, 100)
+N1b_values_1, N2b_values_1 = rkSolver(lotkaVolterra, 77, 77, r1, r2, K1b, K2b, alpha12b, alpha21b, 0.1, 200)
+N1b_values_2, N2b_values_2 = rkSolver(lotkaVolterra, 2, 2, r1, r2, K1b, K2b, alpha12b, alpha21b, 0.1, 200)
+N1b_values_3, N2b_values_3 = rkSolver(lotkaVolterra, 2, 40, r1, r2, K1b, K2b, alpha12b, alpha21b, 0.1, 200)
 
 # Graficar Part 2
 plt.plot(N1b, isoclineN1b, label='Isocline of N1', color = 'indigo', linewidth=2.5, linestyle='--')
@@ -183,10 +183,10 @@ dN1 = r1 * VN1 * (K1c - VN1 - alpha12c * VN2) / K1c
 dN2 = r2 * VN2 * (K2c - VN2 - alpha21c * VN1) / K2c
 
 # Trayectoria con runge kutta
-N1c_values_1, N2c_values_1 = rkSolver(lotkaVolterra, 80, 118, r1, r2, K1c, K2c, alpha12c, alpha21c, 0.1, 100)
-N1c_values_2, N2c_values_2 = rkSolver(lotkaVolterra, 20, 5, r1, r2, K1c, K2c, alpha12c, alpha21c, 0.1, 100)
-N1c_values_3, N2c_values_3 = rkSolver(lotkaVolterra, 2, 20, r1, r2, K1c, K2c, alpha12c, alpha21c, 0.1, 100)
-N1c_values_4, N2c_values_4 = rkSolver(lotkaVolterra, 115, 60, r1, r2, K1c, K2c, alpha12c, alpha21c, 0.1, 100)
+N1c_values_1, N2c_values_1 = rkSolver(lotkaVolterra, 80, 118, r1, r2, K1c, K2c, alpha12c, alpha21c, 0.1, 200)
+N1c_values_2, N2c_values_2 = rkSolver(lotkaVolterra, 20, 5, r1, r2, K1c, K2c, alpha12c, alpha21c, 0.1, 200)
+N1c_values_3, N2c_values_3 = rkSolver(lotkaVolterra, 2, 20, r1, r2, K1c, K2c, alpha12c, alpha21c, 0.1, 200)
+N1c_values_4, N2c_values_4 = rkSolver(lotkaVolterra, 115, 60, r1, r2, K1c, K2c, alpha12c, alpha21c, 0.1, 200)
 
 # Graficar Part 3
 plt.plot(N1c, isoclineN1c, label='Isocline of N1', color = 'indigo', linewidth=2.5, linestyle='--')
@@ -231,10 +231,10 @@ dN1 = r1 * VN1 * (K1e - VN1 - alpha12e * VN2) / K1e
 dN2 = r2 * VN2 * (K2e - VN2 - alpha21e * VN1) / K2e
 
 # Trayectoria con runge kutta
-N1e_values_1, N2e_values_1 = rkSolver(lotkaVolterra, 75, 198, r1, r2, K1e, K2e, alpha12e, alpha21e, 0.1, 100)
-N1e_values_2, N2e_values_2 = rkSolver(lotkaVolterra, 3, 20, r1, r2, K1e, K2e, alpha12e, alpha21e, 0.1, 100)
-N1e_values_3, N2e_values_3 = rkSolver(lotkaVolterra, 125, 3, r1, r2, K1e, K2e, alpha12e, alpha21e, 0.1, 100)
-N1e_values_4, N2e_values_4 = rkSolver(lotkaVolterra, 198, 50, r1, r2, K1e, K2e, alpha12e, alpha21e, 0.1, 100)
+N1e_values_1, N2e_values_1 = rkSolver(lotkaVolterra, 75, 198, r1, r2, K1e, K2e, alpha12e, alpha21e, 0.1, 200)
+N1e_values_2, N2e_values_2 = rkSolver(lotkaVolterra, 3, 20, r1, r2, K1e, K2e, alpha12e, alpha21e, 0.1, 200)
+N1e_values_3, N2e_values_3 = rkSolver(lotkaVolterra, 125, 3, r1, r2, K1e, K2e, alpha12e, alpha21e, 0.1, 200)
+N1e_values_4, N2e_values_4 = rkSolver(lotkaVolterra, 198, 50, r1, r2, K1e, K2e, alpha12e, alpha21e, 0.1, 200)
 
 # Graficar Part 4
 plt.plot(N1e, isoclineN1e, label='Isocline of N1', color = 'indigo', linewidth=2.5, linestyle='--')
