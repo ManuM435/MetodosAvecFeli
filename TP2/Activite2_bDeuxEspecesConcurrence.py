@@ -178,6 +178,7 @@ K1c = 100
 K2c = 100
 alpha12c = 2
 alpha21c = 2
+d0 = [100, 60, 0.2, 0.1, 550, 500, 2, 1] # Normal
 
 # Isoclinas Part 3
 isoclineN1c = K1c - alpha12c * N2c
