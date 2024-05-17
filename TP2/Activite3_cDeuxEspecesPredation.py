@@ -54,7 +54,7 @@ def rungeKuttaLotVolExt(ode, n, p, r, a, b, q, k, dt, t_end):
 Pandas0 = 120  # initial population of prey species
 Leopards0 = 30  # initial population of predator species
 dt = 0.25 # time step size
-t_end = 100 # end time
+t_end = 200 # end time
 
 # Approximate Predator-Prey with Runge Kutta
 d1 = [0.2, 0.02, 0.004, 0.2] # Normal Values
@@ -163,6 +163,15 @@ axs[1, 1].legend(loc='upper right')
 
 plt.tight_layout()
 plt.show()
+
+
+
+
+
+
+
+
+
 
 
 
@@ -288,4 +297,12 @@ ax2.legend()
 # Ajustar el diseño
 plt.tight_layout()
 plt.show()
+
+
+
+
+
+
+
+# 
 
