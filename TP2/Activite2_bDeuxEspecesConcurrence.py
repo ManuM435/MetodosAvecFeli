@@ -16,11 +16,11 @@ def rkSolver(ode, N1, N2, r1, r2, K1, K2, alpha12, alpha21, dt, t_end):
 h = 0.1
 # el sexto es turtles over pandas, el septimo es pandas over turtles
 t = 270
-d0 = [100, 60, 0.2, 0.1, 550, 500, 2, 1] # Normal
-d1 = [100, 60, 0.2, 0.1, 550, 500, 2, 2.5] # aP > aT
-d2 = [300, 60, 0.2, 0.1, 550, 500, 2, 1] # N0T > N0P
-d3 = [100, 60, 0.6, 0.1, 550, 500, 2, 1] # rT > rP
-d4 = [100, 60, 0.2, 0.1, 630, 500, 2, 1] # KP > KT
+d0 = [100, 60, 0.18, 0.1, 550, 500, 5/6, 1/3] # Normal
+d1 = [100, 60, 0.18, 0.1, 550, 500, 5/6, 8/7] # aP > aT
+d2 = [300, 60, 0.18, 0.1, 550, 500, 5/6, 1/3] # N0T > N0P
+d3 = [100, 60, 0.96, 0.1, 550, 500, 5/6, 1/3] # rT > rP
+d4 = [100, 60, 0.18, 0.1, 700, 500, 5/6, 1/3] # KP > KT
 
 # Creating the Curves
 pandas0, turtles0 = rkSolver(lotkaVolterra, d0[0], d0[1], d0[2], d0[3], d0[4], d0[5], d0[6], d0[7], h, t) # Normal
@@ -117,7 +117,7 @@ dN2 = r2 * VN2 * (K2a - VN2 - alpha21a * VN1) / K2a
 
 #Trayectoria con runge kutta 
 #def rkSolver(ode, N1, N2, r1, r2, K1, K2, alpha12, alpha21, dt, t_end):
-N1a_values_1, N2a_values_1 = rkSolver(lotkaVolterra, 80, 80, r1, r2, K1a, K2a, alpha12a, alpha21a, 0.1, 200)
+N1a_values_1, N2a_values_1 = rkSolver(lotkaVolterra, 100, 60, r1, r2, K1a, K2a, alpha12a, alpha21a, 0.1, 200)
 N1a_values_2, N2a_values_2 = rkSolver(lotkaVolterra, 2, 2, r1, r2, K1a, K2a, alpha12a, alpha21a, 0.1, 200)
 N1a_values_3, N2a_values_3 = rkSolver(lotkaVolterra, 40, 5, r1, r2, K1a, K2a, alpha12a, alpha21a, 0.1, 200)
 
@@ -125,19 +125,19 @@ N1a_values_3, N2a_values_3 = rkSolver(lotkaVolterra, 40, 5, r1, r2, K1a, K2a, al
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 5.5))
 
 # Subplot 1: Isoclina
-ax1.plot(N1a, isoclineN1a, label='Isocline of N1', color = 'indigo', linewidth=2.5, linestyle='--')
-ax1.plot(N1a, isoclineN2a, label='Isocline of N2', color = 'limegreen', linewidth=2.5, linestyle='--')
+ax1.plot(N1a, isoclineN1a, label='Isoclina de Pandas', color = 'indigo', linewidth=2.5, linestyle='--')
+ax1.plot(N1a, isoclineN2a, label='Isoclina de Tortugas', color = 'limegreen', linewidth=2.5, linestyle='--')
 ax1.scatter(EquiPointA[0], EquiPointA[1], color='red', label='Punto De Equilibrio (Estable)', zorder=10)
-ax1.set_xlabel('N1')
-ax1.set_ylabel('N2')
+ax1.set_xlabel('Np')
+ax1.set_ylabel('Nt')
 ax1.set_title('Isoclinas (Caso Tortugas Dominante)')
 ax1.streamplot(vn1, vn2, dN1, dN2, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
-ax1.plot(N1a_values_1, N2a_values_1, color = 'darksalmon', label='Trayectoria 1')
-ax1.plot(N1a_values_2, N2a_values_2, color = 'coral', label='Trayectoria 2')
-ax1.plot(N1a_values_3, N2a_values_3, color = 'orangered', label='Trayectoria 3')
+ax1.plot(N1a_values_1, N2a_values_1, color = 'darksalmon', label='Trayectoria Ejemplo')
+ax1.plot(N1a_values_2, N2a_values_2, color = 'coral', label='Trayectoria Random1')
+ax1.plot(N1a_values_3, N2a_values_3, color = 'orangered', label='Trayectoria Random2')
 ax1.legend(loc='upper right')
-ax1.set_xlim(0, 80)
-ax1.set_ylim(0,80)
+ax1.set_xlim(0, 105)
+ax1.set_ylim(0, 65)
 
 # Subplot 2: Runge Kutta con Parametros 1
 ax2.plot(pandasPar1, color='indigo', label='Pandas')
@@ -183,7 +183,7 @@ dN1 = r1 * VN1 * (K1b - VN1 - alpha12b * VN2) / K1b
 dN2 = r2 * VN2 * (K2b - VN2 - alpha21b * VN1) / K2b
 
 #Trayectoria con runge kutta
-N1b_values_1, N2b_values_1 = rkSolver(lotkaVolterra, 77, 77, r1, r2, K1b, K2b, alpha12b, alpha21b, 0.1, 200)
+N1b_values_1, N2b_values_1 = rkSolver(lotkaVolterra, 100, 60, r1, r2, K1b, K2b, alpha12b, alpha21b, 0.1, 200)
 N1b_values_2, N2b_values_2 = rkSolver(lotkaVolterra, 2, 2, r1, r2, K1b, K2b, alpha12b, alpha21b, 0.1, 200)
 N1b_values_3, N2b_values_3 = rkSolver(lotkaVolterra, 2, 40, r1, r2, K1b, K2b, alpha12b, alpha21b, 0.1, 200)
 
@@ -191,19 +191,19 @@ N1b_values_3, N2b_values_3 = rkSolver(lotkaVolterra, 2, 40, r1, r2, K1b, K2b, al
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 5.5))
 
 # Subplot 1: Isoclina
-ax1.plot(N1b, isoclineN1b, label='Isocline of N1', color = 'indigo', linewidth=2.5, linestyle='--')
-ax1.plot(N1b, isoclineN2b, label='Isocline of N2', color = 'limegreen', linewidth=2.5, linestyle='--')
+ax1.plot(N1b, isoclineN1b, label='Isoclina de Pandas', color = 'indigo', linewidth=2.5, linestyle='--')
+ax1.plot(N1b, isoclineN2b, label='Isoclina de Tortugas', color = 'limegreen', linewidth=2.5, linestyle='--')
 ax1.scatter(EquiPointB[0], EquiPointB[1], color='red', label='Punto De Equilibrio (Estable)', zorder=10)
-ax1.set_xlabel('N1')
-ax1.set_ylabel('N2')
+ax1.set_xlabel('Np')
+ax1.set_ylabel('Nt')
 ax1.set_title('Isoclinas (Caso Pandas Dominante)')
 ax1.streamplot(vn1, vn2, dN1, dN2, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
-ax1.plot(N1b_values_1, N2b_values_1, color = 'orchid', label='Trayectoria 1')
-ax1.plot(N1b_values_2, N2b_values_2, color = 'mediumorchid', label='Trayectoria 2')
-ax1.plot(N1b_values_3, N2b_values_3, color = 'darkorchid', label='Trayectoria 3')
+ax1.plot(N1b_values_1, N2b_values_1, color = 'orchid', label='Trayectoria Ejemplo')
+ax1.plot(N1b_values_2, N2b_values_2, color = 'mediumorchid', label='Trayectoria Random1')
+ax1.plot(N1b_values_3, N2b_values_3, color = 'darkorchid', label='Trayectoria Random2')
 ax1.legend(loc='upper right')
-ax1.set_xlim(0, 80)
-ax1.set_ylim(0,80)
+ax1.set_xlim(0, 105)
+ax1.set_ylim(0,65)
 
 # Subplot 2: Runge Kutta con Parametros 1
 ax2.plot(pandasPar2, color='indigo', label='Pandas')
@@ -221,6 +221,10 @@ plt.show()
 
 
 
+
+
+
+
 # Parametros Part 3
 N1c = np.linspace(0, 50, 100)
 N2c = np.linspace(0, 50, 100)
@@ -228,13 +232,12 @@ K1c = 100
 K2c = 100
 alpha12c = 2
 alpha21c = 2
+# Con alfas > 1
+# Arrancan con N1 mayor, luego N2 mayor 
 
-# ESTOS SON LOS DATOS CON LOS QUE HABRIA QUE HACER QUE SIRVA
-# d0 = [N01 = 100, N02 = 60, K1 = 550, K2 = 500, a12 = 2, a21 = 1] # Normal
-# Hay que cambiar los parametros, ajustar los vectores, agrandar los limites del grafico para acomodar, etc, etc.
-# Acomodar limites hasta 575 para que los K1 y K2 entren bien
-# Encontrar el nuevo punto de equilibrio con los nuevos parametros
-
+# Runge Kutta Part 3
+pandasPar3, turtlesPar3 = rkSolver(lotkaVolterra, 100, 60, r1, r2, K1c, K2c, alpha12c, alpha21c, 0.1, 200)
+pandasPar3Ej2, turtlesPar3Ej2 = rkSolver(lotkaVolterra, 125, 192, r1, r2, K1c, K2c, alpha12c, alpha21c, 0.1, 200)
 
 # Isoclinas Part 3
 isoclineN1c = K1c - alpha12c * N2c
@@ -252,31 +255,55 @@ dN1 = r1 * VN1 * (K1c - VN1 - alpha12c * VN2) / K1c
 dN2 = r2 * VN2 * (K2c - VN2 - alpha21c * VN1) / K2c
 
 # Trayectoria con runge kutta
-N1c_values_1, N2c_values_1 = rkSolver(lotkaVolterra, 80, 118, r1, r2, K1c, K2c, alpha12c, alpha21c, 0.1, 200)
+N1c_values_1, N2c_values_1 = rkSolver(lotkaVolterra, 100, 60, r1, r2, K1c, K2c, alpha12c, alpha21c, 0.1, 200)
 N1c_values_2, N2c_values_2 = rkSolver(lotkaVolterra, 20, 5, r1, r2, K1c, K2c, alpha12c, alpha21c, 0.1, 200)
 N1c_values_3, N2c_values_3 = rkSolver(lotkaVolterra, 2, 20, r1, r2, K1c, K2c, alpha12c, alpha21c, 0.1, 200)
-N1c_values_4, N2c_values_4 = rkSolver(lotkaVolterra, 115, 60, r1, r2, K1c, K2c, alpha12c, alpha21c, 0.1, 200)
+N1c_values_4, N2c_values_4 = rkSolver(lotkaVolterra, 113, 112, r1, r2, K1c, K2c, alpha12c, alpha21c, 0.1, 200)
 
 # Graficar Part 3
-plt.plot(N1c, isoclineN1c, label='Isocline of N1', color = 'indigo', linewidth=2.5, linestyle='--')
-plt.plot(isoclineN2c, N2c, label='Isocline of N2', color = 'limegreen', linewidth=2.5, linestyle='--')
-plt.scatter(EquiPointC1[0], EquiPointC1[1], color='red', label='Punto De Equilibrio 1 (Estable)', zorder=10)
-plt.scatter(EquiPointC2[0], EquiPointC2[1], color='red', label='Punto De Equilibrio 2 (Estable)', zorder=10)
-plt.scatter(EquiPointC3[0], EquiPointC3[1], color='maroon', label='Punto De Equilibrio 3 (Inestable)', zorder=10)
-plt.xlabel('N1')
-plt.ylabel('N2')
-plt.title('Isoclinas (Caso Interseccion Inestable)')
-plt.streamplot(vn1, vn2, dN1, dN2, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
-plt.plot(N1c_values_1, N2c_values_1, color = 'hotpink', label='Trayectoria 1')
-plt.plot(N1c_values_2, N2c_values_2, color = 'deeppink', label='Trayectoria 2')
-plt.plot(N1c_values_3, N2c_values_3, color = 'mediumvioletred', label='Trayectoria 3')
-plt.plot(N1c_values_4, N2c_values_4, color = 'darkmagenta', label='Trayectoria 4')
-plt.legend(loc='upper right')
-plt.xlim(0,120)
-plt.ylim(0,120)
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 5.5))
+
+# Subplot 1: Isoclina
+ax1.plot(N1c, isoclineN1c, label='Isoclina de Pandas', color = 'indigo', linewidth=2.5, linestyle='--')
+ax1.plot(isoclineN2c, N2c, label='Isoclina de Tortugas', color = 'limegreen', linewidth=2.5, linestyle='--')
+ax1.scatter(EquiPointC1[0], EquiPointC1[1], color='red', label='Punto De Equilibrio 1 (Estable)', zorder=10)
+ax1.scatter(EquiPointC2[0], EquiPointC2[1], color='red', label='Punto De Equilibrio 2 (Estable)', zorder=10)
+ax1.scatter(EquiPointC3[0], EquiPointC3[1], color='maroon', label='Punto De Equilibrio 3 (Inestable)', zorder=10)
+ax1.set_xlabel('Np')
+ax1.set_ylabel('Nt')
+ax1.set_title('Isoclinas (Caso Interseccion Inestable)')
+ax1.streamplot(vn1, vn2, dN1, dN2, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
+ax1.plot(N1c_values_1, N2c_values_1, color = 'hotpink', label='Trayectoria Ejemplo1')
+ax1.plot(N1c_values_2, N2c_values_2, color = 'deeppink', label='Trayectoria Random1')
+ax1.plot(N1c_values_4, N2c_values_4, color = 'darkmagenta', label='Trayectoria Ejemplo2')
+ax1.plot(N1c_values_3, N2c_values_3, color = 'mediumvioletred', label='Trayectoria Random2')
+ax1.legend(loc='upper right')
+ax1.set_xlim(0, 120)
+ax1.set_ylim(0, 120)
+
+# Subplot 2: Runge Kutta con Parametros 1
+ax2.plot(pandasPar3, color='indigo', label='Pandas')
+ax2.plot(turtlesPar3, color='forestgreen', label='Turtles')
+ax2.plot(pandasPar3Ej2, color='darkblue', label='Pandas Ejemplo2', linestyle=':')
+ax2.plot(turtlesPar3Ej2, color='darkgreen', label='Turtles Ejemplo2', linestyle=':')
+ax2.set_title('Population Dynamics')
+ax2.set_xlabel('Time')
+ax2.set_ylabel('Population')
+ax2.legend(loc='upper right')
+
+# Mostrar ambos gráficos
+plt.tight_layout()
 plt.show()
-# Con alfas > 1
-# Arrancan con N1 mayor, luego N2 mayor 
+
+
+
+
+
+
+
+
+
+
 
 # Parametros Part 4
 N1e = np.linspace(0, 150, 100)
@@ -285,6 +312,11 @@ K1e = 100
 K2e = 100
 alpha12e = 2/3
 alpha21e = 2/3
+# # Con alfas < 1
+# Empiezan al reves, y terminan al reves
+
+# Runge Kutta Part 4
+pandasPar4, turtlesPar4 = rkSolver(lotkaVolterra, 100, 60, r1, r2, K1e, K2e, alpha12e, alpha21e, 0.1, 200)
 
 # Isoclinas Part 4
 isoclineN1e = K1e - alpha12e * N2e
@@ -300,28 +332,41 @@ dN1 = r1 * VN1 * (K1e - VN1 - alpha12e * VN2) / K1e
 dN2 = r2 * VN2 * (K2e - VN2 - alpha21e * VN1) / K2e
 
 # Trayectoria con runge kutta
-N1e_values_1, N2e_values_1 = rkSolver(lotkaVolterra, 75, 198, r1, r2, K1e, K2e, alpha12e, alpha21e, 0.1, 200)
-N1e_values_2, N2e_values_2 = rkSolver(lotkaVolterra, 3, 20, r1, r2, K1e, K2e, alpha12e, alpha21e, 0.1, 200)
-N1e_values_3, N2e_values_3 = rkSolver(lotkaVolterra, 125, 3, r1, r2, K1e, K2e, alpha12e, alpha21e, 0.1, 200)
-N1e_values_4, N2e_values_4 = rkSolver(lotkaVolterra, 198, 50, r1, r2, K1e, K2e, alpha12e, alpha21e, 0.1, 200)
+N1e_values_1, N2e_values_1 = rkSolver(lotkaVolterra, 100, 60, r1, r2, K1e, K2e, alpha12e, alpha21e, 0.1, 200)
+N1e_values_2, N2e_values_2 = rkSolver(lotkaVolterra, 7, 106, r1, r2, K1e, K2e, alpha12e, alpha21e, 0.1, 200)
+N1e_values_3, N2e_values_3 = rkSolver(lotkaVolterra, 125, 4, r1, r2, K1e, K2e, alpha12e, alpha21e, 0.1, 200)
+N1e_values_4, N2e_values_4 = rkSolver(lotkaVolterra, 198, 197, r1, r2, K1e, K2e, alpha12e, alpha21e, 0.1, 200)
 
 # Graficar Part 4
-plt.plot(N1e, isoclineN1e, label='Isocline of N1', color = 'indigo', linewidth=2.5, linestyle='--')
-plt.plot(isoclineN2e, N2e, label='Isocline of N2', color = 'limegreen', linewidth=2.5, linestyle='--')
-plt.scatter(EquiPointE[0], EquiPointE[1], color='red', label='Punto de Equilibrio (Estable)', zorder=10)
-plt.xlabel('N1')
-plt.ylabel('N2')
-plt.title('Isoclinas (Caso Interseccion Estable)')
-plt.streamplot(vn1, vn2, dN1, dN2, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
-plt.plot(N1e_values_1, N2e_values_1, color = 'lightsteelblue', label='Trayectoria 1')
-plt.plot(N1e_values_2, N2e_values_2, color = 'cornflowerblue', label='Trayectoria 2')
-plt.plot(N1e_values_3, N2e_values_3, color = 'royalblue', label='Trayectoria 3')
-plt.plot(N1e_values_4, N2e_values_4, color = 'steelblue', label='Trayectoria 4')
-plt.legend(loc='upper right')
-plt.xlim(0,200)
-plt.ylim(0,200)
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 5.5))
+
+# Subplot 1: Isoclina
+ax1.plot(N1e, isoclineN1e, label='Isoclina de Pandas', color = 'indigo', linewidth=2.5, linestyle='--')
+ax1.plot(isoclineN2e, N2e, label='Isoclina de Tortugas', color = 'limegreen', linewidth=2.5, linestyle='--')
+ax1.scatter(EquiPointE[0], EquiPointE[1], color='red', label='Punto De Equilibrio (Estable)', zorder=10)
+ax1.set_xlabel('Np')
+ax1.set_ylabel('Nt')
+ax1.set_title('Isoclinas (Caso Interseccion Estable)')
+ax1.streamplot(vn1, vn2, dN1, dN2, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
+ax1.plot(N1e_values_1, N2e_values_1, color = 'lightsteelblue', label='Trayectoria Ejemplo')
+ax1.plot(N1e_values_2, N2e_values_2, color = 'cornflowerblue', label='Trayectoria Random1')
+ax1.plot(N1e_values_3, N2e_values_3, color = 'royalblue', label='Trayectoria Random2')
+ax1.plot(N1e_values_4, N2e_values_4, color = 'steelblue', label='Trayectoria Random3')
+ax1.legend(loc='upper right')
+ax1.set_xlim(0, 200)
+ax1.set_ylim(0, 200)
+
+# Subplot 2: Runge Kutta con Parametros 1
+ax2.plot(pandasPar4, color='indigo', label='Pandas')
+ax2.plot(turtlesPar4, color='forestgreen', label='Turtles')
+ax2.set_title('Population Dynamics')
+ax2.set_xlabel('Time')
+ax2.set_ylabel('Population')
+ax2.legend(loc='upper right')
+
+# Mostrar ambos gráficos
+plt.tight_layout()
 plt.show()
-# # Con alfas < 1
-# Empiezan al reves, y terminan al reves
+
 
 
