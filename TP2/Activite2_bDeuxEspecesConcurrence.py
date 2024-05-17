@@ -33,9 +33,9 @@ fig, axs = plt.subplots(2, 2, figsize=(10, 8))
 
 # Subplot 1
 axs[0, 0].plot(pandas0, color='indigo', linestyle=':', alpha=0.7, label='Pandas (Default)')
-axs[0, 0].plot(turtles0, color='darkred', linestyle=':', alpha=0.7, label='Turtles (Defualt)')
+axs[0, 0].plot(turtles0, color='green', linestyle=':', alpha=0.7, label='Turtles (Defualt)')
 axs[0, 0].plot(pandas1, color='navy', label='Pandas (Higher aP)')
-axs[0, 0].plot(turtles1, color='orangered', label='Turtles (Higher aP)')
+axs[0, 0].plot(turtles1, color='forestgreen', label='Turtles (Higher aP)')
 axs[0, 0].set_title('Pop. Dynamics with higher Panda Competition')
 axs[0, 0].set_xlabel('Time')
 axs[0, 0].set_ylabel('Population')
@@ -43,9 +43,9 @@ axs[0, 0].legend(loc='upper right')
 
 # Subplot 2
 axs[0, 1].plot(pandas0, color='indigo', linestyle=':', alpha=0.7, label='Pandas (Default)')
-axs[0, 1].plot(turtles0, color='darkred', linestyle=':', alpha=0.7, label='Turtles (Defualt)')
+axs[0, 1].plot(turtles0, color='green', linestyle=':', alpha=0.7, label='Turtles (Defualt)')
 axs[0, 1].plot(pandas2, color='navy', label='Pandas (Higher N0P)')
-axs[0, 1].plot(turtles2, color='orangered', label='Turtles (Higher N0P)')
+axs[0, 1].plot(turtles2, color='forestgreen', label='Turtles (Higher N0P)')
 axs[0, 1].set_title('Pop. Dynamics with even higher Panda Init. Population')
 axs[0, 1].set_xlabel('Time')
 axs[0, 1].set_ylabel('Population')
@@ -53,9 +53,9 @@ axs[0, 1].legend(loc='upper right')
 
 # Subplot 3
 axs[1, 0].plot(pandas0, color='indigo', linestyle=':', alpha=0.7, label='Pandas (Default)')
-axs[1, 0].plot(turtles0, color='darkred', linestyle=':', alpha=0.7, label='Turtles (Defualt)')
+axs[1, 0].plot(turtles0, color='green', linestyle=':', alpha=0.7, label='Turtles (Defualt)')
 axs[1, 0].plot(pandas3, color='navy', label='Pandas (Higher rP)')
-axs[1, 0].plot(turtles3, color='orangered', label='Turtles (Higher rP)')
+axs[1, 0].plot(turtles3, color='forestgreen', label='Turtles (Higher rP)')
 axs[1, 0].set_title('Pop. Dynamics with Even Higher Panda Growth Rate')
 axs[1, 0].set_xlabel('Time')
 axs[1, 0].set_ylabel('Population')
@@ -63,9 +63,9 @@ axs[1, 0].legend(loc='upper right')
 
 # Subplot 4
 axs[1, 1].plot(pandas0, color='indigo', linestyle=':', alpha=0.7, label='Pandas (Default)')
-axs[1, 1].plot(turtles0, color='darkred', linestyle=':', alpha=0.7, label='Turtles (Defualt)')
+axs[1, 1].plot(turtles0, color='green', linestyle=':', alpha=0.7, label='Turtles (Defualt)')
 axs[1, 1].plot(pandas4, color='navy', label='Pandas (Higher KP)')
-axs[1, 1].plot(turtles4, color='orangered', label='Turtles (Lower KT)')
+axs[1, 1].plot(turtles4, color='forestgreen', label='Turtles (Lower KT)')
 axs[1, 1].set_title('Pop. Dynamics with even Higher Panda Carrying Capacity')
 axs[1, 1].set_xlabel('Time')
 axs[1, 1].set_ylabel('Population')
@@ -76,9 +76,18 @@ plt.show()
 
 
 
+
+
+
+
+
+
 # Isoclinas Cero
-r1 = 0.1
+r1 = 0.2
 r2 = 0.1
+
+
+
 
 # Parametros Part 1
 N1a = np.linspace(0, 100, 100)
@@ -87,9 +96,11 @@ K1a = 30
 K2a = 50
 alpha12a = 2
 alpha21a = 1/2
-
 # Si los alpha son inversos, la pendiente es la misma (entonces el que tiene K mas grande va a ser siempre mas grande)
 # Si K2 > K1, entonces [isoclina de N2 > isoclina de N1]
+
+# Runge Kutta Part 1
+pandasPar1, turtlesPar1 = rkSolver(lotkaVolterra, 100, 60, r1, r2, K1a, K2a, alpha12a, alpha21a, 0.1, 200)
 
 # Isoclinas Part 1
 isoclineN1a = K1a/alpha12a - 1/alpha12a * N1a
@@ -110,23 +121,42 @@ N1a_values_1, N2a_values_1 = rkSolver(lotkaVolterra, 80, 80, r1, r2, K1a, K2a, a
 N1a_values_2, N2a_values_2 = rkSolver(lotkaVolterra, 2, 2, r1, r2, K1a, K2a, alpha12a, alpha21a, 0.1, 200)
 N1a_values_3, N2a_values_3 = rkSolver(lotkaVolterra, 40, 5, r1, r2, K1a, K2a, alpha12a, alpha21a, 0.1, 200)
 
-# Graficar Part 1
-plt.plot(N1a, isoclineN1a, label='Isocline of N1', color = 'indigo', linewidth=2.5, linestyle='--')
-plt.plot(N1a, isoclineN2a, label='Isocline of N2', color = 'limegreen', linewidth=2.5, linestyle='--')
-plt.scatter(EquiPointA[0], EquiPointA[1], color='red', label='Punto De Equilibrio (Estable)', zorder=10)
-plt.xlabel('N1')
-plt.ylabel('N2')
-plt.title('Isoclinas (Caso Pandas Dominante)')
-plt.streamplot(vn1, vn2, dN1, dN2, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
-plt.plot(N1a_values_1, N2a_values_1, color = 'darksalmon', label='Trayectoria 1')
-plt.plot(N1a_values_2, N2a_values_2, color = 'coral', label='Trayectoria 2')
-plt.plot(N1a_values_3, N2a_values_3, color = 'orangered', label='Trayectoria 3')
-plt.legend(loc='upper right')
-plt.xlim(0,80)
-plt.ylim(0,80)
+# Graficar Part Isoclina 1
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 5.5))
+
+# Subplot 1: Isoclina
+ax1.plot(N1a, isoclineN1a, label='Isocline of N1', color = 'indigo', linewidth=2.5, linestyle='--')
+ax1.plot(N1a, isoclineN2a, label='Isocline of N2', color = 'limegreen', linewidth=2.5, linestyle='--')
+ax1.scatter(EquiPointA[0], EquiPointA[1], color='red', label='Punto De Equilibrio (Estable)', zorder=10)
+ax1.set_xlabel('N1')
+ax1.set_ylabel('N2')
+ax1.set_title('Isoclinas (Caso Tortugas Dominante)')
+ax1.streamplot(vn1, vn2, dN1, dN2, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
+ax1.plot(N1a_values_1, N2a_values_1, color = 'darksalmon', label='Trayectoria 1')
+ax1.plot(N1a_values_2, N2a_values_2, color = 'coral', label='Trayectoria 2')
+ax1.plot(N1a_values_3, N2a_values_3, color = 'orangered', label='Trayectoria 3')
+ax1.legend(loc='upper right')
+ax1.set_xlim(0, 80)
+ax1.set_ylim(0,80)
+
+# Subplot 2: Runge Kutta con Parametros 1
+ax2.plot(pandasPar1, color='indigo', label='Pandas')
+ax2.plot(turtlesPar1, color='forestgreen', label='Turtles')
+ax2.set_title('Population Dynamics')
+ax2.set_xlabel('Time')
+ax2.set_ylabel('Population')
+ax2.legend(loc='upper right')
+
+# Mostrar ambos gráficos
+plt.tight_layout()
 plt.show()
 
-# # Parametros Part 2
+
+
+
+
+
+# Parametros Part 2
 N1b = np.linspace(0, 200, 100)
 N2b = np.linspace(0, 100, 100)
 K1b = 50
@@ -136,8 +166,10 @@ alpha21b = 2
 # Si los alpha son inversos, la pendiente es la misma (entonces el que tiene K mas grande va a ser siempre mas grande)
 # Si K1 > K2, entonces [isoclina de N1 > isoclina de N2]
 
+# Runge Kutta Part 2
+pandasPar2, turtlesPar2 = rkSolver(lotkaVolterra, 100, 60, r1, r2, K1b, K2b, alpha12b, alpha21b, 0.1, 200)
+
 # Isoclinas Part 2
-# isoclineN1a = K1a/alpha12a - 1/alpha12a * N1a
 isoclineN1b = K1b/alpha12b - 1/alpha12b * N1b
 isoclineN2b = K2b - alpha21b * N1b
 EquiPointB = [K1b, 0]
@@ -155,21 +187,39 @@ N1b_values_1, N2b_values_1 = rkSolver(lotkaVolterra, 77, 77, r1, r2, K1b, K2b, a
 N1b_values_2, N2b_values_2 = rkSolver(lotkaVolterra, 2, 2, r1, r2, K1b, K2b, alpha12b, alpha21b, 0.1, 200)
 N1b_values_3, N2b_values_3 = rkSolver(lotkaVolterra, 2, 40, r1, r2, K1b, K2b, alpha12b, alpha21b, 0.1, 200)
 
-# Graficar Part 2
-plt.plot(N1b, isoclineN1b, label='Isocline of N1', color = 'indigo', linewidth=2.5, linestyle='--')
-plt.plot(N1b, isoclineN2b, label='Isocline of N2', color = 'limegreen', linewidth=2.5, linestyle='--')
-plt.scatter(EquiPointB[0], EquiPointB[1], color='red', label='Punto De Equilibrio (Estable)', zorder=10)
-plt.xlabel('N1')
-plt.ylabel('N2')
-plt.title('Isoclinas (Caso Tortugas Dominante)')
-plt.streamplot(vn1, vn2, dN1, dN2, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
-plt.plot(N1b_values_1, N2b_values_1, color = 'orchid', label='Trayectoria 1')
-plt.plot(N1b_values_2, N2b_values_2, color = 'mediumorchid', label='Trayectoria 2')
-plt.plot(N1b_values_3, N2b_values_3, color = 'darkorchid', label='Trayectoria 3')
-plt.legend(loc='upper right')
-plt.xlim(0,80)
-plt.ylim(0,80)
+# Graficar Part Isoclina 1
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 5.5))
+
+# Subplot 1: Isoclina
+ax1.plot(N1b, isoclineN1b, label='Isocline of N1', color = 'indigo', linewidth=2.5, linestyle='--')
+ax1.plot(N1b, isoclineN2b, label='Isocline of N2', color = 'limegreen', linewidth=2.5, linestyle='--')
+ax1.scatter(EquiPointB[0], EquiPointB[1], color='red', label='Punto De Equilibrio (Estable)', zorder=10)
+ax1.set_xlabel('N1')
+ax1.set_ylabel('N2')
+ax1.set_title('Isoclinas (Caso Pandas Dominante)')
+ax1.streamplot(vn1, vn2, dN1, dN2, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
+ax1.plot(N1b_values_1, N2b_values_1, color = 'orchid', label='Trayectoria 1')
+ax1.plot(N1b_values_2, N2b_values_2, color = 'mediumorchid', label='Trayectoria 2')
+ax1.plot(N1b_values_3, N2b_values_3, color = 'darkorchid', label='Trayectoria 3')
+ax1.legend(loc='upper right')
+ax1.set_xlim(0, 80)
+ax1.set_ylim(0,80)
+
+# Subplot 2: Runge Kutta con Parametros 1
+ax2.plot(pandasPar2, color='indigo', label='Pandas')
+ax2.plot(turtlesPar2, color='forestgreen', label='Turtles')
+ax2.set_title('Population Dynamics')
+ax2.set_xlabel('Time')
+ax2.set_ylabel('Population')
+ax2.legend(loc='upper right')
+
+# Mostrar ambos gráficos
+plt.tight_layout()
 plt.show()
+
+
+
+
 
 # Parametros Part 3
 N1c = np.linspace(0, 50, 100)
