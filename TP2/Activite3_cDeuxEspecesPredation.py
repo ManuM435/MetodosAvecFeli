@@ -53,8 +53,8 @@ def rungeKuttaLotVolExt(ode, n, p, r, a, b, q, k, dt, t_end):
 # Runge Kutta Approximations
 Pandas0 = 120  # initial population of prey species
 Leopards0 = 30  # initial population of predator species
-dt = 0.25 # time step size
-t_end = 200 # end time
+dt = 0.1 # time step size
+t_end = 150 # end time
 
 # Approximate Predator-Prey with Runge Kutta
 d1 = [0.2, 0.02, 0.004, 0.2] # Normal Values
@@ -228,10 +228,14 @@ VN, VP = np.meshgrid(vN, vP)
 dN = ra * VN - alphaa * VN * VP
 dP = alphaa * VN * VP - qa * VP
 
+# P'al Runge
+tF = 150
+hS = 0.1
+
 #Trayectoria con runge kutta
-Na_values_1, Pa_values_1 = rungeKuttaPredatorPrey(PredatorPreyLotVol, 5, 1, ra, alphaa, betaa, qa, 0.1, 1000)
-Na_values_2, Pa_values_2 = rungeKuttaPredatorPrey(PredatorPreyLotVol, 1.5, 1.5, ra, alphaa, betaa, qa, 0.1, 1000)
-Na_values_3, Pa_values_3 = rungeKuttaPredatorPrey(PredatorPreyLotVol, 8, 0.6, ra, alphaa, betaa, qa, 0.1, 1000)
+Na_values_1, Pa_values_1 = rungeKuttaPredatorPrey(PredatorPreyLotVol, 5, 1, ra, alphaa, betaa, qa, hS, tF)
+Na_values_2, Pa_values_2 = rungeKuttaPredatorPrey(PredatorPreyLotVol, 1.5, 1.5, ra, alphaa, betaa, qa, hS, tF)
+Na_values_3, Pa_values_3 = rungeKuttaPredatorPrey(PredatorPreyLotVol, 8, 0.6, ra, alphaa, betaa, qa, hS, tF)
 
 #Graficos
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 7))  # Crear una figura con 2 gráficos uno al lado del otro
@@ -253,12 +257,12 @@ ax1.legend()
 
 # Segundo gráfico en ax2
 ax2.plot(Na_values_1, label='P- Trayectoria 1', color='orangered')
-ax2.plot(Na_values_3, label='P - Trayectoria 3', color='gold')
+ax2.plot(Na_values_3, label='P - Trayectoria 3', color='gold', linestyle='--')
 ax2.plot(Pa_values_1, label='L - Trayectoria 1', color='coral')
-ax2.plot(Pa_values_3, label='L - Trayectoria 3', color='khaki')
-ax2.set_xlabel('Time')
-ax2.set_ylabel('Population')
-ax2.set_title('Trajectories of Predator-Prey')
+ax2.plot(Pa_values_3, label='L - Trayectoria 3', color='khaki', linestyle='--')
+ax2.set_xlabel('Tiempo')
+ax2.set_ylabel('Poblacion')
+ax2.set_title('Trayectorias de Depredador-Presa')
 ax2.legend()
 
 # Mostrar ambos gráficos
@@ -296,8 +300,14 @@ VN, VP = np.meshgrid(vN, vP)
 dN = rb * VN * (1 - VN/k) - alphab * VN * VP
 dP = alphab * VN * VP - qb * VP
 
+# P'al Runge
+tFinal = 150
+hStep = 0.1
+
 #Trayectoria con runge kutta
-Nb_values_1, Pb_values_1 = rungeKuttaLotVolExt(LotkaVolterraExtODE, 5, 5, rb, alphab, betab, qb, k, 0.1, 150)
+Nb_values_1, Pb_values_1 = rungeKuttaLotVolExt(LotkaVolterraExtODE, 5, 5, rb, alphab, betab, qb, k, hStep, tFinal)
+Nb_values_2, Pb_values_2 = rungeKuttaLotVolExt(LotkaVolterraExtODE, 3, 9, rb, alphab, betab, qb, k, hStep, tFinal)
+Nb_values_3, Pb_values_3 = rungeKuttaLotVolExt(LotkaVolterraExtODE, 2, 0.5, rb, alphab, betab, qb, k, hStep, tFinal)
 
 #Graficar las isoclinas
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 7))
@@ -305,10 +315,12 @@ fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 7))
 # Primer gráfico (Isoclinas)
 ax1.plot(isocline_Nlve, Nb, label='Isoclina de Pandas', color = 'indigo', linestyle='--', linewidth=2)
 ax1.plot(Nb, isocline_Plve, label='Isoclina de Leopardos', color = 'limegreen', linestyle='--', linewidth=2)
-ax1.set_xlabel('P')
-ax1.set_ylabel('L')
+ax1.set_xlabel('Pandas')
+ax1.set_ylabel('Leopardos')
 ax1.set_title('Isoclinas de Lotka-Volterra Extendido')
-ax1.plot(Nb_values_1, Pb_values_1, color = 'violet', label='Trajectoria')
+ax1.plot(Nb_values_1, Pb_values_1, color = 'violet', label='Trajectoria 1')
+ax1.plot(Nb_values_2, Pb_values_2, color = 'purple', label='Trajectoria 2')
+ax1.plot(Nb_values_3, Pb_values_3, color = 'darkviolet', label='Trajectoria 3')
 ax1.scatter(eq2xAxis, eq2yAxis, color='red', label='Punto de Equilibrio', s=100, zorder=10)
 ax1.streamplot(vN, vP, dN, dP, color = 'gray', density=1, arrowstyle='->', linewidth=0.7)
 ax1.set_xlim(0, 10)
@@ -319,9 +331,9 @@ ax1.legend(loc='upper right')
 ax2.plot(Nb_values_1, label='P - Trayectoria 1', color = 'violet')
 ax2.plot(Pb_values_1, label='L - Trayectoria 1', color = 'darkviolet')
 # TODO agregar otra trayectoria
-ax2.set_xlabel('Time')
-ax2.set_ylabel('Population')
-ax2.set_title('Trajectories of Lotka-Volterra Extended')
+ax2.set_xlabel('Tiempo')
+ax2.set_ylabel('Poblacion')
+ax2.set_title('Trayectorias de Lotka-Volterra Extendido')
 ax2.legend()
 
 # Ajustar el diseño
