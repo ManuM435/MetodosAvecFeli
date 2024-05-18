@@ -269,7 +269,7 @@ dP = alphab * VN * VP - qb * VP
 #Trayectoria con runge kutta
 Nb_values_1, Pb_values_1 = rungeKuttaLotVolExt(LotkaVolterraExtODE, 5, 5, rb, alphab, betab, qb, k, 0.1, 150)
 
-# #Graficar las isoclinas
+#Graficar las isoclinas
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 7))
 
 # Primer gráfico (Isoclinas)
@@ -285,7 +285,7 @@ ax1.set_xlim(0, 10)
 ax1.set_ylim(0, 10)
 ax1.legend(loc='upper right')
 
-# Segundo gráfico (Trayectorias)
+Segundo gráfico (Trayectorias)
 ax2.plot(Nb_values_1, label='P - Trayectoria 1', color = 'violet')
 ax2.plot(Pb_values_1, label='L - Trayectoria 1', color = 'darkviolet')
 # TODO agregar otra trayectoria
@@ -294,7 +294,7 @@ ax2.set_ylabel('N')
 ax2.set_title('Trajectories of Lotka-Volterra Extended')
 ax2.legend()
 
-# Ajustar el diseño
+Ajustar el diseño
 plt.tight_layout()
 plt.show()
 
@@ -306,3 +306,52 @@ plt.show()
 
 # 
 
+
+#Graficar las ODE a través del tiempo
+#Primero graficamos dNdt
+
+#parámetros1
+r1 = 0.1
+alpha1 = 10
+beta1 = 10
+q1 = 0.1
+N = 5
+P = 1
+
+#graficar dNdt a traves del tiempo
+t = np.linspace(0, 100, 100)
+# N = np.linspace(0, 10, 10)
+# P = np.linspace(0, 10, 10)
+
+dNdt = r1 * N - alpha1 * N * P
+
+plt.plot(t, dNdt)
+plt.xlabel('Time')
+plt.ylabel('dN/dt')
+plt.title('dN/dt over time')
+
+
+# Parameters
+r1 = 0.1
+alpha1 = 10
+beta1 = 10
+q1 = 0.1
+N = 5
+P = 1
+
+# Time array
+t = np.linspace(0, 100, 100)
+
+# Function to calculate dNdt
+def calculate_dNdt(N, P, r1, alpha1):
+    return r1 * N - alpha1 * N * P
+
+# Calculate dNdt over time
+dNdt = np.array([calculate_dNdt(N, P, r1, alpha1) for _ in t])
+
+# Plotting
+plt.plot(t, dNdt)
+plt.xlabel('Time')
+plt.ylabel('dN/dt')
+plt.title('dN/dt over time')
+plt.show()
