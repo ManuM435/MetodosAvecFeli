@@ -111,15 +111,9 @@ axs[1, 1].set_xlabel('Time')
 axs[1, 1].set_ylabel('Population')
 axs[1, 1].legend(loc='upper right')
 
-# Add a title to the entire figure
-fig.suptitle('Poblacion en el tiempo con Depredador-Presa', fontsize=16)
-
-# Adjust layout to accommodate the figure title
-plt.tight_layout(rect=[0, 0, 1, 0.99])  # Adjust the rect to fit the suptitle
-
-# Graph
+# Show
+plt.tight_layout()
 plt.show()
-
 
 
 
@@ -179,13 +173,8 @@ axs[1, 1].set_xlabel('Time')
 axs[1, 1].set_ylabel('Population')
 axs[1, 1].legend(loc='upper right')
 
-# Add a title to the entire figure
-fig.suptitle('Poblacion en el tiempo con Depredacion LVE', fontsize=16)
-
-# Adjust layout to accommodate the figure title
-plt.tight_layout(rect=[0, 0, 1, 0.99])  # Adjust the rect to fit the suptitle
-
-# Graph
+# Show
+plt.tight_layout()
 plt.show()
 
 
@@ -336,7 +325,7 @@ ax2.set_ylabel('Poblacion')
 ax2.set_title('Trayectorias de Lotka-Volterra Extendido')
 ax2.legend()
 
-# Ajustar el diseño
+# Show
 plt.tight_layout()
 plt.show()
 
