@@ -81,6 +81,19 @@ axs[1].legend()
 plt.tight_layout()
 plt.show()
 
+expoInitialPopOf1 = populationExpoFonction(t, 1, r)
+logiInitialPopOf1 = logistiquePopulation(t, 1, r, k)
+
+# Plot When Initial Pop is 1
+plt.plot(t, expoInitialPopOf1, label='ExpInitialPop1')
+plt.plot(t, logiInitialPopOf1, label='LogisInitialPop1')
+plt.xlabel('Tiempo')
+plt.ylabel('Población')
+plt.title('Pandas over time (Initial Population of 1)')
+plt.legend()
+plt.show()
+
+
 
 
 # Plot 2 || Population Variation Over Population
@@ -101,6 +114,14 @@ plt.ylabel('Variacion')
 plt.title('Variacion de Población en base a Población')
 plt.legend()
 plt.show()
+
+
+
+
+
+
+
+
 
 
 
