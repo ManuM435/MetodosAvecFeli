@@ -71,13 +71,8 @@ axs[1, 1].set_xlabel('Time')
 axs[1, 1].set_ylabel('Population')
 axs[1, 1].legend(loc='upper right')
 
-# Add a title to the entire figure
-fig.suptitle('Poblacion en el tiempo con Competencia Interespecifica', fontsize=16)
-
-# Adjust layout to accommodate the figure title
-plt.tight_layout(rect=[0, 0, 1, 0.99])  # Adjust the rect to fit the suptitle
-
-# Graph
+# Show
+plt.tight_layout()
 plt.show()
 
 
@@ -153,13 +148,8 @@ ax2.set_xlabel('Tiempo')
 ax2.set_ylabel('Poblacion')
 ax2.legend(loc='upper right')
 
-# Add a title to the entire figure
-fig.suptitle('Isoclina Caso 1', fontsize=16)
-
-# Adjust layout to accommodate the figure title
-plt.tight_layout(rect=[0, 0, 1, 0.99])  # Adjust the rect to fit the suptitle
-
-# Graph
+# Show
+plt.tight_layout()
 plt.show()
 
 
@@ -225,13 +215,8 @@ ax2.set_xlabel('Tiempo')
 ax2.set_ylabel('Poblacion')
 ax2.legend(loc='upper right')
 
-# Add a title to the entire figure
-fig.suptitle('Isoclina Caso 2', fontsize=16)
-
-# Adjust layout to accommodate the figure title
-plt.tight_layout(rect=[0, 0, 1, 0.99])  # Adjust the rect to fit the suptitle
-
-# Graph
+# Show
+plt.tight_layout()
 plt.show()
 
 
@@ -308,13 +293,8 @@ ax2.set_xlabel('Tiempo')
 ax2.set_ylabel('Poblacion')
 ax2.legend(loc='upper right')
 
-# Add a title to the entire figure
-fig.suptitle('Isoclina Caso 3', fontsize=16)
-
-# Adjust layout to accommodate the figure title
-plt.tight_layout(rect=[0, 0, 1, 0.99])  # Adjust the rect to fit the suptitle
-
-# Graph
+# Show
+plt.tight_layout()
 plt.show()
 
 
@@ -387,13 +367,8 @@ ax2.set_xlabel('Tiempo')
 ax2.set_ylabel('Poblacion')
 ax2.legend(loc='upper right')
 
-# Add a title to the entire figure
-fig.suptitle('Isoclina Caso 4', fontsize=16)
-
-# Adjust layout to accommodate the figure title
-plt.tight_layout(rect=[0, 0, 1, 0.99])  # Adjust the rect to fit the suptitle
-
-# Graph
+# Show
+plt.tight_layout()
 plt.show()
 
 
