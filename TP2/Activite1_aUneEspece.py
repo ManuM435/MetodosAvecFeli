@@ -100,11 +100,17 @@ plt.show()
 
 
 # Plot 2 || Population Variation Over Population
+
+expoNegGrowth = populationExpoFonction(t, 1500, -r)
+logiNegGrowth = logistiquePopulation(t, 1500, -r, k)
+
 plt.plot(popuExpo1, variationExpoODE(t, popuExpo1, r), label='ExpNormal')
 plt.plot(popuLogi2, logistiqueODE(t, popuLogi2, r, k), label='LogisNormal')
 plt.plot(popuLogi1, logistiqueODE(t, popuLogi1, r, 1500), label='LogisHighGrowthLowCap')
 plt.plot(expoLowGrowth, variationExpoODE(t, expoLowGrowth, r2), label='ExpLowGrowth')
 plt.plot(logiLowGrowth, logistiqueODE(t, logiLowGrowth, r2, k), label='LogisLowGrowth')
+plt.plot(expoNegGrowth, variationExpoODE(t, expoNegGrowth, -r), label='ExpoNegGrowth')
+plt.plot(logiNegGrowth, logistiqueODE(t, logiNegGrowth, -r, k), label='LogisNegGrowth')
 
 # # TODO: Descomentar estos para el grafico de esos casos triviales, Appendix 2
 # # plt.plot(popuExpo0, variationExpoODE(r, popuExpo0), label='Exp0Starter')
