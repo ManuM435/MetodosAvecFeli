@@ -147,7 +147,7 @@ ax1.set_ylim(0, 65)
 
 # Subplot 2: Runge Kutta con Parametros 1
 ax2.plot(pandasPar1, color='indigo', label='Pandas')
-ax2.plot(turtlesPar1, color='forestgreen', label='Turtles')
+ax2.plot(turtlesPar1, color='forestgreen', label='Tortugas')
 ax2.set_title('Dinamicas Poblacionales')
 ax2.set_xlabel('Tiempo')
 ax2.set_ylabel('Poblacion')
@@ -219,7 +219,7 @@ ax1.set_ylim(0,65)
 
 # Subplot 2: Runge Kutta con Parametros 1
 ax2.plot(pandasPar2, color='indigo', label='Pandas')
-ax2.plot(turtlesPar2, color='forestgreen', label='Turtles')
+ax2.plot(turtlesPar2, color='forestgreen', label='Tortugas')
 ax2.set_title('Dinamicas Poblacionales')
 ax2.set_xlabel('Tiempo')
 ax2.set_ylabel('Poblacion')
@@ -300,9 +300,9 @@ ax1.set_ylim(0, 120)
 
 # Subplot 2: Runge Kutta con Parametros 1
 ax2.plot(pandasPar3, color='indigo', label='Pandas')
-ax2.plot(turtlesPar3, color='forestgreen', label='Turtles')
+ax2.plot(turtlesPar3, color='forestgreen', label='Tortugas')
 ax2.plot(pandasPar3Ej2, color='darkblue', label='Pandas Ejemplo2', linestyle=':')
-ax2.plot(turtlesPar3Ej2, color='darkgreen', label='Turtles Ejemplo2', linestyle=':')
+ax2.plot(turtlesPar3Ej2, color='darkgreen', label='Tortugas Ejemplo2', linestyle=':')
 ax2.set_title('Dinamicas Poblacionales')
 ax2.set_xlabel('Tiempo')
 ax2.set_ylabel('Poblacion')
@@ -381,7 +381,7 @@ ax1.set_ylim(0, 200)
 
 # Subplot 2: Runge Kutta con Parametros 1
 ax2.plot(pandasPar4, color='indigo', label='Pandas')
-ax2.plot(turtlesPar4, color='forestgreen', label='Turtles')
+ax2.plot(turtlesPar4, color='forestgreen', label='Tortugas')
 ax2.set_title('Dinamicas Poblacionales')
 ax2.set_xlabel('Tiempo')
 ax2.set_ylabel('Poblacion')
