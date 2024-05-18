@@ -96,7 +96,7 @@ axs[1, 0].plot(pandas1, color='grey', linestyle=':', alpha=0.7, label='Pandas "N
 axs[1, 0].plot(leopards1, color='black', linestyle=':', alpha=0.7, label='Leopards "Normal"')
 axs[1, 0].plot(pandas4, color='blue', label='Pandas (Lower B)')
 axs[1, 0].plot(leopards4, color='red', label='Leopards (Lower B)')
-axs[1, 0].set_title('Population dynamics with a Lower Predator Efficiency Rate')
+axs[1, 0].set_title('Population dynamics with a Lower Leopard Efficiency Rate')
 axs[1, 0].set_xlabel('Time')
 axs[1, 0].set_ylabel('Population')
 axs[1, 0].legend(loc='upper right')
@@ -106,17 +106,18 @@ axs[1, 1].plot(pandas1, color='grey', linestyle=':', alpha=0.7, label='Pandas "N
 axs[1, 1].plot(leopards1, color='black', linestyle=':', alpha=0.7, label='Leopards "Normal"')
 axs[1, 1].plot(pandas5, color='blue', label='Pandas (Higher q)')
 axs[1, 1].plot(leopards5, color='red', label='Leopards (Higher q)')
-axs[1, 1].set_title('Population dynamics with a Higher Predator Death Rate')
+axs[1, 1].set_title('Population dynamics with a Higher Leopard Death Rate')
 axs[1, 1].set_xlabel('Time')
 axs[1, 1].set_ylabel('Population')
 axs[1, 1].legend(loc='upper right')
 
 # Add a title to the entire figure
-fig.suptitle('Population Dynamics with Predator-Prey Model', fontsize=16)
+fig.suptitle('Poblacion en el tiempo con Depredador-Presa', fontsize=16)
 
 # Adjust layout to accommodate the figure title
 plt.tight_layout(rect=[0, 0, 1, 0.99])  # Adjust the rect to fit the suptitle
 
+# Graph
 plt.show()
 
 
@@ -179,12 +180,14 @@ axs[1, 1].set_ylabel('Population')
 axs[1, 1].legend(loc='upper right')
 
 # Add a title to the entire figure
-fig.suptitle('Population Dynamics with LVE Model', fontsize=16)
+fig.suptitle('Poblacion en el tiempo con Depredacion LVE', fontsize=16)
 
 # Adjust layout to accommodate the figure title
 plt.tight_layout(rect=[0, 0, 1, 0.99])  # Adjust the rect to fit the suptitle
 
+# Graph
 plt.show()
+
 
 
 
@@ -241,7 +244,7 @@ ax1.set_ylabel('L')
 ax1.plot(Na_values_1, Pa_values_1, color='deeppink', label='Trayectoria 1')
 ax1.plot(Na_values_2, Pa_values_2, color='hotpink', label='Trayectoria 2')
 ax1.plot(Na_values_3, Pa_values_3, color='mediumvioletred', label='Trayectoria 3')
-ax1.set_title('Isoclines of Depredador y Presa')
+ax1.set_title('Isoclinas de Depredador y Presa')
 ax1.scatter(eq1, eq1b, color='red', label='Punto de Equilibrio', s=100, zorder=10)
 ax1.streamplot(vN, vP, dN, dP, color='gray', density=1, arrowstyle='->', linewidth=0.7)
 ax1.set_xlim(0, 10)

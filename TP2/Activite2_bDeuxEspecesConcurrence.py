@@ -71,7 +71,13 @@ axs[1, 1].set_xlabel('Time')
 axs[1, 1].set_ylabel('Population')
 axs[1, 1].legend(loc='upper right')
 
-plt.tight_layout()
+# Add a title to the entire figure
+fig.suptitle('Poblacion en el tiempo con Competencia Interespecifica', fontsize=16)
+
+# Adjust layout to accommodate the figure title
+plt.tight_layout(rect=[0, 0, 1, 0.99])  # Adjust the rect to fit the suptitle
+
+# Graph
 plt.show()
 
 
@@ -147,9 +153,15 @@ ax2.set_xlabel('Time')
 ax2.set_ylabel('Population')
 ax2.legend(loc='upper right')
 
-# Mostrar ambos gráficos
-plt.tight_layout()
+# Add a title to the entire figure
+fig.suptitle('Case 1 Isocline', fontsize=16)
+
+# Adjust layout to accommodate the figure title
+plt.tight_layout(rect=[0, 0, 1, 0.99])  # Adjust the rect to fit the suptitle
+
+# Graph
 plt.show()
+
 
 
 
@@ -213,8 +225,13 @@ ax2.set_xlabel('Time')
 ax2.set_ylabel('Population')
 ax2.legend(loc='upper right')
 
-# Mostrar ambos gráficos
-plt.tight_layout()
+# Add a title to the entire figure
+fig.suptitle('Case 2 Isocline', fontsize=16)
+
+# Adjust layout to accommodate the figure title
+plt.tight_layout(rect=[0, 0, 1, 0.99])  # Adjust the rect to fit the suptitle
+
+# Graph
 plt.show()
 
 
@@ -291,9 +308,15 @@ ax2.set_xlabel('Time')
 ax2.set_ylabel('Population')
 ax2.legend(loc='upper right')
 
-# Mostrar ambos gráficos
-plt.tight_layout()
+# Add a title to the entire figure
+fig.suptitle('Case 3 Isocline', fontsize=16)
+
+# Adjust layout to accommodate the figure title
+plt.tight_layout(rect=[0, 0, 1, 0.99])  # Adjust the rect to fit the suptitle
+
+# Graph
 plt.show()
+
 
 
 
@@ -364,8 +387,13 @@ ax2.set_xlabel('Time')
 ax2.set_ylabel('Population')
 ax2.legend(loc='upper right')
 
-# Mostrar ambos gráficos
-plt.tight_layout()
+# Add a title to the entire figure
+fig.suptitle('Case 4 Isocline', fontsize=16)
+
+# Adjust layout to accommodate the figure title
+plt.tight_layout(rect=[0, 0, 1, 0.99])  # Adjust the rect to fit the suptitle
+
+# Graph
 plt.show()
 
 
