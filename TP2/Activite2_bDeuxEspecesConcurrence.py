@@ -32,41 +32,41 @@ pandas4, turtles4 = rkSolver(lotkaVolterra, d4[0], d4[1], d4[2], d4[3], d4[4], d
 fig, axs = plt.subplots(2, 2, figsize=(10, 8))
 
 # Subplot 1
-axs[0, 0].plot(pandas0, color='indigo', linestyle=':', alpha=0.7, label='Pandas (Default)')
+axs[0, 0].plot(pandas0, color='indigo', linestyle=':', alpha=0.7, label='Red Pandas (Default)')
 axs[0, 0].plot(turtles0, color='green', linestyle=':', alpha=0.7, label='Turtles (Defualt)')
-axs[0, 0].plot(pandas1, color='navy', label='Pandas (Higher aP)')
+axs[0, 0].plot(pandas1, color='navy', label='Red Pandas (Higher aP)')
 axs[0, 0].plot(turtles1, color='forestgreen', label='Turtles (Higher aP)')
-axs[0, 0].set_title('Pop. Dynamics with higher Panda Competition')
+axs[0, 0].set_title('Population with higher Red Panda Competition')
 axs[0, 0].set_xlabel('Time')
 axs[0, 0].set_ylabel('Population')
 axs[0, 0].legend(loc='upper right')
 
 # Subplot 2
-axs[0, 1].plot(pandas0, color='indigo', linestyle=':', alpha=0.7, label='Pandas (Default)')
+axs[0, 1].plot(pandas0, color='indigo', linestyle=':', alpha=0.7, label='Red Pandas (Default)')
 axs[0, 1].plot(turtles0, color='green', linestyle=':', alpha=0.7, label='Turtles (Defualt)')
-axs[0, 1].plot(pandas2, color='navy', label='Pandas (Higher N0P)')
+axs[0, 1].plot(pandas2, color='navy', label='Red Pandas (Higher N0P)')
 axs[0, 1].plot(turtles2, color='forestgreen', label='Turtles (Higher N0P)')
-axs[0, 1].set_title('Pop. Dynamics with even higher Panda Init. Population')
+axs[0, 1].set_title('Population with higher Red Panda Init. Popul.')
 axs[0, 1].set_xlabel('Time')
 axs[0, 1].set_ylabel('Population')
 axs[0, 1].legend(loc='upper right')
 
 # Subplot 3
-axs[1, 0].plot(pandas0, color='indigo', linestyle=':', alpha=0.7, label='Pandas (Default)')
+axs[1, 0].plot(pandas0, color='indigo', linestyle=':', alpha=0.7, label='Red Pandas (Default)')
 axs[1, 0].plot(turtles0, color='green', linestyle=':', alpha=0.7, label='Turtles (Defualt)')
-axs[1, 0].plot(pandas3, color='navy', label='Pandas (Higher rP)')
+axs[1, 0].plot(pandas3, color='navy', label='Red Pandas (Higher rP)')
 axs[1, 0].plot(turtles3, color='forestgreen', label='Turtles (Higher rP)')
-axs[1, 0].set_title('Pop. Dynamics with Even Higher Panda Growth Rate')
+axs[1, 0].set_title('Pop.ulation with higher Panda Growth Rate')
 axs[1, 0].set_xlabel('Time')
 axs[1, 0].set_ylabel('Population')
 axs[1, 0].legend(loc='upper right')
 
 # Subplot 4
-axs[1, 1].plot(pandas0, color='indigo', linestyle=':', alpha=0.7, label='Pandas (Default)')
+axs[1, 1].plot(pandas0, color='indigo', linestyle=':', alpha=0.7, label='Red Pandas (Default)')
 axs[1, 1].plot(turtles0, color='green', linestyle=':', alpha=0.7, label='Turtles (Defualt)')
-axs[1, 1].plot(pandas4, color='navy', label='Pandas (Higher KP)')
+axs[1, 1].plot(pandas4, color='navy', label='Pandas Rojos (Higher KP)')
 axs[1, 1].plot(turtles4, color='forestgreen', label='Turtles (Lower KT)')
-axs[1, 1].set_title('Pop. Dynamics with even Higher Panda Carrying Capacity')
+axs[1, 1].set_title('Population with higher Red Panda Capacity')
 axs[1, 1].set_xlabel('Time')
 axs[1, 1].set_ylabel('Population')
 axs[1, 1].legend(loc='upper right')
@@ -83,12 +83,11 @@ plt.show()
 
 
 
+
+
 # Isoclinas Cero
 r1 = 0.2
 r2 = 0.1
-
-
-
 
 # Parametros Part 1
 N1a = np.linspace(0, 100, 100)
@@ -126,7 +125,7 @@ N1a_values_3, N2a_values_3 = rkSolver(lotkaVolterra, 40, 5, r1, r2, K1a, K2a, al
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 5.5))
 
 # Subplot 1: Isoclina
-ax1.plot(N1a, isoclineN1a, label='Isoclina de Pandas', color = 'indigo', linewidth=2.5, linestyle='--')
+ax1.plot(N1a, isoclineN1a, label='Isoclina de Pandas Rojos', color = 'indigo', linewidth=2.5, linestyle='--')
 ax1.plot(N1a, isoclineN2a, label='Isoclina de Tortugas', color = 'limegreen', linewidth=2.5, linestyle='--')
 ax1.scatter(EquiPointA[0], EquiPointA[1], color='red', label='Punto De Equilibrio (Estable)', zorder=10)
 ax1.set_xlabel('Np')
@@ -141,7 +140,7 @@ ax1.set_xlim(0, 105)
 ax1.set_ylim(0, 65)
 
 # Subplot 2: Runge Kutta con Parametros 1
-ax2.plot(pandasPar1, color='indigo', label='Pandas')
+ax2.plot(pandasPar1, color='indigo', label='Pandas Rojos')
 ax2.plot(turtlesPar1, color='forestgreen', label='Tortugas')
 ax2.set_title('Dinamicas Poblacionales')
 ax2.set_xlabel('Tiempo')
@@ -193,7 +192,7 @@ N1b_values_3, N2b_values_3 = rkSolver(lotkaVolterra, 2, 40, r1, r2, K1b, K2b, al
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 5.5))
 
 # Subplot 1: Isoclina
-ax1.plot(N1b, isoclineN1b, label='Isoclina de Pandas', color = 'indigo', linewidth=2.5, linestyle='--')
+ax1.plot(N1b, isoclineN1b, label='Isoclina de Pandas Rojos', color = 'indigo', linewidth=2.5, linestyle='--')
 ax1.plot(N1b, isoclineN2b, label='Isoclina de Tortugas', color = 'limegreen', linewidth=2.5, linestyle='--')
 ax1.scatter(EquiPointB[0], EquiPointB[1], color='red', label='Punto De Equilibrio (Estable)', zorder=10)
 ax1.set_xlabel('Np')
@@ -208,7 +207,7 @@ ax1.set_xlim(0, 105)
 ax1.set_ylim(0,65)
 
 # Subplot 2: Runge Kutta con Parametros 1
-ax2.plot(pandasPar2, color='indigo', label='Pandas')
+ax2.plot(pandasPar2, color='indigo', label='Pandas Rojos')
 ax2.plot(turtlesPar2, color='forestgreen', label='Tortugas')
 ax2.set_title('Dinamicas Poblacionales')
 ax2.set_xlabel('Tiempo')
@@ -266,7 +265,7 @@ N1c_values_4, N2c_values_4 = rkSolver(lotkaVolterra, 113, 112, r1, r2, K1c, K2c,
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 5.5))
 
 # Subplot 1: Isoclina
-ax1.plot(N1c, isoclineN1c, label='Isoclina de Pandas', color = 'indigo', linewidth=2.5, linestyle='--')
+ax1.plot(N1c, isoclineN1c, label='Isoclina de  Rojos', color = 'indigo', linewidth=2.5, linestyle='--')
 ax1.plot(isoclineN2c, N2c, label='Isoclina de Tortugas', color = 'limegreen', linewidth=2.5, linestyle='--')
 ax1.scatter(EquiPointC1[0], EquiPointC1[1], color='red', label='Punto De Equilibrio 1 (Estable)', zorder=10)
 ax1.scatter(EquiPointC2[0], EquiPointC2[1], color='red', label='Punto De Equilibrio 2 (Estable)', zorder=10)
@@ -284,7 +283,7 @@ ax1.set_xlim(0, 120)
 ax1.set_ylim(0, 120)
 
 # Subplot 2: Runge Kutta con Parametros 1
-ax2.plot(pandasPar3, color='indigo', label='Pandas')
+ax2.plot(pandasPar3, color='indigo', label='Pandas Rojos')
 ax2.plot(turtlesPar3, color='forestgreen', label='Tortugas')
 ax2.plot(pandasPar3Ej2, color='darkblue', label='Pandas Ejemplo2', linestyle=':')
 ax2.plot(turtlesPar3Ej2, color='darkgreen', label='Tortugas Ejemplo2', linestyle=':')
@@ -344,7 +343,7 @@ N1e_values_4, N2e_values_4 = rkSolver(lotkaVolterra, 198, 197, r1, r2, K1e, K2e,
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 5.5))
 
 # Subplot 1: Isoclina
-ax1.plot(N1e, isoclineN1e, label='Isoclina de Pandas', color = 'indigo', linewidth=2.5, linestyle='--')
+ax1.plot(N1e, isoclineN1e, label='Isoclina de Pandas Rojos', color = 'indigo', linewidth=2.5, linestyle='--')
 ax1.plot(isoclineN2e, N2e, label='Isoclina de Tortugas', color = 'limegreen', linewidth=2.5, linestyle='--')
 ax1.scatter(EquiPointE[0], EquiPointE[1], color='red', label='Punto De Equilibrio (Estable)', zorder=10)
 ax1.set_xlabel('Np')
@@ -360,7 +359,7 @@ ax1.set_xlim(0, 200)
 ax1.set_ylim(0, 200)
 
 # Subplot 2: Runge Kutta con Parametros 1
-ax2.plot(pandasPar4, color='indigo', label='Pandas')
+ax2.plot(pandasPar4, color='indigo', label='Pandas Rojos')
 ax2.plot(turtlesPar4, color='forestgreen', label='Tortugas')
 ax2.set_title('Dinamicas Poblacionales')
 ax2.set_xlabel('Tiempo')

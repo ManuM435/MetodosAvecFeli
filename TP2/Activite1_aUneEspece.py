@@ -62,7 +62,7 @@ axs[0].plot(t, popuLogi1, label='LogisHighInitialLowCap')
 
 axs[0].set_xlabel('Tiempo')
 axs[0].set_ylabel('Población')
-axs[0].set_title('Pandas over time (Normal Growth)')
+axs[0].set_title('Red Pandas over time (Normal Growth)')
 axs[0].legend()
 
 # Subplot 2
@@ -74,7 +74,7 @@ axs[1].plot(t, expoLowGrowth, linestyle=':', color='yellow', label='ExpLowGrowth
 axs[1].plot(t, logiLowGrowth, linestyle=':', color='black', label='LogisLowGrowth')
 axs[1].set_xlabel('Tiempo')
 axs[1].set_ylabel('Población')
-axs[1].set_title('Pandas over time (Varying Growth)')
+axs[1].set_title('Red Pandas over time (Varying Growth)')
 axs[1].legend()
 
 # Show
@@ -92,7 +92,7 @@ plt.plot(t, expoInitialPopOf1, label='ExpInitialPop1')
 plt.plot(t, logiInitialPopOf1, label='LogisInitialPop1')
 plt.xlabel('Tiempo')
 plt.ylabel('Población')
-plt.title('Pandas over time (Initial Population of 1)')
+plt.title('Red Pandas over time (Initial Population of 1)')
 plt.legend()
 plt.show()
 
@@ -171,7 +171,7 @@ axs[0].plot(t_values_rk4, N_values_rk4, label='Aproximacion RK4')
 axs[0].plot(t_exact, N_exact, label='Ground Truth', linestyle='--')
 axs[0].set_xlabel('Tiempo')
 axs[0].set_ylabel('Población')
-axs[0].set_title('Pandas over time (Exponencial, Euler vs RK)')
+axs[0].set_title('Red Pandas over time (Exponencial, Euler vs RK)')
 axs[0].legend()
 axs[0].grid(True)
 
@@ -181,7 +181,7 @@ axs[1].plot(t_logis_rk4, N_logis_rk4, label='Aproximacion RK4')
 axs[1].plot(t_logis_exact, N_logis_exact, label='Ground Truth', linestyle='--')
 axs[1].set_xlabel('Tiempo')
 axs[1].set_ylabel('Población')
-axs[1].set_title('Pandas over time (Logistica, Euler vs RK)')
+axs[1].set_title('Red Pandas over time (Logistica, Euler vs RK)')
 axs[1].legend()
 axs[1].grid(True)
 
