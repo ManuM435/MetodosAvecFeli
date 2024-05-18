@@ -148,13 +148,13 @@ ax1.set_ylim(0, 65)
 # Subplot 2: Runge Kutta con Parametros 1
 ax2.plot(pandasPar1, color='indigo', label='Pandas')
 ax2.plot(turtlesPar1, color='forestgreen', label='Turtles')
-ax2.set_title('Population Dynamics')
-ax2.set_xlabel('Time')
-ax2.set_ylabel('Population')
+ax2.set_title('Dinamicas Poblacionales')
+ax2.set_xlabel('Tiempo')
+ax2.set_ylabel('Poblacion')
 ax2.legend(loc='upper right')
 
 # Add a title to the entire figure
-fig.suptitle('Case 1 Isocline', fontsize=16)
+fig.suptitle('Isoclina Caso 1', fontsize=16)
 
 # Adjust layout to accommodate the figure title
 plt.tight_layout(rect=[0, 0, 1, 0.99])  # Adjust the rect to fit the suptitle
@@ -220,13 +220,13 @@ ax1.set_ylim(0,65)
 # Subplot 2: Runge Kutta con Parametros 1
 ax2.plot(pandasPar2, color='indigo', label='Pandas')
 ax2.plot(turtlesPar2, color='forestgreen', label='Turtles')
-ax2.set_title('Population Dynamics')
-ax2.set_xlabel('Time')
-ax2.set_ylabel('Population')
+ax2.set_title('Dinamicas Poblacionales')
+ax2.set_xlabel('Tiempo')
+ax2.set_ylabel('Poblacion')
 ax2.legend(loc='upper right')
 
 # Add a title to the entire figure
-fig.suptitle('Case 2 Isocline', fontsize=16)
+fig.suptitle('Isoclina Caso 2', fontsize=16)
 
 # Adjust layout to accommodate the figure title
 plt.tight_layout(rect=[0, 0, 1, 0.99])  # Adjust the rect to fit the suptitle
@@ -303,13 +303,13 @@ ax2.plot(pandasPar3, color='indigo', label='Pandas')
 ax2.plot(turtlesPar3, color='forestgreen', label='Turtles')
 ax2.plot(pandasPar3Ej2, color='darkblue', label='Pandas Ejemplo2', linestyle=':')
 ax2.plot(turtlesPar3Ej2, color='darkgreen', label='Turtles Ejemplo2', linestyle=':')
-ax2.set_title('Population Dynamics')
-ax2.set_xlabel('Time')
-ax2.set_ylabel('Population')
+ax2.set_title('Dinamicas Poblacionales')
+ax2.set_xlabel('Tiempo')
+ax2.set_ylabel('Poblacion')
 ax2.legend(loc='upper right')
 
 # Add a title to the entire figure
-fig.suptitle('Case 3 Isocline', fontsize=16)
+fig.suptitle('Isoclina Caso 3', fontsize=16)
 
 # Adjust layout to accommodate the figure title
 plt.tight_layout(rect=[0, 0, 1, 0.99])  # Adjust the rect to fit the suptitle
@@ -382,13 +382,13 @@ ax1.set_ylim(0, 200)
 # Subplot 2: Runge Kutta con Parametros 1
 ax2.plot(pandasPar4, color='indigo', label='Pandas')
 ax2.plot(turtlesPar4, color='forestgreen', label='Turtles')
-ax2.set_title('Population Dynamics')
-ax2.set_xlabel('Time')
-ax2.set_ylabel('Population')
+ax2.set_title('Dinamicas Poblacionales')
+ax2.set_xlabel('Tiempo')
+ax2.set_ylabel('Poblacion')
 ax2.legend(loc='upper right')
 
 # Add a title to the entire figure
-fig.suptitle('Case 4 Isocline', fontsize=16)
+fig.suptitle('Isoclina Caso 4', fontsize=16)
 
 # Adjust layout to accommodate the figure title
 plt.tight_layout(rect=[0, 0, 1, 0.99])  # Adjust the rect to fit the suptitle
