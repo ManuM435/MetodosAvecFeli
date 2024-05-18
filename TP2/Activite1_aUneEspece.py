@@ -77,13 +77,8 @@ axs[1].set_ylabel('Población')
 axs[1].set_title('Pandas over time (Varying Growth)')
 axs[1].legend()
 
-# Add a title to the entire figure
-fig.suptitle('Poblacion en el tiempo con Competencia Intraspecifica', fontsize=16)
-
-# Adjust layout to accommodate the figure title
-plt.tight_layout(rect=[0, 0, 1, 0.99])  # Adjust the rect to fit the suptitle
-
-# Graph
+# Show
+plt.tight_layout()
 plt.show()
 
 
@@ -160,13 +155,8 @@ axs[1].set_title('Pandas over time (Logistica, Euler vs RK)')
 axs[1].legend()
 axs[1].grid(True)
 
-# Add a title to the entire figure
-fig.suptitle('Aproximaciones Numericas a la Poblacion usando ODEs', fontsize=16)
-
-# Adjust layout to accommodate the figure title
-plt.tight_layout(rect=[0, 0, 1, 0.99])  # Adjust the rect to fit the suptitle
-
-# Graph
+# Show
+plt.tight_layout()
 plt.show()
 
 
