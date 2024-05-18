@@ -21,7 +21,7 @@ def logistiquePopulation(t, N0, r, K):
 # Set some default values
 t = np.linspace(0, 50, 100)
 r = 0.1
-r2 = 0.08
+r2 = 0.01
 k = 10000
 N0 = 20
 N1 = 4 # for the exponential
@@ -66,10 +66,10 @@ axs[0].set_title('Pandas over time (Normal Growth)')
 axs[0].legend()
 
 # Subplot 2
-axs[1].plot(t, popuExpo2, label='ExpNegGrowth', alpha=0.7)
-axs[1].plot(t, popuLogi3, label='LogisNegGrowth', alpha=0.7)
-axs[1].plot(t, popuExpo3, label='ExpNoGrowth', alpha=0.7)
-axs[1].plot(t, popuLogi4, label='LogisNoGrowth', alpha=0.7)
+axs[1].plot(t, popuExpo2, color='lavender',label='ExpNegGrowth', alpha=0.7)
+axs[1].plot(t, popuLogi3, color='crimson',label='LogisNegGrowth', alpha=0.7)
+axs[1].plot(t, popuExpo3, color='cadetblue',label='ExpNoGrowth', alpha=0.7)
+axs[1].plot(t, popuLogi4, color='lime',label='LogisNoGrowth', alpha=0.7)
 axs[1].plot(t, expoLowGrowth, linestyle=':', color='yellow', label='ExpLowGrowth')
 axs[1].plot(t, logiLowGrowth, linestyle=':', color='black', label='LogisLowGrowth')
 axs[1].set_xlabel('Tiempo')
@@ -80,6 +80,9 @@ axs[1].legend()
 # Show
 plt.tight_layout()
 plt.show()
+
+
+
 
 expoInitialPopOf1 = populationExpoFonction(t, 1, r)
 logiInitialPopOf1 = logistiquePopulation(t, 1, r, k)
