@@ -7,13 +7,14 @@
 \usepackage[bottom=1in]{geometry} 
 \usepackage{hyperref}
 \usepackage{amssymb}
+\usepackage{amsmath}
 
 \fancypagestyle{plain}{
     \fancyhf{}
     \fancyheadoffset[L]{+2cm}
-    \fancyhead[L]{{Métodos Númericos y Optimización TP2 2024 {1-\pageref{LastPage}}}}
+    \fancyhead[L]{{Métodos Numéricos y Optimización TP2 2024 {1-\pageref{LastPage}}}}
     \fancyheadoffset[R]{+2cm}
-    \fancyhead[R]{Terminado 17/5/2024, Publicado 18/5/2024}
+    \fancyhead[R]{Terminado 18/5/2024, Publicado 18/5/2024}
     \renewcommand{\headrulewidth}{0pt}
     \renewcommand{\footrulewidth}{0pt}
     \fancyfoot[C]{\thepage}
@@ -21,7 +22,7 @@
 
 \fancypagestyle{myheader}{
     \fancyhf{}
-    \fancyhead[LE,RO]{\ifthenelse{\isodd{\value{page}}}{Analisis de variacion poblacional en competencia intraespecifica, interespecifica y depredación de Lotka Volterra}{Manuel Meiriño y Felicitas Marolda}}
+    \fancyhead[LE,RO]{\ifthenelse{\isodd{\value{page}}}{Variación poblacional en Comp. Intraespecífica, Interespecífica y Depredación en Pandas Rojos}{Manuel Meiriño y Felicitas Marolda}}
     \fancyfoot[C]{\thepage}
 }
 
@@ -37,7 +38,7 @@
 }
 \makeatother
 
-\title {Analisis de variacion poblacional en competencia intraespecifica, interespecifica y depredación de Lotka Volterra}
+\title {Variación poblacional en Competencia Intraespecífica, Interespecífica y Depredación de Lotka Volterra en Pandas Rojos}
 \date{Mayo 2024}
 
 \begin{document}
@@ -68,11 +69,28 @@ N° de Legajo: 35723
 \section*{Abstract}
 \normalsize
 
-% \noindent Compararemos la eficiencia de dos de estos metodos, analizaremos como diferencias en ciertos parámetros cambian el crecimiento poblacional, tanto en modelos con 1 especie, como con 2 especies compitiendo por recursos, y 2 especies en relacion de depredación. Y por ultimo, evaluaremos las isoclinas y puntos de equilibrio que pueden deducirse a partir de dichas funciones, sus variaciones y su significado.
+\noindent En este experimento se utilizaron diferentes modelos de crecimiento poblacional, para evaluar como variaba la población de pandas rojos en diferentes situaciones, estas siendo Competencia Intraespecífica, Interespecífica (compitiendo con tortugas), y Predación (por leopardos). Determinando varios patrones de crecimiento en base a las diferencias de parámetros de los pandas, sus competidores, y sus depredadores. 
+\vspace{\baselineskip}
 
-\vspace{1\baselineskip}
+\noindent Se aproximaron las poblaciones con métodos numéricos (en su mayoría Runge Kutta dada su gran eficiencia), y se graficaron las Isoclinas Cero para evaluar la informacion que estas provenían a los resultados. Se determino que en Competencia Interespecifica habia 4 casos dependiendo de los índices de competitividad, y en Depredación había 2 casos dependiendo de si el modelo tenia en cuenta o no la competencia intraespecífica de los pandas. \vspace{\baselineskip}
 
+\noindent % This removes the indentation typically added at the beginning of a paragraph
+\begin{minipage}[t]{0.32\textwidth}
+    \centering
+    \includegraphics[height=4cm]{RedPanda.jpg} % Adjust height as needed
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.32\textwidth}
+    \centering
+    \includegraphics[height=4cm]{turtle.jpg} % Adjust height as needed
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.32\textwidth}
+    \centering
+    \includegraphics[height=4cm]{leopard.jpg} % Adjust height as needed
+\end{minipage}
 
+\vspace{5\baselineskip}
 
 
 
@@ -85,20 +103,20 @@ N° de Legajo: 35723
 % que son las ODEs
 % humo
 % objetivo de nuestro trabajo es
-Las Ecuaciones Diferenciales Ordinarias (EDOs, o en ingles, ODEs) son ecuaciones en las cuales se ve incluida una derivada de la funcion en la igualdad. Dichas ecuaciones pueden despejarse para representar variacion (con la derivada). \vspace{\baselineskip}
+Las Ecuaciones Diferenciales Ordinarias (DEOs, o en ingles, ODEs) son ecuaciones en las cuales se ve incluida una derivada de la función en la igualdad. Dichas ecuaciones pueden despejarse para representar variación (con la derivada). \vspace{\baselineskip}
 
-\noindent Existen casos en los que la ODE puede ser analíticamente resuelta para encontrar la función primitiva, pero también casos en los cuales esto es extremadamente complejo, o simplemente imposible, y en dichos casos se pueden aplicar ciertos metodos numericos para, utilizando la ODE y un valor inicial, aproximar valores que tomaria la funcion 'primitiva' (o mejor dicho, la funcion de la cual las ODEs representan la variacion) a traves de una cierta variable. \vspace{\baselineskip}
+\noindent Existen casos en los que la ODE puede ser analíticamente resuelta para encontrar la función primitiva, pero también casos en los cuales esto es extremadamente complejo, o simplemente imposible, y en dichos casos se pueden aplicar ciertos métodos numéricos para, utilizando la ODE y un valor inicial, aproximar valores que tomaría la función 'primitiva' (o mejor dicho, la función de la cual las ODEs representan la variación) a través de una cierta variable. \vspace{\baselineskip}
 
 
-\noindent Las isoclinas de las ODEs son las curvas en las cuales el gradiente es el mismo. Las isoclinas cero de las ODEs, mas especificamente, son las curvas donde la ODE es = 0. (University of Nebreaska-Lincoln, 2009). Al analizar un sistema de ODEs, se le llama punto de equilibrio al punto en el cual las ODEs del sistema son todas iguales a 0, estos puntos existen en la interseccion de sus isoclinas cero, y posiblemente en mas posiciones dependiendo de la ecuacion especifica. Los puntos de equilibrio son considerados estables cuando los sistemas inicializados van a tener una trayectoria que tiende hacia dicho punto, y si sucede lo contrario (si las trayectorias se alejan del punto), se dice que el punto es inestable (University of Wyoming, 2013). \vspace{\baselineskip}
+\noindent Las isoclinas de las ODEs son las curvas en las cuales el gradiente es el mismo. Las isoclinas cero de las ODEs, mas especificamente, son las curvas donde la ODE es = 0. (University of Nebreaska-Lincoln, 2009). Al analizar un sistema de ODEs, se le llama punto de equilibrio al punto en el cual las ODEs del sistema son todas iguales a 0, estos puntos existen en la intersección de sus isoclinas cero, y posiblemente en mas posiciones dependiendo de la ecuación especifica. Los puntos de equilibrio son considerados estables cuando los sistemas inicializados van a tener una trayectoria que tiende hacia dicho punto, y si sucede lo contrario (si las trayectorias se alejan del punto), se dice que el punto es inestable (University of Wyoming, 2013). \vspace{\baselineskip}
 
-\noindent El objetivo de esta investigacion es usar dos metodos numericos y (en algunos casos) soluciones analiticas para evaluar las variaciones en crecimiento poblacional en 3 distintos modelos: 1 especie; 2 especies compitiendo por recursos; y 2 especies en relacion de depredacion. A la vez evaluando la eficiencia de estos metodos, y discutir sobre la informacion que proveen las isoclinas cero y puntos de equilibrios de las ODEs.
+\noindent El objetivo de esta investigación es usar dos métodos numéricos y (en algunos casos) soluciones analíticas para evaluar las variaciones en crecimiento poblacional en 3 distintos modelos: 1 especie; 2 especies compitiendo por recursos; y 2 especies en relación de depredación. A la vez evaluando la eficiencia de estos métodos, y discutir sobre la información que proveen las isoclinas cero y puntos de equilibrios de las ODEs.
 
 \vspace{0.5\baselineskip}
 
 \section*{Materiales y Métodos}
 
-\noindent Los materiales utilizados en esta investigacion consisten principalmente en nuestras computadoras para escribir y ejecutar los codigos, usando el programa de Visual Studio Code. Se utilizaron las librerias numpy (para expresiones numericas) y matplotlib para graficar los resultados en cada función. Se utilizó Microsoft Word para las referencias.
+\noindent Los materiales utilizados en esta investigación consisten principalmente en nuestras computadoras para escribir y ejecutar los códigos, usando el programa de Visual Studio Code. Se utilizaron las librerías numpy (para expresiones numéricas) y matplotlib para graficar los resultados en cada función. Se utilizó Microsoft Word para las referencias.
 
 \subsection*{Método de Euler}
 
@@ -139,7 +157,7 @@ k_{4} = hf(t_{i} + h, w_{i} + k_{3})\]
 
 \subsection*{Actividad 1: Competencia Intraespecifica}
 
-\noindent Comenzamos esta investigación con una especie, la cual en este caso serán los pandas rojos (quienes serán referidos como 'pandas' por simpleza). Y el primer modelo estudiado en estos pandas fue el de la competencia intraespecifica, analizando la evolución poblacional de los pandas cuando estos viven solos en su propio ambiente. \vspace{1\baselineskip}
+\noindent Comenzamos esta investigación con una especie, la cual en este caso serán los pandas rojos (quienes serán referidos como 'pandas' por simpleza). Y el primer modelo estudiado en estos pandas fue el de la competencia intraespecífica, analizando la evolución poblacional de los pandas cuando estos viven solos en su propio ambiente. \vspace{1\baselineskip}
 
 \noindent Hay 2 casos a evaluar, uno en el cual los pandas viven con recursos ilimitados, y tienen su crecimiento de población exponencial sin limites, por el otro lado esta el caso en el cual los pandas tienen que vivir y reproducirse con recursos limitados, lo cual actúa como limitante de su crecimiento, a este segundo se le llama modelo logístico. \vspace{1\baselineskip}
 
@@ -154,33 +172,33 @@ k_{4} = hf(t_{i} + h, w_{i} + k_{3})\]
 \[\frac{dN}{dt} = rN \frac{K - N}{K}\]
 \vspace{0.75\baselineskip}
 
-\noindent Ya que estas soluciones tienen una resolución analítica realizables sin complejidad muy alta, fueron resueltas analíticamente (ver Apéndice 1.1), y se probaron variaciones en los parámetros para ver como resultaban en cambios de la población a través del tiempo para cada modelo. Y luego se calculo como variaba el crecimiento (el valor de cada ODE) con respecto a su respectiva primitiva (Variación de Población en base a Población), evaluando en diferentes parámetros. \vspace{1\baselineskip}
+\noindent Ya que estas soluciones tienen una resolución analítica realizables sin complejidad muy alta, fueron resueltas analíticamente (Regueiro, 2022). Y se probaron variaciones en los parámetros para ver como resultaban en cambios de la población a través del tiempo para cada modelo. Y luego se calculo como variaba el crecimiento (el valor de cada ODE) con respecto a su respectiva primitiva (Variación de Población en base a Población), evaluando en diferentes parámetros. \vspace{1\baselineskip}
 
-\noindent Por ultimo, se utilizaron los ya-mencionados métodos numéricos de Euler y Runge Kutta, y se aproximaron los valores de poblacion en ambos modelos a traves del tiempo, probando como cambiaban al variar ciertos parametros, y tambien comparando con los resultados analiticos para determinar que metodo era mas efectivo. Las aproximaciones se realizaron usando un tiempo de 50, con 100 steps de 0.5 cada uno (se decidio un numero de steps no tan alto, para reflejar mejor que tan eficiente era cada aproximacion).
+\noindent Por ultimo, se utilizaron los ya-mencionados métodos numéricos de Euler y Runge Kutta, y se aproximaron los valores de población en ambos modelos a través del tiempo, probando como cambiaban al variar ciertos parámetros, y también comparando con los resultados analíticos para determinar que método era mas efectivo. Las aproximaciones se realizaron usando un tiempo de 50, con 100 steps de 0.5 cada uno (se decidió un numero de steps no tan alto, para reflejar mejor que tan eficiente era cada aproximación).
 
 
 
-\subsection*{Actividad 2: Competencia Interespecifica}
-\noindent Para esta parte de la investigacion, ahora los pandas tendran que convivir con otra especie, las tortugas, que tambien son herbivoras y competiran por recursos con los pandas. En este modelo, la variacion poblacional de cada especie fue representada con el modelo de competencia interespecifica de Lotka Volterra.\vspace{1\baselineskip}
+\subsection*{Actividad 2: Competencia Interespecífica}
+\noindent Para esta parte de la investigación, ahora los pandas tendrán que convivir con otra especie, las tortugas, que también son herbívoras y competirán por recursos con los pandas rojos. En este modelo, la variación poblacional de cada especie fue representada con el modelo de competencia interespecífica de Lotka Volterra.\vspace{1\baselineskip}
 
-\noindent Usando las variables $N_p$ (Poblacion de Pandas), $N_t$ (Poblacion de Tortugas); $r_p$ (Tasa de Crecimiento o 'Growth Rate' de Pandas); $r_t$ (Growth Rate de Tortugas); $K_p$ (Capacidad de Carga de Pandas); $K_t$ (Capacidad de Carga de Tortguas); $a_p$ (Coeficiente de Competencia de Pandas); $a_t$ (Coeficiente de Competencia de Tortugas), dicho modelo se represento con las siguientes ecuaciones diferenciales: \vspace{0.5\baselineskip}
+\noindent Usando las variables $N_p$ (Población de Pandas), $N_t$ (Población de Tortugas); $r_p$ (Tasa de Crecimiento o 'Growth Rate' de Pandas); $r_t$ (Growth Rate de Tortugas); $K_p$ (Capacidad de Carga de Pandas); $K_t$ (Capacidad de Carga de Tortguas); $a_p$ (Coeficiente de Competencia de Pandas); $a_t$ (Coeficiente de Competencia de Tortugas), dicho modelo se represento con las siguientes ecuaciones diferenciales: \vspace{0.5\baselineskip}
 
 \setlength{\baselineskip}{1\baselineskip}
 \[\frac{dN_p}{dt} = r_p N_p \left( \frac{K_p - N_p - \alpha_{t} N_t}{K_t} \right)\]
 \[\frac{dN_t}{dt} = r_t N_t \left( \frac{K_t - N_t - \alpha_{p} N_p}{K_t} \right)\]
 \vspace{0.75\baselineskip}
 
-\noindent Teniendo esta informacion, para evitar tener que resolver las ecuaciones analiticamente, se utilizo el metodo de Runge Kutta para aproximar las dinamicas de poblacion entre las 2 especies en diversos casos. El caso "normal" es uno en el que los pandas tenian mayor poblacion inicial, mayor tasa de reproduccion y capacidad de carga que las tortugas, sin embargo estas tenian un mayor coeficiente de competencia, en los demas casos se incrementaron los distintos parametros de los pandas, sin tocar los de las tortugas, para contrastar como cambiaban las dinamicas. Todas estas aproximaciones se realizaron en un tiempo de 270 con 2700 steps de 0.1 cada uno.
+\noindent Teniendo esta información, para evitar tener que resolver las ecuaciones analíticamente, se utilizo el método de Runge Kutta para aproximar las dinámicas de población entre las 2 especies en diversos casos. El caso "normal" es uno en el que los pandas tenían mayor población inicial, mayor tasa de reproducción y capacidad de carga que las tortugas, sin embargo estas tenían un mayor coeficiente de competencia, en los demás casos se incrementaron los distintos parámetros de los pandas, sin tocar los de las tortugas, para contrastar como cambiaban las dinámicas. Todas estas aproximaciones se realizaron en un tiempo de 270 con 2700 steps de 0.1 cada uno.
 \vspace{1\baselineskip}
 
-\noindent Luego, para obtener más información de las soluciones estudiamos las isoclinas cero de cada especie (calculadas en Apendice 1.2) y como estas eran afectadas por los cambios en los distintos parámetros, utilizando nuevos casos que mejor representen de forma clara las variaciones que estos calculos generaban, reflejandolo tambien en nuevas aproximaciones de poblacion para cada uno de los graficos de isoclineas. \vspace{1\baselineskip}
+\noindent Luego, para obtener más información de las soluciones estudiamos las isoclinas cero de cada especie (calculadas en Apéndice 1.1) y como estas eran afectadas por los cambios en los distintos parámetros, utilizando nuevos casos que mejor representen de forma clara las variaciones que estos cálculos generaban, reflejándolo también en nuevas aproximaciones de población para cada uno de los gráficos de isoclinas. \vspace{1\baselineskip}
 
-\noindent Y utilizando las isoclinas, calculamos los puntos de equilibrio en los distintos casos, graficandolos junto a varias trayectorias y un campo diferencial, lo cual ayudaria a determinar su estabilidad.
+\noindent Y utilizando las isoclinas, calculamos los puntos de equilibrio en los distintos casos, graficandolos junto a varias trayectorias y un campo diferencial, lo cual ayudaría a determinar su estabilidad.
 
 
 
-\subsection*{Actividad 3: Depredacion}
-\noindent En esta ultima parte del experimento, los pandas ahora no conviven y compiten con otra especie herbivora como ellos, sino que tienen que coexistir y sobrevivir en un ambiente con uno de sus depredadores naturales (el Leopardo de las Nieves, quienes seran llamados 'Leopardos' por simpleza). En esta situacion, la variacion de poblacion se representa con el modelo de depredacion de Lotka Volterra:
+\subsection*{Actividad 3: Depredación}
+\noindent En esta ultima parte del experimento, los pandas rojos ahora no conviven y compiten con otra especie herbívora como ellos, sino que tienen que coexistir y sobrevivir en un ambiente con uno de sus depredadores naturales (el Leopardo de las Nieves, quienes serán llamados 'Leopardos' por simpleza). En esta situación, la variación de población se representa con el modelo de depredación de Lotka Volterra:
 \vspace{0.5\baselineskip}
 
 \setlength{\baselineskip}{1\baselineskip}
@@ -197,151 +215,231 @@ k_{4} = hf(t_{i} + h, w_{i} + k_{3})\]
 \[\frac{dL}{dt} = \beta PL - qL\]
 \vspace{0.75\baselineskip}
 
-\noindent Utilizando estas ecuaciones, nuevamente se modelaron diversos escenarios en base a variaciones en los parámetros, analizando las consecuencias en los cambios poblacionales de ambas especies en cada caso. %TODO: Agregar algun sentido y proposito a las aproxs, you know
-Todas las aproximaciones fueron realizadas usando un tiempo de 150 y 1500 steps de 0.1 cada uno.
+\noindent Utilizando estas ecuaciones, nuevamente se modelaron diversos escenarios en base a variaciones en los parámetros, analizando las consecuencias en los cambios poblacionales de ambas especies en cada caso. El modelo Depredador-Presa se aproximo con 1500 steps de 0.1 cada uno, mientras que el LVE con 2500 steps de 0.1 cada uno. 
 \vspace{1\baselineskip}
 
-\noindent Luego se considero graficar las ODEs de ambas especies en ambos sistemas, sin embargo antes de realizarla se descartó esa opción como algo util o informativo. \vspace{1\baselineskip}
+\noindent Luego se considero graficar las ODEs de ambas especies en ambos sistemas, sin embargo antes de realizarla se descartó esa opción como algo útil o informativo. \vspace{1\baselineskip}
 
-\noindent Se dedujo que dicha tarea no se podría realizar en un grafico de dimension \( R^2 \) como los otros, debido a que estaria teniendo en cuenta por lo menos 3 ejes de informacion (Poblacion de Presas, Poblacion de Depredadores, Variacion de Poblacion) ya que la variacion de ambos depende tanto de su propia poblacion como de la poblacion de la otra especie, por lo cual graficar la variacion de cada especie en base a su propia poblacion implicaria necesariamente fijar un valor de la poblacion de la otra especie, los graficos tendrian que presentarse en \( R^3 \) dimensiones, perdiendo su intuicion visual para transmitir informacion util. \vspace{1\baselineskip}
+\noindent Se dedujo que dicha tarea no se podría realizar en un gráfico de dimensión \( R^2 \) como los otros, debido a que estaría teniendo en cuenta por lo menos 3 ejes de información (Población de Presas, Población de Depredadores, Variación de Población) ya que la variación de ambos depende tanto de su propia población como de la población de la otra especie, por lo cual graficar la variación de cada especie en base a su propia población implicaría necesariamente fijar un valor de la población de la otra especie, los gráficos tendrían que presentarse en \( R^3 \) dimensiones, perdiendo su intuición visual para transmitir información útil. \vspace{1\baselineskip}
 
-\noindent Por ultimo para estos modelos, se graficaron las isoclinas en cada uno de los sistemas, cada una junto con un grafico representando una trayectoria de ejemplo para visualizar mejor las tendencias de ambas especies en cada uno de los sistemas. Las trayectorias de ejemplo fueron aproximadas usando un tiempo de 150, y 1500 steps de 0.1 cada uno.
-
-
+\noindent Por ultimo, para estos modelos, se graficaron las isoclinas en cada uno de los sistemas, cada una junto con un gráfico representando una trayectoria de ejemplo para visualizar mejor las tendencias de ambas especies en cada uno de los sistemas. Las trayectorias de ejemplo fueron aproximadas usando un tiempo de 150, y 1500 steps de 0.1 cada uno.
 
 
 
-\section*{Resultado y Análisis}
+
+
+\section*{Resultados y Análisis}
 
 
 
 \subsection*{Actividad 1}
-\noindent cosaaaaaaaaaaaas
-
-% ACTIVIDAD 1
-% ACORDATE DEL ERROR, EL ERROR MENOR DE RK DETERMINA USAR RK > USAR EULER
-
-\noindent Los resultados de error relativo promedio usando 
-
-Average Relative Error Euler (Exponential): 0.2014
-Average Relative Error Runge-Kutta (Exponential): 0.0437
-
-Average Relative Error Euler (Logistique): 0.0555
-Average Relative Error Runge-Kutta (Logistique): 0.0133
-
-
-
-
-
-
-
-
-\subsection*{Actividad 2}
-\noindent Luego de resolver las ecuaciones diferenciales en la actividad 1 concluimos que Runge-Kutta 4 era más preciso, por esto, utilizamos este método numérico para resolver el modelo de Lotka-Volterra en esta actividad. 
-\vspace{1\baselineskip}
-\vspace{1\baselineskip}
-
-
-
-%Runge kutta y el cambio de parámetros en la actividad 2 con sus gráficos
-\noindent HABLAR DEL RUNGE-KUTTA EN EL 2
-\vspace{1\baselineskip}
-
-
-
-\noindent Después de resolver con Runge-Kutta calculamos las isoclinas igualando las ecuaciones diferenciales a 0 y despejando N1 y N2.
-\vspace{0.5\baselineskip}
-
-\begin{equation}
-\text{Isoclina $N_p$ = } \frac{K_p}{\alpha_{p}} - \frac{1}{\alpha_{p}} \cdot N_p
-\end{equation}
-
-\begin{equation}
-\text{Isoclina $N_t$ = } K_t - \alpha_{t} \cdot N_p
-\end{equation}
-\vspace{0.75\baselineskip}
-
-\noindent Como se puede ver, las pendientes están definidas por $\alpha_p$ y $\alpha_t$, por lo cual si los Coeficientes son inversos ($\alpha_p$ = $\frac{1}{\alpha_t}$), entonces la pendiente de ambas isoclinas será igual, por ende, nunca se cruzaran y la isoclina que tenga el valor K más grande va a encontrarse siempre por encima de la otra. Esto se puede ver en los siguientes gráficos.
+\noindent Al haber proyectado la población de pandas rojos en ambos sistemas con las soluciones analíticas (variando los parámetros en todas las formas creídas relevantes) se obtuvieron los siguientes resultados:
 
 \begin{figure}[ht]
     \centering
-    \caption{panchos}
-    \includegraphics[width=0.6\linewidth]{}
+    \caption{Población de Pandas en Distintos Escenarios}
+    \includegraphics[width=0.9\linewidth]{Figure1.png}
     \label{fig:Image 1.1}
 \end{figure}
 
+\noindent El gráfico de la izquierda muestra variaciones en población inicial y capacidad de carga, las conclusiones mas notables que se pueden tomar de estos resultados son que por supuesto, si la cantidad de pandas es 0, se mantendrá en 0, y que si la cantidad inicial es mayor, esta crecerá mucho mas rápido debido al factor exponencial en ambos sistemas.\vspace{1\baselineskip}
+
+\noindent Sin embargo, también se puede ver como una vez alcanzada la capacidad de carga del ambiente, ya los pandas reducen extremadamente su tasa de reproducción, y esta comienza a converger hacia dicho $K$ constante, la exponencial no tiene dicha limitación por lo cual siempre que la población inicial sea positiva, esta tendera a infinito en este sistema (es decir, si hay 1 o mas pandas rojos para reproducirse, vale aclarar que por el diseño de los sistemas, la población si crece cuando hay solo 1 panda lo cual en la vida real tendría poco sentido, ver Apéndice 1.2). \vspace{1\baselineskip}
+
+\noindent En el gráfico de la derecha se ven escenarios donde la tasa de crecimiento es modificada, se puede observar como cuando $r$ es positivo los pandas se reproducirán, cuando es 0, la población se mantendrá constante, y si es negativo, esta tenderá a 0. 
+
+\vspace{1\baselineskip}
+
+\noindent Y para tener una mejor idea de como funciona este crecimiento exponencial en los distintos escenarios del crecimiento, también se graficó la variación de la población en base a la población misma ($dP/dt$ vs $P$):
+
+\begin{figure}[ht]
+    \centering
+    \caption{Variación Poblacional de Pandas Rojos en Distintos Escenarios}
+    \includegraphics[width=0.55\linewidth]{Figure2.png}
+    \label{fig:Image 1.1}
+\end{figure}
+
+\noindent En este gráfico se puede apreciar como la función exponencial normal mantiene el mayor crecimiento, mientras que la logística (como ya mencionado) comienza a desacelerar a medida que converge hacia su capacidad máxima de carga, cual sea que sea dicho valor. Y cuando el crecimiento es menor a 0, este decrece cuanto mas grande sea la población (decreciendo mas al principio, menos al final dada su dirección inversa). Los casos donde el crecimiento es 0 son triviales de graficar ya que la población es constante en un mismo punto (no hay valores en el Eje X sobre los cuales proyectar). \vspace{1\baselineskip}
+
+\noindent Por ultimo, se tomo una curva normal de población de pandas como ejemplo, y se gráfico dicha población junto a las interpolaciones con el Método de Euler y de Runge-Kutta, para ambos sistemas, con los siguientes resultados:
+
+\begin{figure}[ht]
+    \centering
+    \caption{Aproximaciones de Euler y RK4 vs Ground Truth (Población)}
+    \includegraphics[width=0.86\linewidth]{Figure3b.png}
+    \label{fig:Image 1.1}
+\end{figure}
+
+\noindent Como se puede claramente observar en las figuras, el método de Runge Kutta es consistentemente mucho mas preciso para aproximar la función real utilizando la ODE, que el método de Euler (sobre todo en la exponencial). Incluso se calculo analíticamente el error relativo de las 4 aproximaciones, y los resultados fueron los siguientes: \vspace{1\baselineskip}
+
+\noindent Error de Euler (Exponencial) = 0.2014; Error de Runge-Kutta (Exponencial) = 0.0437
+\vspace{1\baselineskip}
+
+\noindent Error de Euler (Logística) = 0.0555; Error de Runge-Kutta (Exponencial) = 0.0133
+\vspace{1\baselineskip}
+
+\noindent Comprobando así que el método de Runge-Kutta tiene un error significativamente menor en ambos casos.
+
+\vspace{1\baselineskip}
+
+\subsection*{Actividad 2}
+\noindent Como recién mencionado luego de resolver las ecuaciones diferenciales en la actividad anterior, se concluyo que Runge-Kutta 4 era más preciso que Método de Euler, por lo cual, de ahora en adelante se utilizo Runge-Kutta 4 para hacer las aproximaciones de población.
+\vspace{1\baselineskip}
+
+\noindent Al variar los parámetros de los pandas de forma positiva para aumentar su esperada población en el sistema, se realizaron 4 subplots (uno en el que se aumento $\alpha_p$, uno en el que se aumento $N0_p$, uno en el que se aumento $r_p$ y uno en el que se aumento $K_p$), y a todos los gráficos se les agrego con lineas punteadas la misma dinámica "normal" (representando los valores fijos iniciales mencionados en el Desarrollo) para así mantener un eje de referencia al cambio. Se obtuvieron los siguientes resultados:
+
+\begin{figure}[ht]
+    \centering
+    \caption{Dinámicas de Población con distintos parámetros}
+    \includegraphics[width=0.99\linewidth]{Figure4.png}
+    \label{fig:Image 1.1}
+\end{figure}
+
+\noindent Como se puede observar, cuando la competitividad de los pandas es mayor que la de las tortugas ($\alpha_p$ > $\alpha_t$), dado que los demás parámetros de los pandas son mayores, estos dominan completamente, sin embargo cuando la competitividad de las tortugas es mayor, incluso si los pandas rojos tienen una tasa de crecimiento ($r_p$) mucho mayor, o una población inicial ($N0_p$) mucho mayor, estos aun perderán eventualmente contra las tortugas (tendiendo a sus valores 'normales' con los mismos $K$ y $\alpha$, por el otro lado cuando se aumenta significativamente su capacidad de carga ($K_p$) entonces si se encuentra un caso de equilibrio donde los pandas tienen mayor población que las tortugas.
+\vspace{1\baselineskip}
+
+\noindent Después de resolver con Runge-Kutta calculamos las isoclinas igualando las ecuaciones diferenciales a 0 y despejando $N_p$ y $N_t$.
+\vspace{0.5\baselineskip}
+
+\begin{equation}
+\text{Isoclina Pandas = } \frac{K_p}{\alpha_{p}} - \frac{1}{\alpha_{p}} \cdot N_p
+\end{equation}
+
+\begin{equation}
+\text{Isoclina Tortugas = } K_t - \alpha_{t} \cdot N_p
+\end{equation}
+\vspace{0.75\baselineskip}
+
+\noindent Este despeje lleva a la realización que confirma lo recién discutido en la Figura 4, que es que el punto de equilibrio en el cual se estabilizan las poblaciones es independiente de los valores $r$ y $N_0$, ya que las isoclinas dependen únicamente de $\alpha$ y $K$. Explicando entonces porque los equilibrios si se modifican al cambiar estos parámetros, pero no al cambiar $r$ y $N_0$. Esto ahora se explicara mejor graficando las isoclinas.
+
+\noindent También se puede ver que las pendientes están definidas por $\alpha_p$ y $\alpha_t$, por lo cual si los Coeficientes son inversos ($\alpha_p$ = $\frac{1}{\alpha_t}$), entonces la pendiente de ambas isoclinas será igual, por ende, nunca se cruzaran y la isoclina que tenga el valor K más grande va a encontrarse siempre por encima de la otra. Esto se puede ver en los siguientes gráficos (Aclaración: En estos gráficos, Trayectoria Ejemplo siempre será la trayectoria mostrada en el cuadro de la derecha). 
+
+\begin{figure}[ht]
+    \centering
+    \caption{Isoclinas Caso 1}
+    \includegraphics[width=1\linewidth]{Figure5.png}
+    \label{fig:Image 1.1}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \caption{Isoclinas Caso 2}
+    \includegraphics[width=0.95\linewidth]{Figure6.png}
+    \label{fig:Image 1.1}
+\end{figure}
+
+\vspace{12.5\baselineskip}
 
 
-%graficos de isoclinas sin interseccion
+\noindent Como era de predecir, las isoclinas son paralelas, y algo curioso que se puede observar, es su punto de equilibrio. Como bien se ve en los cuadros de la derecha, las poblaciones se equilibran en (pandas = 0, tortugas = $K_t$) para la Figura 1 y en (pandas = $K_p$, tortugas = 0) para la Figura 2, lo cual se ve perfectamente reflejado en el punto de equilibrio de las isoclinas, y se ve como cualquier trayectoria, independientemente de su $N_0$ y $r$ de cada especie, va a tender a dicho punto dependiendo de los valores $\alpha$ y $K$ de cada especie, esto se demuestra por como el campo diferencial tiende desde cualquier punto siempre al de Equilibrio, y las trayectorias graficadas ejemplifican este fenómeno, demostrando que el punto es estable en ambas Figuras. 
+Lo siguiente es ver que sucede cuando las isoclinas no son paralelas:
 
-%hablar de los puntos de equilibrio y que pasa con estos cuando son "paralelas" las isoclinas
+\begin{figure}[ht]
+    \centering
+    \caption{Isoclinas Caso 3 ($\alpha_p, \alpha_t > 0$)}
+    \includegraphics[width=0.94\linewidth]{Figure7.png}
+    \label{fig:Image 1.1}
+\end{figure}
 
-% Results 
+\noindent En este gráfico se puede apreciar como hay 3 puntos de equilibrio. Sin embargo, como se puede también apreciar en las dos Trayectorias de la derecha (representando Ejemplo 1 y Ejemplo 2 en el gráfico de la izquierda respectivamente), y en el campo diferencial, se ve que claramente de esos 3 hay 2 puntos a los cuales las trayectorias tienden, pero 1 al cual no. \vspace{0.75\baselineskip}
 
+\noindent Por lo cual aquellos 2 puntos $(0, K_t)$ y $(K_p, 0)$ son puntos estables, al cual la trayectoria inicial va a tender dependiendo de donde se encuentra. Pero el punto de intersección entre las isoclinas es inestable, y las trayectorias van a tender a alejarse de este punto, en vez de acercarse. \vspace{0.5\baselineskip}
 
+\noindent Finalmente, queda analizar el 4to caso:
 
-% ACTIVIDAD 2. 
-% Lo importante es que en el default, Turtles tiene un poco mas alto indice de competencia, y que los graficos 2 y 3 muestran que incluso aumentando bastante el growth rate de los pandas o la initial pop de los pandas, las turtles still ganan con su mejor competencia. Sin embargo, cuando se aumenta la capacidad de carga de los pandas, le ganan a las turtles (y por supuesto, cuando se incrementa la competencia de los pandas, arrasan as expected).
+\begin{figure}[ht]
+    \centering
+    \caption{Isoclinas Caso 4 ($\alpha_p, \alpha_t < 0$)}
+    \includegraphics[width=0.94\linewidth]{Figure8.png}
+    \label{fig:Image 1.1}
+\end{figure}
 
-% En RK de Act2, aclarar que estos graficos todos muestran 
-% tal valor de pandas > tal valor de turtles
-% Pero estos graficos podrian ser iguales invertidos, solo estamos eligiendo mostrarlo asi para no llenar demasiado espacio, si se hace     a2 > a1, va a ser lo mismo que a1 > a2 pero con las especies invertidas
+\noindent Por ultimo, en este caso se puede observar como solo existe 1 punto de Equilibrio, este siendo la intersección de las 2 isoclinas. Y como se puede ver tanto en el campo diferencial, como en las trayectorias ejemplo (y de forma mas intuitiva en el cuadro de dinámicas poblacionales a la derecha), este punto es estable. Debido a que todas las trayectorias tienden a equilibrarse en el punto. \vspace{\baselineskip}
 
-% En los graficos de isoclinas
-% trayectoria ejemplo means con los datos del que esta mostrado al lado, con la inicial de pandas en 100 y la de tortugas en 60 as always.
+\noindent En este caso, sin importar los valores de $r_p, r_t$ o $N_0$ de cada especie, ambas van a tender a un equilibrio (no necesariamente siendo la misma población, sino que van a tender al punto en el que se intersecan las isoclinas, en este caso x=y, pero por ejemplo, en la Figura 4, los 3 casos donde ninguna población tiende a 0, son ejemplos de este Caso 4 de las Isoclinas). 
 
+\vspace{\baselineskip}
 
-
-% Comments Sobre Isoclinas Act 2
-
-% En el primer grafico claramente gana la tortuga, pto de equilibrio es pandas = 0, tortugas = Kt
-
-% En el segundo grafico claramente gana el panda, pto de equilibrio es pandas = kp, tortugas = 0
-
-% En el tercer grafico fijate que si empezas en ciertos puntos gana la tortuga (p=0, t=Kt) pero en otros gana el panda (p=Kp, t=0). El de la isct es pto de equi porque ambas ODEs son 0, pero no es estable porque ninguna trayectoria tiende al punto, se alejan
-
-% En el cuarto grafico todas las trayectorias tienden al equilibrio.
-
+\noindent Ahora se puede volver a la Figura 4 y entender mucho mejor los resultados que se ven, viendo que arriba a la izquierda, cuando la competitividad de los pandas es mayor, el gráfico tiende al $(K_p, 0)$, ya que es un Caso 3 de Isoclina. Por el otro lado, los otros 3 gráficos son un Caso 4, por lo cual tiene sentido que sin importar variaciones en $r$ o $N_0$, estos van a tender al mismo equilibrio (a la intersección de sus isoclinas, determinadas por sus valores $K$ y $\alpha$ únicamente), sin embargo al cambiar el valor de $K_p$, dicho punto de intersección es diferente, y los valores tienden a ese nuevo punto.
 
 
 
 
 
 \subsection*{Actividad 3}
-\noindent 
+
+\noindent Para comenzar con el modelo de depredación, se aproximaron con Runge-Kutta 4 y luego graficaron, las dinámicas poblacionales de los pandas rojos y los leopardos de la nieve en diferentes situaciones, variando los parámetros del sistema.
 %graficos de runge kutta y hablar de como afecta el cambio de los diferentes parámetros y que cambios no afectan
 
+\begin{figure}[ht]
+    \centering
+    \caption{Dinámicas Poblacionales en el Modelo de Depredador-Presa}
+    \includegraphics[width=1\linewidth]{Figure9.png}
+    \label{fig:Image 1.1}
+\end{figure}
 
-\noindent Para tener una mayor comprensión de lo que sucedía y de las soluciones a estos sistemas de ecuaciones diferenciales calculamos las isoclinas del modelo de Predador-Presa de Lotka-Volterra como se puede ver a continuación:
+\vspace{14\baselineskip}
+
+\noindent Como se puede ver en la Figura, las variaciones en los parámetros pueden cambiar algunos puntos, y achatar algunos valles o estirar algunos picos, pero en lineas generales todos los gráficos parecen simplemente tender a una oscilación indefinida. Ya que sigue un ciclo circular: \vspace{1\baselineskip}
+
+\noindent ...$=>$ Poblacion de pandas rojos aumenta $=>$ Leopardos se comen a las pandas rojos $=>$ Poblacion de pandas rojos se reduce y Poblacion de leopardos aumenta $=>$ Leopardos comen menos y comienzan a morir $=>$ Poblacion de leopardos se reduce $=>$ Presas se reproducen sin ser comidas $=>$ Poblacion de pandas rojos aumenta $=>$ Leopardos se comen a las pandas rojos $=>$... etc.
+\vspace{1\baselineskip}
+
+\noindent Por el otro lado, estos son los resultados que se obtienen al utilizar el modelo de Lotka Volterra Extendido en su lugar, esta vez agregando un factor de competencia intraespecifica a los pandas rojos:
+
+\begin{figure}[ht]
+    \centering
+    \caption{Dinámicas Poblacionales en el Modelo de LVE}
+    \includegraphics[width=1\linewidth]{Figure10.png}
+    \label{fig:Image 1.1}
+\end{figure}
+
+\vspace{17\baselineskip}
+
+\noindent En estos graficos se puede observar que a pesar de que sigue habiendo una oscilacion constante, esta tiende a converger hacia una constante, en vez de oscilar indefinidamente como sucedía en la Figura 9. En todos los casos se puede ver la diferencia en las velocidades de convergencia tambien. \vspace{1\baselineskip}
+
+\noindent Cuando la tasa de predacion es demasiado alta, tarda mas en converger ya que el ciclo va mas hacia los extremos, algo que no sucede con un valor mas bajo. Se ve el mismo fenomeno cuando los pandas crecen menos, que tarda mas en converger y se va mas hacia los extremos, aunque estas situaciones parecen contra-intuitivas, se deben al hecho de que en dichos escenarios, la poblacion de depredadores cae demasiado rapido al inicio, permitiendo un crecimiento exponencial de la poblacion de pandas, comenzando un ciclo con oscilaciones de picos mucho mas altos que eventualmente converge desde ahi. Con un valor de capacidad de carga mas alto, tarda mas en converger dados los numeros mas grandes a los que se llega inicialemente.
+
+\vspace{1\baselineskip}
+
+\noindent Tambien se puede observar un escenario en el cual cuando la eficiencia de depredacion es demasiado baja, converge muy rapido a unos puntos de equilibrio diferentes a los valores "normales", un punto de equilibrio con mayor cantidad de pandas rojos y menor cantidad de leopardos, similar a lo que sucedia con las tortugas, esto se debe a como toman forma las isoclinas. Y lo mismo sucede cuando se cambia el valor de la tasa de muerte de los leopardos, el sistema encuentra un nuevo equilibrio diferente. \vspace{1\baselineskip}
+
+\noindent A fin y al cabo los unicos parametros que afectan el punto de equilibrio del sistema son la eficiencia de depredacion, y la tasa de muerte de los leopardos.
+\vspace{1\baselineskip}
+
+\noindent Entonces para tener una mayor comprensión de lo que sucedía y de las soluciones a estos sistemas de ecuaciones diferenciales calculamos las isoclinas de ambos modelos, comenzando con el modelo de Predador-Presa de Lotka-Volterra usado en la Figura 9, como se puede ver a continuación:
 \vspace{1\baselineskip}
 
 \begin{align*}
-\text{isoclina}_{N}: \frac{q}{\beta} \\
-\text{isoclina}_{P}: \frac{r}{\alpha}
+\text{Isoclina Pandas = } \frac{q}{\beta} \\
+\text{Isoclina Leopardos = } \frac{r}{\alpha}
 \end{align*}
 
 \noindent De estas ecuaciones pudimos ver que ninguna se ve afectada por la otra y que sus valores solo dependen de los parámetros correspondientes; la isoclina de N esta definido por $\beta$ y $q$, mientras que la isoclina de P se ve definida por $r$ y $\alpha$. Esto indica que las isoclinas son constantes, y esto fue lo que se vio en el gráfico. Por esto mismo, a diferencia de la actividad 2, no habrán diferentes casos para las isoclinas y estabilidad de este modelo ya que los valores de los parámetros no alteran la forma de las isoclinas, sino simplemente su posición en el plano de fases. En consecuencia, el análisis de estabilidad y el comportamiento cualitativo de las trayectorias será esencialmente el mismo independientemente de los valores numéricos específicos de los parámetros.
 \vspace{1\baselineskip}
 
-\vspace{10\baselineskip}
-\noindent Aca va el grafico de las isoclinas Depredacion
-\vspace{10\baselineskip}
-
+\begin{figure}[ht]
+    \centering
+    \caption{Isoclina Modelo Depredador-Presa}
+    \includegraphics[width=1\linewidth]{Figure11.png}
+    \label{fig:Image 1.1}
+\end{figure}
 
 \vspace{1\baselineskip}
 
-\noindent En el grafico de la izquierda se puede observar que las isoclinas del modelo de Predador-Presa de Lotka-Volterra son rectas constantes. Aunado a que las trayectorias en el plano Presas vs Depredadores tienen forma de órbitas circulares alrededor del punto de equilibrio, esto implica que el sistema oscila indefinidamente sin converger al equilibrio. Esto se debe a la ausencia de términos no lineales que introduzcan efectos estabilizadores en las trayectorias. Es decir, no hay términos que hagan que las trayectorias converjan hacia el punto de equilibrio. Dicha osiclacion indefinida se puede apreciar en el grafico de la derecha, en el cual las trayectorias nunca parecen converger hacia ningun equilibrio definido.
+\noindent En el gráfico de la izquierda se puede observar que las isoclinas del modelo de Predador-Presa de Lotka-Volterra son rectas constantes. Sumado a que las trayectorias en el plano Presas vs Depredadores tienen forma de órbitas circulares alrededor del punto de equilibrio, esto implica que el sistema oscila indefinidamente sin converger al equilibrio. Esto se debe a la ausencia de términos no lineales que introduzcan efectos estabilizadores en las trayectorias. Es decir, no hay términos que hagan que las trayectorias converjan hacia el punto de equilibrio. Dicha oscilación indefinida se puede apreciar en el gráfico de la derecha, en el cual las trayectorias nunca parecen converger hacia ningún equilibrio definido.
 \vspace{1\baselineskip}
 
 
 \noindent Para contrastar, hacemos el mismo análisis del modelo de Lotka-Volterra extendido. En este caso, se ha introducido un nuevo término cuadrático en la ecuación de las presas, que representa la competencia intraespecífica. Esto modifica la forma de las ecuaciones diferenciales, las cuales ahora son dependientes entre sí y no lineales. Por lo tanto, es de esperar que las isoclinas y las trayectorias no sean constantes y tengan un comportamiento diferente al modelo original. Para formalizar este análisis, calculamos las isoclinas:
+\vspace{0.75\baselineskip}
 
 \begin{align*}
-\text{isoclina}_{N}: &  \frac{q}{\beta} \\
-\text{isoclina}_{P}: & \frac{r}{\alpha}\left(1 - \frac{N}{K}\right)
+\text{Isoclina Pandas = } &  \frac{q}{\beta} \\
+\text{Isoclina Leopardos = } & \frac{r}{\alpha}\left(1 - \frac{N}{K}\right)
 \end{align*}
 
-\noindent Similarmente al modelo de Predador-Presa de Lotka-Volterra acá tampoco habrán diferentes casos. Esto sucede porque para que el modelo tenga sentido la intersección de las rectas debería observarse en el primer cuadrante y esto solo sucede cuando $K > \frac{q}{\text{beta}}$. Debido a esto, y a las restricciones de los otros parámetros, solo quedará un caso en el que el punto de equilibrio se encuentra en el primer cuadrante.  %quizas habra que chequear esto un poco o elaborar más
+\noindent Similarmente al modelo de Predador-Presa de Lotka-Volterra acá tampoco habrán diferentes casos. Esto sucede porque para que el modelo tenga sentido la intersección de las rectas debería observarse en el primer cuadrante y esto solo sucede cuando $K > \frac{q}{\text{beta}}$. Debido a esto, y a las restricciones de los otros parámetros, solo quedará un caso en el que el punto de equilibrio se encuentra en el primer cuadrante.  
 
 \vspace{1\baselineskip}
 \noindent A diferencia del modelo original, las isoclinas ahora no son rectas constantes, sino que dependen de las variables de población $N$ y $P$. Esto implica que las trayectorias en el plano de fases tendrán un comportamiento diferente, como se analizará a continuación.
@@ -349,71 +447,171 @@ Average Relative Error Runge-Kutta (Logistique): 0.0133
 \vspace{1\baselineskip}
 %quizas decir algo ma s del punto de equilibrio
 
-\noindent En el modelo de Lotka-Volterra extendido (LVE), que incorpora la competencia intraespecífica de las presas, las trayectorias en el plano Presas vs Depredadores ya no son órbitas circulares perfectas. En su lugar, adquieren una forma de espiral que eventualmente converge al punto de equilibrio del sistema. Esta diferencia en la forma de las trayectorias se debe a la modificación introducida en la ecuación de las presas por el término de competencia intraespecífica.
+
+
+\begin{figure}[ht]
+    \centering
+    \caption{Isoclina Modelo Lotka Volterra Extendido}
+    \includegraphics[width=1\linewidth]{Figure12.png}
+    \label{fig:Image 1.1}
+\end{figure}
+
+\noindent Como se puede observar en la figura, en el modelo de Lotka-Volterra extendido (LVE), que incorpora la competencia intraespecífica de las presas, las trayectorias en el plano Presas vs Depredadores ya no son órbitas circulares perfectas. \vspace{1\baselineskip}
+
+\noindent En su lugar, adquieren una forma de espiral que eventualmente converge al punto de equilibrio del sistema. Esta diferencia en la forma de las trayectorias se debe a la modificación introducida en la ecuación de las presas por el término de competencia intraespecífica, el cual limita las oscilaciones a largo plazo (y por como esta planteada la dependencia entre ambas especies, cuando la población de pandas converge, la población de leopardos también). 
+
 \vspace{1\baselineskip}
 
-\vspace{10\baselineskip}
-\noindent Aca va el grafico de las isoclinas LVE
-\vspace{10\baselineskip}
-\vspace{1\baselineskip}
-
-\noindent En esta figura se puede observar el comportamiento en espiral mencionado anteriormente. Se pueden apreciar que las trayectorias, dibujadas con líneas discontinuas negras, tienen forma de espiral y convergen hacia el punto de equilibrio, que es la intersección de las isoclinas.
-\vspace{1\baselineskip}
-
-\noindent Este comportamiento en espiral implica que, independientemente de las condiciones iniciales, el sistema eventualmente alcanzará un estado estacionario en el punto de equilibrio. Esto se puede confirmar al analizar la evolución temporal de las poblaciones, como se muestra en la Figura XXX.
+\noindent Este comportamiento en espiral implica que, independientemente de las condiciones iniciales, el sistema eventualmente alcanzará un estado estacionario en el punto de equilibrio. Esto se puede confirmar al analizar la evolución temporal de las poblaciones, como se muestra en la Figura 12. Como se habia descubierto previamente al analizar la Figura 10, este punto de equilibrio varia en base a los valores de muerte de leopardos, y de eficiencia de depredacion.
 \vspace{1\baselineskip}
 
 \noindent Como se ve en el cuadro de la derecha, las poblaciones de presas y depredadores comienzan oscilando, pero eventualmente convergen a valores constantes que corresponden al punto de equilibrio del sistema. Por lo tanto, la incorporación del término de competencia intraespecífica en el modelo LVE introduce un comportamiento estable y convergente en el sistema, a diferencia del modelo original de Lotka-Volterra, donde las trayectorias eran órbitas circulares que nunca convergían al equilibrio.
 \vspace{1\baselineskip}
 
-\noindent Esta diferencia en la forma de las trayectorias y el comportamiento a largo plazo del sistema es una consecuencia directa de la modificación en la ecuación de las presas, lo que demuestra la importancia de considerar la competencia intraespecífica al modelar sistemas ecológicos.
+\noindent Esta diferencia en la forma de las trayectorias y el comportamiento a largo plazo del sistema es una consecuencia directa de la modificación en la ecuación de las presas, lo que demuestra la importancia de considerar la competencia intraespecífica al modelar sistemas ecológicos. 
 \vspace{1\baselineskip}
 
 
-%habria que deicr algo mas de poruqe no hay casos
+\section*{Conclusión}
 
+\noindent En este experimento se analizaron ya las 3 situaciones de Competencia Intraespecifica, Interespecifica, y Depredacion de los pandas rojos. Se evaluaron diversos escenarios con distintos parametros, y se terminaron utilizando las Isoclinas Cero para explicar todos los fenomenos que las aproximaciones parecian indicar como tendencia. \vspace{2\baselineskip}
 
+\noindent En la Competencia Intraespecifica, se vio como la funcion exponencial implicaba crecimiento infinito (con un $r > 0$) mientras que la logistica limitaba dicho crecimiento a un valor finito de $K \in \mathbb{R}^+$. Y tambien determinamos que el metodo de Runge-Kutta 4 era significativamente mas preciso que el metodo de Euler para aproximar las ecuaciones diferenciales dadas. \vspace{2\baselineskip}
 
+\noindent En la competencia interespecifica, se pudo observar como las dinamicas poblacionales entre los pandas rojos y las tortugas siempre tendiían a algun punto de equilibrio, y se determinó que dicho punto de equilibrio dependia de las capacidades de carga $(K_p, K_t)$ y los indices de competencia $(\alpha_p, \alpha_t)$. Esto se veia reflejado en las isoclinas, y los 4 tipos de graficos de isoclinas que se producian con variaciones en esos parametros. Estos siendo, pendientes iguales con $K_p > K_t$; pendientes iguales con $K_p < K_t$, pendientes diferentes con $\alpha_p, \alpha_t > 0$ y pendientes diferentes con $\alpha_p, \alpha_t < 0$ \vspace{2\baselineskip}
 
+\noindent Por ultimo, en el modelo de Depredación, se vio como en la situación Depredador-Presa los sistemas parecían nunca converger, sino oscilar indefinidamente, algo que cambiaba en el sistema de LVE, gracias a que este introducía un factor intraespecifico a los pandas, limitando dicha oscilación indefinida y llevando todos los sistemas a un punto de equilibrio. \vspace{0.4\baselineskip}
 
+\noindent Analizando las isoclinas, se llego a la conclusión de que en efecto, el modelo Depredador-Presa nunca convergería hacia un punto, y por el otro lado, todas las trayectorias del modelo LVE si convergerían a un punto de equilibrio dependiente de la tasa de muerte de los leopardos $q$ y de la eficiencia de depredación $\beta$. \vspace{2\baselineskip}
 
+\noindent En conclusion, todos los sistemas se pueden diferenciar por si tienen o no un punto de equilibrio al que tienden (con Exponencial Intraespecifica y Depredador-Presa siendo indefinidas, y todas las demas teniendo un punto de equilibrio al que siempre los sistemas tienden). Y esto puede ser determinado analizando las isolinas y su campo diferencial, determinando asi la estabilidad de dicho punto de equilibrio. \vspace{0.75\baselineskip}
 
-
-
-
-
-\section*{Conlusión}
-\noindent cosaaaaaaaaaaaas
+\noindent Y estos conocimientos podrian intentar aplicarse para cualquier otra ecuacion con cualquier otra trayectoria propuesta, algo que vaya mucho mas alla de la poblacion de los pandas rojos.
 
 
 
 \subsection*{Potenciales Mejoras}
 
-\noindent cosaaaaaaaaaaaas
+\noindent Una potencial mejora podría ser intentar resolver los sistemas de ODEs de Competencia Interespecifica y de Depredación (si es que son posibles de resolver) para evaluar que tan preciso es el método de Runge-Kutta 4 en esas situaciones, y mas importante, para evitar posibles errores numéricos causados al aproximar. \vspace{1\baselineskip}
 
+\noindent Otra posible mejora podría ser agregar mas escenarios con los distintos parámetros, a pesar de que ya se sabe como los puntos de equilibrio en los sistemas varían en base a los parámetros dados, mas escenarios podrían servir para analizar casos acotados específicos, mas allá del concepto general, esto podría tener utilidad en algun nicho.
+\vspace{1\baselineskip}
 
+\noindent Por ultimo, como otra mejora se podrian las ODEs en base a las poblaciones en la Actividad 3 (Depredacioón), sin embargo esta tarea requereriria ya pasar a la 3ra dimension, dado que las ecuaciones de cada especie dependen de ambas especies, por lo cual se tendrían 3 ejes para graficar: Poblacion de Pandas Rojos, Poblacion de Leopardos, Variacion Poblacional (o valor de ODEs). Realizar esto en $R^2$ seria saltear una dimension entera, y solo representaria 1 de practicamente infinitos valores al estar igualando algun eje de población. Esto en practica solo podria ser realizado propiamente en $R^3$, y esa seria una posible mejora para el experimento, que quizas podría traer informacion util o interesante.
 
 \label{LastPage}
 
 
+
 \section*{Bibliografía}
 
-\noindent cosaaaaaaaaaaaas
+\noindent Burden, R., and Faires, J. D. (2011). Numerical Analysis (Vol. 9). Boston: Rcihard Stratton. Retrieved May 11, 2024, from \url{https://faculty.ksu.edu.sa/sites/default/files/numerical_analysis_9th.pdf} 
+\vspace{1\baselineskip}
+
+\noindent Regueiro, B. C. (2022). La ecuación diferencial logística. Galicia, Spain: Universidade de Santiago de Compostela. Retrieved 15 May, 2024, from \url{https://minerva.usc.es/xmlui/bitstream/handle/10347/30183/2021_TFG_Matem%c3%a1ticas_Cadaveira_Ecuaci%c3%b3n.pdf?sequence=1&isAllowed=y}
+\vspace{1\baselineskip}
+
+\noindent University of Nebreaska-Lincoln. (2009). A quick guide to sketching direction fields. Retrieved May 15, 2024, from University of Nebraska-Lincoln Math: \url{https://www.math.unl.edu/~mbrittenham2/classwk/221f09/handouts/sketch.slope.fields.pdf} 
+\vspace{1\baselineskip}
+
+\noindent University of Wyoming. (2013, March 6). Lecture notes for ZOO 4400/5400 Population Ecology. Retrieved May 15, 2024, from University of Wyoming: \url{https://www.uwyo.edu/dbmcd/popecol/marlects/lect20.html} 
+
+\vspace{2\baselineskip}
+
+\noindent \textbf{Fuentes para Imagenes de la Carátula}
+\vspace{1\baselineskip}
+
+\noindent [Imagen de Panda Rojo: \url{https://en.wikipedia.org/wiki/Red_panda}] 
+\vspace{1\baselineskip}
+
+\noindent [Imagen de Panda Rojo y Tortuga: \url{https://ar.pinterest.com/pin/414120128239935203/}] \vspace{1\baselineskip}
+
+\noindent [Imagen de Panda Rojo y Leopardo: \url{https://x.com/RedPandasDaily/status/923314132845252608}] \vspace{1\baselineskip}
+
+
 
 
 \section*{Apéndice}
 
-% 1.1 es Resolucion Analitica de las ODEs de Actividad 1
-% 1.2 es Resolucion Analitica de las Isoclinas de Actividad 2
+\noindent 1.1 Resolución de isoclinas
+\vspace{1\baselineskip}
 
-% aca poner los despejes de las ecuaciones
+\begin{align}
+\frac{dN_1}{dt} &= r_1N_1\left(\frac{K_1 - N_1 - \alpha_{12}N_2}{K_1}\right) \label{eq:N1} \\
+\frac{dN_2}{dt} &= r_2N_2\left(\frac{K_2 - N_2 - \alpha_{21}N_1}{K_2}\right) \label{eq:N2}
+\end{align}
+
+Para calcular la isoclina de \(N_1\), igualamos la ecuación \eqref{eq:N1} a cero:
+\vspace{1\baselineskip}
+
+\begin{align*}
+0 &= r_1N_1\left(\frac{K_1 - N_1 - \alpha_{12}N_2}{K_1}\right) \\
+\implies K_1 - N_1 - \alpha_{12}N_2 &= 0 \\
+\implies N_1 &= K_1 - \alpha_{12}N_2 \\
+\therefore \boxed{N_1 = \frac{K_1}{\alpha_{12}} - \frac{1}{\alpha_{12}}N_2}
+\end{align*}
+
+De manera similar, para calcular la isoclina de \(N_2\), igualamos la ecuación \eqref{eq:N2} a cero:
+\vspace{1\baselineskip}
+
+\begin{align*}
+0 &= r_2N_2\left(\frac{K_2 - N_2 - \alpha_{21}N_1}{K_2}\right) \\
+\implies K_2 - N_2 - \alpha_{21}N_1 &= 0 \\
+\implies N_2 &= K_2 - \alpha_{21}N_1 \\
+\therefore \boxed{N_2 = K_2 - \alpha_{21}N_1}
+\end{align*}
+
+Así, las isoclinas resultan:
+\begin{align*}
+\textbf{Isoclina de }N_1: &\quad N_1 = \frac{K_1}{\alpha_{12}} - \frac{1}{\alpha_{12}}N_2 \\
+\textbf{Isoclina de }N_2: &\quad N_2 = K_2 - \alpha_{21}N_1
+\end{align*}
 
 
+\vspace{1\baselineskip}
 
-% Grafico de las ODEs en el 3
+\noindent Resolución analítica de isoclinas Depredador-Presa:
+\vspace{1\baselineskip}
 
-Las variaciones no se graficaron en base a las poblaciones como se había hecho en la Competencia Intraespecífica, debido a que en este caso eso implicaría graficar en mayores dimensiones para tener datos completos (ya que se usarian 3 ejes: Población de Presas, Población de Depredadores, Variaciones), y una cantidad finita de graficos en dimensión normal en practica no lo cubriría debido a que tan solo seria fijar 1 igualdad en algún/os planos y repetirla (por ejemplo, si se quisiera evaluar en tiempo 100 con step 0.1, tendrían que hacerse 1000 gráficos distintos que fijen alguna condición de igualdad en alguno de los ejes de Población o entre ellos). 
+Para calcular la isoclina de \(N\), igualamos la ecuación de su ODE a cero:
+\vspace{1\baselineskip}
 
+\begin{align*}
+0 &= rN - \alpha NP \\
+\implies rN &= \alpha NP \\
+\implies N &= \frac{\alpha}{r}P \\
+\therefore \boxed{N = \frac{q}{\beta}}
+\end{align*}
+
+Para calcular la isoclina de \(P\), igualamos la ecuación de su ODE a cero:
+\vspace{1\baselineskip}
+
+\begin{align*}
+0 &= \beta NP - qP \\
+\implies \beta NP &= qP \\
+\implies N &= \frac{q}{\beta} \\
+\implies P &= \frac{r}{\alpha} \\
+\therefore \boxed{P = \frac{r}{\alpha}}
+\end{align*}
+
+Así, las isoclinas resultan:
+\begin{align*}
+\textbf{Isoclina de }N: &\frac{q}{\beta} \\
+\textbf{Isoclina de }P: &\frac{r}{\alpha}
+\end{align*}
+
+\vspace{45\baselineskip}
+
+\noindent 1.2 
+
+\begin{figure}[ht]
+    \centering
+    \caption{Poblacion cuando $N_0 = 1$}
+    \includegraphics[width=1\linewidth]{append1.png}
+    \label{fig:Image 1.1}
+\end{figure}
 
 
 \end{document}
+
+
