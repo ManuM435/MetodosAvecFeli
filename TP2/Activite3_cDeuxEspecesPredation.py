@@ -72,41 +72,41 @@ pandas5, leopards5 = rungeKuttaPredatorPrey(PredatorPreyLotVol, Pandas0, Leopard
 fig, axs = plt.subplots(2, 2, figsize=(10, 8))
 
 # Subplot 1
-axs[0, 0].plot(pandas1, color='grey', linestyle=':', alpha=0.7, label='Pandas "Normal"')
-axs[0, 0].plot(leopards1, color='black', linestyle=':', alpha=0.7, label='Leopards "Normal"')
-axs[0, 0].plot(pandas2, color='blue', label='Pandas (Lower a)')
-axs[0, 0].plot(leopards2, color='red', label='Leopards2 (Lower a)')
-axs[0, 0].set_title('Population dynamics with a Lower Predation Rate')
+axs[0, 0].plot(pandas1, color='grey', linestyle=':', alpha=0.7, label='Red Pandas (Default)')
+axs[0, 0].plot(leopards1, color='black', linestyle=':', alpha=0.7, label='Leopards (Default)')
+axs[0, 0].plot(pandas2, color='blue', label='Red Pandas (Lower a)')
+axs[0, 0].plot(leopards2, color='red', label='Leopards (Lower a)')
+axs[0, 0].set_title('Population with Lower Predation Rate')
 axs[0, 0].set_xlabel('Time')
 axs[0, 0].set_ylabel('Population')
 axs[0, 0].legend(loc='upper right')
 
 # Subplot 2
-axs[0, 1].plot(pandas1, color='grey', linestyle=':', alpha=0.7, label='Pandas "Normal"')
-axs[0, 1].plot(leopards1, color='black', linestyle=':', alpha=0.7, label='Leopards "Normal"')
-axs[0, 1].plot(pandas3, color='blue', label='Pandas (Higher r)')
+axs[0, 1].plot(pandas1, color='grey', linestyle=':', alpha=0.7, label='Pandas (Default)')
+axs[0, 1].plot(leopards1, color='black', linestyle=':', alpha=0.7, label='Leopards (Default)')
+axs[0, 1].plot(pandas3, color='blue', label='Red Pandas (Higher r)')
 axs[0, 1].plot(leopards3, color='red', label='Leopards (Higher r)')
-axs[0, 1].set_title('Population dynamics with a Higher Panda Growth Rate')
+axs[0, 1].set_title('Population with Higher Panda Growth Rate')
 axs[0, 1].set_xlabel('Time')
 axs[0, 1].set_ylabel('Population')
 axs[0, 1].legend(loc='upper right')
 
 # Subplot 3
-axs[1, 0].plot(pandas1, color='grey', linestyle=':', alpha=0.7, label='Pandas "Normal"')
-axs[1, 0].plot(leopards1, color='black', linestyle=':', alpha=0.7, label='Leopards "Normal"')
-axs[1, 0].plot(pandas4, color='blue', label='Pandas (Lower B)')
+axs[1, 0].plot(pandas1, color='grey', linestyle=':', alpha=0.7, label='Red Pandas (Default)')
+axs[1, 0].plot(leopards1, color='black', linestyle=':', alpha=0.7, label='Leopards (Default)')
+axs[1, 0].plot(pandas4, color='blue', label='Red Pandas (Lower B)')
 axs[1, 0].plot(leopards4, color='red', label='Leopards (Lower B)')
-axs[1, 0].set_title('Population dynamics with a Lower Leopard Efficiency Rate')
+axs[1, 0].set_title('Population with Lower Leopard Efficiency Rate')
 axs[1, 0].set_xlabel('Time')
 axs[1, 0].set_ylabel('Population')
 axs[1, 0].legend(loc='upper right')
 
 # Subplot 4
-axs[1, 1].plot(pandas1, color='grey', linestyle=':', alpha=0.7, label='Pandas "Normal"')
-axs[1, 1].plot(leopards1, color='black', linestyle=':', alpha=0.7, label='Leopards "Normal"')
+axs[1, 1].plot(pandas1, color='grey', linestyle=':', alpha=0.7, label='Red Pandas (Default)')
+axs[1, 1].plot(leopards1, color='black', linestyle=':', alpha=0.7, label='Leopards (Default)')
 axs[1, 1].plot(pandas5, color='blue', label='Pandas (Higher q)')
 axs[1, 1].plot(leopards5, color='red', label='Leopards (Higher q)')
-axs[1, 1].set_title('Population dynamics with a Higher Leopard Death Rate')
+axs[1, 1].set_title('Population with Higher Leopard Death Rate')
 axs[1, 1].set_xlabel('Time')
 axs[1, 1].set_ylabel('Population')
 axs[1, 1].legend(loc='upper right')
@@ -118,27 +118,49 @@ plt.show()
 
 
 
+dt2 = 0.1 # time step size
+t_end2 = 250 # end time
+
 # Approximate Lotka Volterra Extended with Runge Kutta
 d1 = [0.2, 0.02, 0.004, 0.2, 200] # Normal Values
 d2 = [0.2, 0.005, 0.004, 0.2, 200] # Lower Predation Rate aka Lower a
-d3 = [0.8, 0.02, 0.004, 0.2, 200] # Higher Panda Growth Rate aka Higher r
-d4 = [0.2, 0.02, 0.004, 0.2, 800] # Higher Carrying Capacity aka Higher K
-d5 = [0.2, 0.02, 0.004, 0.2, 120] # Lower Carrying Capacity aka Lower K
+d2b = [0.2, 0.1, 0.004, 0.2, 200] # Higher Predation Rate aka Higher a
+d3 = [0.1, 0.02, 0.004, 0.2, 200] # Lower Panda Growth Rate aka Higher r
+d3b = [0.4, 0.02, 0.004, 0.2, 200] # Higher Panda Growth Rate aka Higher r
+d4 = [0.2, 0.02, 0.004, 0.2, 120] # Lower Carrying Capacity aka Lower K
+d4b = [0.2, 0.02, 0.004, 0.2, 800] # Higher Carrying Capacity aka High K
+d5 = [0.2, 0.02, 0.0032, 0.2, 200] # Lower Predator Efficiency Rate aka Lower b
+d5b = [0.2, 0.02, 0.012, 0.2, 200] # Higher Predator Efficiency Rate aka Higher b 
+d6 = [0.2, 0.02, 0.004, 0.15, 200] # Lower Predator Death Rate aka Lower q
+d6b = [0.2, 0.02, 0.004, 0.25, 200] # Higher Predator Death Rate aka Higher q
 
-pandas1, leopards1 = rungeKuttaLotVolExt(LotkaVolterraExtODE, Pandas0, Leopards0, d1[0], d1[1], d1[2], d1[3], d1[4], dt, t_end)
-pandas2, leopards2 = rungeKuttaLotVolExt(LotkaVolterraExtODE, Pandas0, Leopards0, d2[0], d2[1], d2[2], d2[3], d2[4], dt, t_end)
-pandas3, leopards3 = rungeKuttaLotVolExt(LotkaVolterraExtODE, Pandas0, Leopards0, d3[0], d3[1], d3[2], d3[3], d3[4], dt, t_end)
-pandas4, leopards4 = rungeKuttaLotVolExt(LotkaVolterraExtODE, Pandas0, Leopards0, d4[0], d4[1], d4[2], d4[3], d4[4], dt, t_end)
-pandas5, leopards5 = rungeKuttaLotVolExt(LotkaVolterraExtODE, Pandas0, Leopards0, d5[0], d5[1], d5[2], d5[3], d5[4], dt, t_end)
+
+pandas1, leopards1 = rungeKuttaLotVolExt(LotkaVolterraExtODE, Pandas0, Leopards0, d1[0], d1[1], d1[2], d1[3], d1[4], dt2, t_end2)
+pandas2, leopards2 = rungeKuttaLotVolExt(LotkaVolterraExtODE, Pandas0, Leopards0, d2[0], d2[1], d2[2], d2[3], d2[4], dt2, t_end2)
+pandas2b, leopards2b = rungeKuttaLotVolExt(LotkaVolterraExtODE, Pandas0, Leopards0, d2b[0], d2b[1], d2b[2], d2b[3], d2b[4], dt2, t_end2)
+pandas3, leopards3 = rungeKuttaLotVolExt(LotkaVolterraExtODE, Pandas0, Leopards0, d3[0], d3[1], d3[2], d3[3], d3[4], dt2, t_end2)
+pandas3b, leopards3b = rungeKuttaLotVolExt(LotkaVolterraExtODE, Pandas0, Leopards0, d3b[0], d3b[1], d3b[2], d3b[3], d3b[4], dt2, t_end2)
+pandas4, leopards4 = rungeKuttaLotVolExt(LotkaVolterraExtODE, Pandas0, Leopards0, d4[0], d4[1], d4[2], d4[3], d4[4], dt2, t_end2)
+pandas4b, leopards4b = rungeKuttaLotVolExt(LotkaVolterraExtODE, Pandas0, Leopards0, d4b[0], d4b[1], d4b[2], d4b[3], d4b[4], dt2, t_end2)
+pandas5, leopards5 = rungeKuttaLotVolExt(LotkaVolterraExtODE, Pandas0, Leopards0, d5[0], d5[1], d5[2], d5[3], d5[4], dt2, t_end2)
+pandas5b, leopards5b = rungeKuttaLotVolExt(LotkaVolterraExtODE, Pandas0, Leopards0, d5b[0], d5b[1], d5b[2], d5b[3], d5b[4], dt2, t_end2)
+pandas6, leopards6 = rungeKuttaLotVolExt(LotkaVolterraExtODE, Pandas0, Leopards0, d6[0], d6[1], d6[2], d6[3], d6[4], dt2, t_end2)
+pandas6b, leopards6b = rungeKuttaLotVolExt(LotkaVolterraExtODE, Pandas0, Leopards0, d6b[0], d6b[1], d6b[2], d6b[3], d6b[4], dt2, t_end2)
 
 fig, axs = plt.subplots(2, 2, figsize=(10, 8))
 
 # Subplot 1
-axs[0, 0].plot(pandas1, color='grey', linestyle=':', alpha=0.7, label='Red Pandas (Default)')
-axs[0, 0].plot(leopards1, color='black', linestyle=':', alpha=0.7, label='Leopards (Default)')
+axs[0, 0].plot(pandas1, color='grey', linestyle=':', label='Red Pandas (Default)')
+axs[0, 0].plot(leopards1, color='black', linestyle=':', label='Leopards (Default)')
 axs[0, 0].plot(pandas2, color='blue', label='Red Pandas (Lower a)')
 axs[0, 0].plot(leopards2, color='red', label='Leopards2 (Lower a)')
-axs[0, 0].set_title('Population with a Lower Predation Rate')
+axs[0, 0].plot(pandas2b, color='darkblue', linestyle='--', label='Red Pandas (Higher a)')
+axs[0, 0].plot(leopards2b, color='darkred', linestyle='--', label='Leopards (Higher a)')
+axs[0, 0].plot(pandas4, color='aqua', label='Red Pandas (Lower K)')
+axs[0, 0].plot(leopards4, color='firebrick', label='Leopards (Lower K)')
+axs[0, 0].plot(pandas4b, color='mediumseagreen', linestyle='--', label='Red Pandas (Higher K)')
+axs[0, 0].plot(leopards4b, color='chocolate', linestyle='--', label='Leopards (Higher K)')
+axs[0, 0].set_title('Population with Varying Predation and Capacity')
 axs[0, 0].set_xlabel('Time')
 axs[0, 0].set_ylabel('Population')
 axs[0, 0].legend(loc='upper right')
@@ -146,9 +168,11 @@ axs[0, 0].legend(loc='upper right')
 # Subplot 2
 axs[0, 1].plot(pandas1, color='grey', linestyle=':', alpha=0.7, label='Red Pandas (Default)')
 axs[0, 1].plot(leopards1, color='black', linestyle=':', alpha=0.7, label='Leopards (Default)')
-axs[0, 1].plot(pandas3, color='blue', label='Red Pandas (Higher r)')
-axs[0, 1].plot(leopards3, color='red', label='Leopards (Higher r)')
-axs[0, 1].set_title('Population with a Higher Red Panda Growth Rate')
+axs[0, 1].plot(pandas3, color='blue', label='Red Pandas (Lower r)')
+axs[0, 1].plot(leopards3, color='red', label='Leopards (Lower r)')
+axs[0, 1].plot(pandas3b, color='darkblue', linestyle='--', label='Red Pandas (Higher r)')
+axs[0, 1].plot(leopards3b, color='darkred', linestyle='--', label='Leopards (Higher r)')
+axs[0, 1].set_title('Population with Varying Red Panda Growth Rate')
 axs[0, 1].set_xlabel('Time')
 axs[0, 1].set_ylabel('Population')
 axs[0, 1].legend(loc='upper right')
@@ -156,9 +180,11 @@ axs[0, 1].legend(loc='upper right')
 # Subplot 3
 axs[1, 0].plot(pandas1, color='grey', linestyle=':', alpha=0.7, label='Red Pandas (Default)')
 axs[1, 0].plot(leopards1, color='black', linestyle=':', alpha=0.7, label='Leopards (Default)')
-axs[1, 0].plot(pandas4, color='blue', label='Red Pandas (Higher K)')
-axs[1, 0].plot(leopards4, color='red', label='Leopards (Higher K)')
-axs[1, 0].set_title('Population with a Higher Red Panda Capacity')
+axs[1, 0].plot(pandas5, color='blue', label='Red Pandas (Lower b)')
+axs[1, 0].plot(leopards5, color='red', label='Leopards (Lower b)')
+axs[1, 0].plot(pandas5b, color='darkblue', linestyle='--', label='Red Pandas (Higher b)')
+axs[1, 0].plot(leopards5b, color='darkred', linestyle='--', label='Leopards (Higher b)')
+axs[1, 0].set_title('Population with Varying Predator Efficiency')
 axs[1, 0].set_xlabel('Time')
 axs[1, 0].set_ylabel('Population')
 axs[1, 0].legend(loc='upper right')
@@ -166,9 +192,11 @@ axs[1, 0].legend(loc='upper right')
 # Subplot 4
 axs[1, 1].plot(pandas1, color='grey', linestyle=':', alpha=0.7, label='Red Pandas (Default)')
 axs[1, 1].plot(leopards1, color='black', linestyle=':', alpha=0.7, label='Leopards (Default)')
-axs[1, 1].plot(pandas5, color='blue', label='Red Pandas (Lower K)')
-axs[1, 1].plot(leopards5, color='red', label='Leopards (Lower K)')
-axs[1, 1].set_title('Population with a Lower Red Panda Carrying Capacity')
+axs[1, 1].plot(pandas6, color='blue', label='Red Pandas (Lower q)')
+axs[1, 1].plot(leopards6, color='red', label='Leopards (Lower q)')
+axs[1, 1].plot(pandas6b, color='darkblue', linestyle='--', label='Red Pandas (Higher q)')
+axs[1, 1].plot(leopards6b, color='darkred', linestyle='--', label='Leopards (Higher q)')
+axs[1, 1].set_title('Population with Varying Red Panda Carrying Capacity')
 axs[1, 1].set_xlabel('Time')
 axs[1, 1].set_ylabel('Population')
 axs[1, 1].legend(loc='upper right')
